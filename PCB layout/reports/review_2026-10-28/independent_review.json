@@ -1,0 +1,63 @@
+{
+  "result": "PASS",
+  "review_date": "2026-10-28",
+  "source_nets": 12,
+  "schematic_and_board_nets": 12,
+  "footprints": 21,
+  "values_checked": {
+    "J1": "12V INPUT",
+    "R1": "1R (LT F1)",
+    "R2": "620R (LT Rs)",
+    "R3": "1k (LT R1a)",
+    "R4": "22R (LT Re1)",
+    "R5": "22R (LT Re2)",
+    "R6": "1k (LT Rload)",
+    "D1": "1N4148",
+    "D2": "1N4148",
+    "D3": "BZX55C5V1",
+    "D4": "1N4007",
+    "Q1": "2N3904",
+    "Q2": "2N3904",
+    "C1": "100n / >=25V",
+    "RV1": "500R TRIM / set ~119.8R"
+  },
+  "test_points": {
+    "TP2": {
+      "1": "/VIN"
+    },
+    "TP4": {
+      "1": "/VA"
+    },
+    "TP5": {
+      "1": "/BASE"
+    },
+    "TP3": {
+      "1": "/VCC"
+    },
+    "TP6": {
+      "1": "/OUT"
+    },
+    "TP1": {
+      "1": "/GND"
+    }
+  },
+  "layers": [
+    "B.Cu"
+  ],
+  "vias": 0,
+  "zones": 0,
+  "minimum_track_width_mm": 0.6,
+  "trimmer_reserved_area_mm": [
+    40,
+    31,
+    58,
+    45
+  ],
+  "reserved_area_clear": true,
+  "original_design_hashes_unchanged": true,
+  "limitations": [
+    "RV1 physical footprint pending; intended value 500 ohm.",
+    "Actual transistor manufacturer pinout and capacitor lead pitch require physical confirmation.",
+    "No physical circuit/temperature validation."
+  ]
+}
