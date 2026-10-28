@@ -1,0 +1,18 @@
+LTspice 26.1.1 for Windows
+Circuit: C:\Users\swastik\Desktop\EDC_project\diode_comp_mirror_enhanced_v2.net
+Start Time: Thu Oct 22 12:12:46 2026
+solver = Normal
+Maximum thread count: 16
+tnom = 27
+temp = 27
+method = trap
+Total elapsed time: 0.122 seconds.
+Total iterations: 138
+
+Files loaded:
+C:\Users\swastik\Desktop\EDC_project\diode_comp_mirror_enhanced_v2.net
+C:\Users\swastik\AppData\Local\LTspice\lib\cmp\standard.dio
+C:\Users\swastik\AppData\Local\LTspice\lib\cmp\standard.bjt
+
+iout_25c: I(Rload)=0.0049994494766 at 25
+iout_75c: I(Rload)=0.00500011304393 at 75
