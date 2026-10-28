@@ -1,0 +1,356 @@
+[
+  {
+    "reference": "J1",
+    "value": "12V INPUT",
+    "symbol": "Connector_Generic:Conn_01x02",
+    "footprint": "Project:J1_ETCH",
+    "stock_footprint_basis": "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical",
+    "connections": {
+      "1": "VIN",
+      "2": "GND"
+    },
+    "position_mm": [
+      8,
+      10,
+      0
+    ],
+    "status": "package assumption - confirm physical part"
+  },
+  {
+    "reference": "R1",
+    "value": "1R (LT F1)",
+    "symbol": "Device:R",
+    "footprint": "Project:R1_ETCH",
+    "stock_footprint_basis": "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal",
+    "connections": {
+      "1": "VIN",
+      "2": "PROT_A"
+    },
+    "position_mm": [
+      16,
+      10,
+      0
+    ],
+    "status": "package assumption - confirm physical part"
+  },
+  {
+    "reference": "D4",
+    "value": "1N4007",
+    "symbol": "Device:D",
+    "footprint": "Project:D4_ETCH",
+    "stock_footprint_basis": "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal",
+    "connections": {
+      "1": "VCC",
+      "2": "PROT_A"
+    },
+    "position_mm": [
+      38,
+      10,
+      180
+    ],
+    "status": "package assumption - confirm physical part"
+  },
+  {
+    "reference": "C1",
+    "value": "100n / >=25V",
+    "symbol": "Device:C",
+    "footprint": "Project:C1_ETCH",
+    "stock_footprint_basis": "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm",
+    "connections": {
+      "1": "VCC",
+      "2": "GND"
+    },
+    "position_mm": [
+      70,
+      13,
+      0
+    ],
+    "status": "package assumption - confirm physical part"
+  },
+  {
+    "reference": "R2",
+    "value": "620R (LT Rs)",
+    "symbol": "Device:R",
+    "footprint": "Project:R2_ETCH",
+    "stock_footprint_basis": "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal",
+    "connections": {
+      "1": "VCC",
+      "2": "VA"
+    },
+    "position_mm": [
+      29,
+      24,
+      270
+    ],
+    "status": "package assumption - confirm physical part"
+  },
+  {
+    "reference": "D3",
+    "value": "BZX55C5V1",
+    "symbol": "Device:D_Zener",
+    "footprint": "Project:D3_ETCH",
+    "stock_footprint_basis": "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal",
+    "connections": {
+      "1": "VA",
+      "2": "ZD_A"
+    },
+    "position_mm": [
+      29,
+      35,
+      270
+    ],
+    "status": "package assumption - confirm physical part"
+  },
+  {
+    "reference": "D1",
+    "value": "1N4148",
+    "symbol": "Device:D",
+    "footprint": "Project:D1_ETCH",
+    "stock_footprint_basis": "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal",
+    "connections": {
+      "1": "D12",
+      "2": "ZD_A"
+    },
+    "position_mm": [
+      29,
+      53,
+      90
+    ],
+    "status": "package assumption - confirm physical part"
+  },
+  {
+    "reference": "D2",
+    "value": "1N4148",
+    "symbol": "Device:D",
+    "footprint": "Project:D2_ETCH",
+    "stock_footprint_basis": "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal",
+    "connections": {
+      "1": "GND",
+      "2": "D12"
+    },
+    "position_mm": [
+      29,
+      64,
+      90
+    ],
+    "status": "package assumption - confirm physical part"
+  },
+  {
+    "reference": "R3",
+    "value": "1k (LT R1a)",
+    "symbol": "Device:R",
+    "footprint": "Project:R3_ETCH",
+    "stock_footprint_basis": "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal",
+    "connections": {
+      "1": "VA",
+      "2": "TRIM_TOP"
+    },
+    "position_mm": [
+      43,
+      20,
+      270
+    ],
+    "status": "package assumption - confirm physical part"
+  },
+  {
+    "reference": "RV1",
+    "value": "500R TRIM / set ~119.8R",
+    "symbol": "Device:R_Potentiometer",
+    "footprint": "Project:RV1_PENDING",
+    "stock_footprint_basis": "Project:RV1_PENDING",
+    "connections": {
+      "1": "TRIM_TOP",
+      "2": "BASE",
+      "3": "BASE"
+    },
+    "position_mm": [
+      45,
+      38,
+      0
+    ],
+    "status": "PLACEHOLDER - NOT FABRICABLE"
+  },
+  {
+    "reference": "Q1",
+    "value": "2N3904",
+    "symbol": "Transistor_BJT:Q_NPN_EBC",
+    "footprint": "Project:Q1_ETCH",
+    "stock_footprint_basis": "Package_TO_SOT_THT:TO-92_Inline_Wide",
+    "connections": {
+      "1": "E1",
+      "2": "BASE",
+      "3": "BASE"
+    },
+    "position_mm": [
+      45,
+      50,
+      0
+    ],
+    "status": "package assumption - confirm physical part"
+  },
+  {
+    "reference": "Q2",
+    "value": "2N3904",
+    "symbol": "Transistor_BJT:Q_NPN_EBC",
+    "footprint": "Project:Q2_ETCH",
+    "stock_footprint_basis": "Package_TO_SOT_THT:TO-92_Inline_Wide",
+    "connections": {
+      "1": "E2",
+      "2": "BASE",
+      "3": "OUT"
+    },
+    "position_mm": [
+      59,
+      50,
+      0
+    ],
+    "status": "package assumption - confirm physical part"
+  },
+  {
+    "reference": "R4",
+    "value": "22R (LT Re1)",
+    "symbol": "Device:R",
+    "footprint": "Project:R4_ETCH",
+    "stock_footprint_basis": "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal",
+    "connections": {
+      "1": "E1",
+      "2": "GND"
+    },
+    "position_mm": [
+      45,
+      58,
+      270
+    ],
+    "status": "package assumption - confirm physical part"
+  },
+  {
+    "reference": "R5",
+    "value": "22R (LT Re2)",
+    "symbol": "Device:R",
+    "footprint": "Project:R5_ETCH",
+    "stock_footprint_basis": "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal",
+    "connections": {
+      "1": "E2",
+      "2": "GND"
+    },
+    "position_mm": [
+      59,
+      58,
+      270
+    ],
+    "status": "package assumption - confirm physical part"
+  },
+  {
+    "reference": "R6",
+    "value": "1k (LT Rload)",
+    "symbol": "Device:R",
+    "footprint": "Project:R6_ETCH",
+    "stock_footprint_basis": "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal",
+    "connections": {
+      "1": "VCC",
+      "2": "OUT"
+    },
+    "position_mm": [
+      64,
+      25,
+      270
+    ],
+    "status": "package assumption - confirm physical part"
+  },
+  {
+    "reference": "TP1",
+    "value": "GND",
+    "symbol": "Connector:TestPoint",
+    "footprint": "Project:TP1_ETCH",
+    "stock_footprint_basis": "TestPoint:TestPoint_THTPad_D2.0mm_Drill1.0mm",
+    "connections": {
+      "1": "GND"
+    },
+    "position_mm": [
+      75,
+      60,
+      0
+    ],
+    "status": "package assumption - confirm physical part"
+  },
+  {
+    "reference": "TP2",
+    "value": "VIN",
+    "symbol": "Connector:TestPoint",
+    "footprint": "Project:TP2_ETCH",
+    "stock_footprint_basis": "TestPoint:TestPoint_THTPad_D2.0mm_Drill1.0mm",
+    "connections": {
+      "1": "VIN"
+    },
+    "position_mm": [
+      8,
+      20,
+      0
+    ],
+    "status": "package assumption - confirm physical part"
+  },
+  {
+    "reference": "TP3",
+    "value": "VCC / LOAD+",
+    "symbol": "Connector:TestPoint",
+    "footprint": "Project:TP3_ETCH",
+    "stock_footprint_basis": "TestPoint:TestPoint_THTPad_D2.0mm_Drill1.0mm",
+    "connections": {
+      "1": "VCC"
+    },
+    "position_mm": [
+      53,
+      10,
+      0
+    ],
+    "status": "package assumption - confirm physical part"
+  },
+  {
+    "reference": "TP4",
+    "value": "VA",
+    "symbol": "Connector:TestPoint",
+    "footprint": "Project:TP4_ETCH",
+    "stock_footprint_basis": "TestPoint:TestPoint_THTPad_D2.0mm_Drill1.0mm",
+    "connections": {
+      "1": "VA"
+    },
+    "position_mm": [
+      20,
+      32,
+      0
+    ],
+    "status": "package assumption - confirm physical part"
+  },
+  {
+    "reference": "TP5",
+    "value": "BASE",
+    "symbol": "Connector:TestPoint",
+    "footprint": "Project:TP5_ETCH",
+    "stock_footprint_basis": "TestPoint:TestPoint_THTPad_D2.0mm_Drill1.0mm",
+    "connections": {
+      "1": "BASE"
+    },
+    "position_mm": [
+      73,
+      49,
+      0
+    ],
+    "status": "package assumption - confirm physical part"
+  },
+  {
+    "reference": "TP6",
+    "value": "OUT / LOAD-",
+    "symbol": "Connector:TestPoint",
+    "footprint": "Project:TP6_ETCH",
+    "stock_footprint_basis": "TestPoint:TestPoint_THTPad_D2.0mm_Drill1.0mm",
+    "connections": {
+      "1": "OUT"
+    },
+    "position_mm": [
+      73,
+      38,
+      0
+    ],
+    "status": "package assumption - confirm physical part"
+  }
+]

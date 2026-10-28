@@ -1,0 +1,22 @@
+﻿Reference,Value,Footprint,Status
+J1,12V INPUT,Project:J1_ETCH,package assumption - confirm physical part
+R1,1R (LT F1),Project:R1_ETCH,package assumption - confirm physical part
+D4,1N4007,Project:D4_ETCH,package assumption - confirm physical part
+C1,100n / >=25V,Project:C1_ETCH,package assumption - confirm physical part
+R2,620R (LT Rs),Project:R2_ETCH,package assumption - confirm physical part
+D3,BZX55C5V1,Project:D3_ETCH,package assumption - confirm physical part
+D1,1N4148,Project:D1_ETCH,package assumption - confirm physical part
+D2,1N4148,Project:D2_ETCH,package assumption - confirm physical part
+R3,1k (LT R1a),Project:R3_ETCH,package assumption - confirm physical part
+RV1,500R TRIM / set ~119.8R,Project:RV1_PENDING,PLACEHOLDER - NOT FABRICABLE
+Q1,2N3904,Project:Q1_ETCH,package assumption - confirm physical part
+Q2,2N3904,Project:Q2_ETCH,package assumption - confirm physical part
+R4,22R (LT Re1),Project:R4_ETCH,package assumption - confirm physical part
+R5,22R (LT Re2),Project:R5_ETCH,package assumption - confirm physical part
+R6,1k (LT Rload),Project:R6_ETCH,package assumption - confirm physical part
+TP1,GND,Project:TP1_ETCH,package assumption - confirm physical part
+TP2,VIN,Project:TP2_ETCH,package assumption - confirm physical part
+TP3,VCC / LOAD+,Project:TP3_ETCH,package assumption - confirm physical part
+TP4,VA,Project:TP4_ETCH,package assumption - confirm physical part
+TP5,BASE,Project:TP5_ETCH,package assumption - confirm physical part
+TP6,OUT / LOAD-,Project:TP6_ETCH,package assumption - confirm physical part

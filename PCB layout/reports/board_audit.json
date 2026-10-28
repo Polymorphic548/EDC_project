@@ -1,0 +1,76 @@
+{
+  "result": "PASS",
+  "schematic_to_board_pad_nets": "exact match of native KiCad exported netlist",
+  "nets": {
+    "/VA": [
+      "D3.1",
+      "R2.2",
+      "R3.1",
+      "TP4.1"
+    ],
+    "/ZD_A": [
+      "D1.2",
+      "D3.2"
+    ],
+    "/E1": [
+      "Q1.1",
+      "R4.1"
+    ],
+    "/BASE": [
+      "Q1.2",
+      "Q1.3",
+      "Q2.2",
+      "RV1.2",
+      "RV1.3",
+      "TP5.1"
+    ],
+    "/VCC": [
+      "C1.1",
+      "D4.1",
+      "R2.1",
+      "R6.1",
+      "TP3.1"
+    ],
+    "/PROT_A": [
+      "D4.2",
+      "R1.2"
+    ],
+    "/GND": [
+      "C1.2",
+      "D2.1",
+      "J1.2",
+      "R4.2",
+      "R5.2",
+      "TP1.1"
+    ],
+    "/VIN": [
+      "J1.1",
+      "R1.1",
+      "TP2.1"
+    ],
+    "/TRIM_TOP": [
+      "R3.2",
+      "RV1.1"
+    ],
+    "/E2": [
+      "Q2.1",
+      "R5.1"
+    ],
+    "/OUT": [
+      "Q2.3",
+      "R6.2",
+      "TP6.1"
+    ],
+    "/D12": [
+      "D1.1",
+      "D2.2"
+    ]
+  },
+  "tracks": 179,
+  "routed_layers": [
+    "B.Cu"
+  ],
+  "vias": 0,
+  "footprints": 21,
+  "note": "Independent structural audit; does not replace KiCad clearance/physical DRC. RV1 remains provisional."
+}

@@ -1,0 +1,66 @@
+{
+  "result": "PASS",
+  "source": "diode_comp_mirror_enhanced_v2.asc",
+  "source_electrical_nets": 12,
+  "nets": {
+    "VIN": [
+      "R1.1"
+    ],
+    "PROT_A": [
+      "D4.2",
+      "R1.2"
+    ],
+    "VCC": [
+      "C1.1",
+      "D4.1",
+      "R2.1",
+      "R6.1"
+    ],
+    "GND": [
+      "C1.2",
+      "D2.1",
+      "R4.2",
+      "R5.2"
+    ],
+    "VA": [
+      "D3.1",
+      "R2.2",
+      "R3.1"
+    ],
+    "ZD_A": [
+      "D1.2",
+      "D3.2"
+    ],
+    "D12": [
+      "D1.1",
+      "D2.2"
+    ],
+    "TRIM_TOP": [
+      "R3.2",
+      "RV1.1"
+    ],
+    "BASE": [
+      "Q1.2",
+      "Q1.3",
+      "Q2.2",
+      "RV1.2"
+    ],
+    "E1": [
+      "Q1.1",
+      "R4.1"
+    ],
+    "E2": [
+      "Q2.1",
+      "R5.1"
+    ],
+    "OUT": [
+      "Q2.3",
+      "R6.2"
+    ]
+  },
+  "notes": [
+    "J1 replaces ideal 12V source V1.",
+    "RV1 pin 3 tied to wiper pin 2; the two-terminal resistance is preserved.",
+    "Test points add no circuit components."
+  ]
+}

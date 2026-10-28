@@ -1,0 +1,12 @@
+{
+  "status": "ROUTED - TRIMMER STILL PROVISIONAL",
+  "layer": "B.Cu only",
+  "track_width_mm": 0.6,
+  "design_clearance_mm": 0.4,
+  "vias": 0,
+  "wire_jumpers": 0,
+  "pad_pair_routes": 27,
+  "grid_mm": 0.25,
+  "routing_attempt": 0,
+  "note": "KiCad DRC must be run separately; this report is not a fabrication release."
+}

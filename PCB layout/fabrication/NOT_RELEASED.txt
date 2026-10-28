@@ -1,0 +1,5 @@
+P0 - NOT FOR FABRICATION
+
+The trimmer footprint is unknown. No production copper mask is released.
+Use the editable board and review previews while waiting for RV1 dimensions.
+See ../README.md for finalization and college etching requirements.
