@@ -122,7 +122,7 @@ def main():
             if math.dist(u,v)<.0001:continue
             t=pcb.PCB_TRACK(b); t.SetStart(pcb.VECTOR2I(pcb.FromMM(u[0]),pcb.FromMM(u[1]))); t.SetEnd(pcb.VECTOR2I(pcb.FromMM(v[0]),pcb.FromMM(v[1]))); t.SetWidth(pcb.FromMM(WIDTH)); t.SetLayer(pcb.B_Cu); t.SetNetCode(b.FindNet(net).GetNetCode()); b.Add(t)
     pcb.SaveBoard(str(FILE),b)
-    report={'status':'ROUTED - TRIMMER STILL PROVISIONAL','layer':'B.Cu only','track_width_mm':WIDTH,'design_clearance_mm':CLEAR,'vias':0,'wire_jumpers':0,'pad_pair_routes':len(routed),'grid_mm':STEP,'routing_attempt':attempt,'note':'KiCad DRC must be run separately; this report is not a fabrication release.'}
+    report={'status':'ROUTED - RV1 PHYSICAL WIPER/PAD MAPPING UNVERIFIED','revision':'P1','layer':'B.Cu only','track_width_mm':WIDTH,'design_clearance_mm':CLEAR,'vias':0,'wire_jumpers':0,'pad_pair_routes':len(routed),'grid_mm':STEP,'routing_attempt':attempt,'note':'KiCad DRC must be run separately; this report is not a fabrication release.'}
     (ROOT/'reports/routing.json').write_text(json.dumps(report,indent=2))
     print(json.dumps(report),flush=True)
 

@@ -20,7 +20,7 @@ def sync_placeholder():
         for pad in f.Pads():
             if not pad.GetNetname().startswith('/'):
                 pad.GetNet().SetNetname('/'+pad.GetNetname())
-        if f.GetReference() in ('J1','RV1'):
+        if f.GetReference()=='J1':
             for pad in f.Pads(): pad.SetSize(d.pos(2,2))
         if f.GetReference().startswith('Q'):
             for pad in f.Pads(): pad.SetSize(d.pos(2,2))
@@ -44,7 +44,13 @@ def audit():
     assert expected==actual, {'schematic':expected,'board':actual}
     assert all(t.GetLayer()==p.B_Cu and isinstance(t,p.PCB_TRACK) and not isinstance(t,p.PCB_VIA) for t in b.GetTracks()),'Track on wrong layer or via present'
     assert min(p.ToMM(t.GetWidth()) for t in b.GetTracks())>=.6
-    report={'result':'PASS','schematic_to_board_pad_nets':'exact match of native KiCad exported netlist','nets':actual,'tracks':len(list(b.GetTracks())),'routed_layers':['B.Cu'],'vias':0,'footprints':len(list(b.GetFootprints())),'note':'Independent structural audit; does not replace KiCad clearance/physical DRC. RV1 remains provisional.'}
+    rv=next(f for f in b.GetFootprints() if f.GetReference()=='RV1')
+    for pad in rv.Pads():
+        expected=d.TRIMMER_PINS[pad.GetNumber()]
+        assert abs(p.ToMM(pad.GetPosition().x-rv.GetPosition().x)-expected[0])<.001
+        assert abs(p.ToMM(pad.GetPosition().y-rv.GetPosition().y)-expected[1])<.001
+        assert abs(p.ToMM(pad.GetDrillSize().x)-1)<.001
+    report={'result':'PASS','revision':'P1','schematic_to_board_pad_nets':'exact match of native KiCad exported netlist','nets':actual,'tracks':len(list(b.GetTracks())),'routed_layers':['B.Cu'],'vias':0,'footprints':len(list(b.GetFootprints())),'rv1_geometry':'9mm body; 8mm across pair; third pin offset 5mm','note':'Independent structural audit; does not replace KiCad clearance/physical DRC. RV1 physical wiper/pad mapping is unverified.'}
     (ROOT/'reports/board_audit.json').write_text(json.dumps(report,indent=2))
     parts=json.loads((ROOT/'components.json').read_text())
     for item in parts:

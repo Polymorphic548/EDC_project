@@ -1,0 +1,28 @@
+{
+  "result": "PASS",
+  "revision": "P1",
+  "other_component_placements_unchanged": true,
+  "rv1_body_diameter_mm": 9,
+  "rv1_pin_centres_mm": {
+    "1": [
+      -4.0,
+      0.0
+    ],
+    "3": [
+      4.0,
+      0.0
+    ],
+    "2": [
+      0.0,
+      5.0
+    ]
+  },
+  "rv1_pad_size_mm": 2.4,
+  "user_project_preferences_preserved": true,
+  "erc_violations": 0,
+  "drc_violations": 0,
+  "unconnected_items": 0,
+  "schematic_parity_issues": 0,
+  "design_hashes_match": true,
+  "remaining": "Verify physical wiper/pad mapping, total resistance and drill fit before fabrication."
+}

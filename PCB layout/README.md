@@ -1,6 +1,6 @@
-# Single-layer 5 mA current mirror — provisional P0
+# Single-layer 5 mA current mirror — provisional P1
 
-**NOT READY FOR FABRICATION. RV1 is a reserved-space placeholder, not a verified trimmer footprint.**
+**NOT READY FOR FABRICATION. RV1 uses measured geometry, but its physical wiper/pad mapping is unverified.**
 
 Prepared for the college etching process planned for Friday, 30 October 2026. Source: `../schematics/diode_comp_mirror_enhanced_v2.asc`. This is the physical PCB translation of that circuit, with a power connector and voltage test points added. No extra fuse or protection network was added.
 
@@ -8,20 +8,20 @@ Prepared for the college etching process planned for Friday, 30 October 2026. So
 
 Open `current_mirror.kicad_pro` in KiCad 10.0.7 or later. Open the schematic and PCB from the project manager. The project-specific footprint library is registered by `fp-lib-table`.
 
-To view the assembled board in 3D, open `current_mirror.kicad_pcb` in the PCB Editor, then choose **View → 3D Viewer**, or press **Alt+3**. You do not need to open a separate model file. The standard parts use the installed KiCad 3D models; RV1 deliberately has no body model while its footprint is unknown, and the test points appear as pads rather than modeled pins.
+To view the assembled board in 3D, open `current_mirror.kicad_pcb` in the PCB Editor, then choose **View → 3D Viewer**, or press **Alt+3**. You do not need to open a separate model file. The standard parts use the installed KiCad 3D models; RV1 has a measured 2D footprint but no guessed body model because its height/model is unconfirmed. Test points appear as pads rather than modeled pins.
 
 - `current_mirror.kicad_sch`: editable schematic; equal net labels connect electrically.
 - `current_mirror.kicad_pcb`: editable, routed board.
-- `Project.pretty/RV1_PENDING.kicad_mod`: deliberately provisional trimmer footprint.
+- `Project.pretty/RV1_D9_P8_Offset5_PINOUT_UNVERIFIED.kicad_mod`: measured 9 mm body and 8/5 mm hole pattern; physical pin roles unverified. The old `RV1_PENDING` library item is historical and unused.
 - `components.json` and `BOM.csv`: connections, assumed footprints, and component list.
 - `previews/`: schematic and board drawings for review.
 - `reports/`: source connectivity, KiCad ERC/DRC and routing reports.
-- `fabrication/`: print guidance only at P0; production copper masks are withheld until RV1 is confirmed.
+- `fabrication/`: print guidance only at P1; production copper masks are withheld until RV1's wiper/pin mapping is confirmed.
 - `scripts/`: reproducible generation, routing, and preview helpers.
 
-## Completed validation for P0
+## Completed validation for P1
 
-Checks run with KiCad 10.0.7 on 28 October 2026:
+Checks run with KiCad 10.0.7 on 29 October 2026. The 28 October re-review is retained as a historical P0 baseline.
 
 | Check | Result |
 |---|---|
@@ -33,7 +33,7 @@ Checks run with KiCad 10.0.7 on 28 October 2026:
 | Native exported schematic netlist vs board pads | Exact match |
 | Routed layers / vias / wire jumpers | B.Cu only / 0 / 0 |
 
-These results apply to the provisional geometry; they do **not** verify that the unknown real trimmer fits. No physical assembly, fabrication, or circuit measurement has occurred. Design/source hashes are recorded in `reports/design_sha256.json`.
+These results apply to the user-measured geometry and provisional pad assignment. They do **not** establish which actual pin is the wiper or verify physical drill fit. No physical assembly, fabrication, or circuit measurement has occurred. Design/source hashes are recorded in `reports/design_sha256.json`.
 
 ## Board construction
 
@@ -54,7 +54,7 @@ All board footprints are included in `Project.pretty` as local etching variants,
 | D3 | Dz | BZX55C5V1, 5.1 V Zener |
 | D1, D2 | D1, D2 | 1N4148 |
 | R3 | R1a | 1 kohm, 1/4 W |
-| RV1 | RV1 | 500 ohm multiturn trimmer; simulated resistance 119.8 ohm |
+| RV1 | RV1 | Intended 500 ohm trimmer; turn type unconfirmed; simulated resistance 119.8 ohm |
 | Q1, Q2 | Q1, Q2 | 2N3904 |
 | R4, R5 | Re1, Re2 | 22 ohm, 1/4 W |
 | R6 | Rload | 1 kohm, 1/4 W load, retained on board |
@@ -68,21 +68,21 @@ An independent extraction of LTspice wire geometry and symbol pin locations chec
 
 ## Trimmer reservation — must finish before Friday fabrication
 
-**Photo update, 28 October:** the green round part and reported approximately 7.5 mm size resemble an RM065-style **single-turn** preset, rather than the inventory's multiturn description. This identification is tentative. The actual resistance and lead spacing remain unconfirmed, so the footprint has not been changed. See `reports/trimmer_photo_review.md` for the datasheet comparison and what to verify.
+**Measured update, 29 October:** the user specified a **9 mm diameter body**, **8 mm between the opposite pin centres**, and a third pin **5 mm from the body centre**, perpendicular to the line joining the pair. This supersedes the earlier approximate 7.5 mm body size. No particular manufacturer/model is inferred from these measurements. The intended resistance remains 500 ohm. See `reports/trimmer_geometry_2026-10-29.json` and `reports/update_2026-10-29/README.md`.
 
-RV1 has an **18 × 14 mm reserved area**, shown on the user drawing layer. Its present three holes at 2.54 mm pitch are merely an editable connection placeholder. **Do not assume the actual trimmer fits these holes or this reserved area.**
+RV1 retains its **18 × 14 mm reserved area**, shown on the user drawing layer. Its body centre is now at board coordinates **(49, 38) mm**. In the KiCad component-side view, the local hole centres are **pad 1 = (-4, 0), pad 3 = (+4, 0), pad 2 = (0, +5) mm**. A bottom/pin-side view mirrors left and right. This is a symmetric hole pattern, but the electrical end/wiper identification must be checked. Pads are 2.4 mm across with assumed 1 mm drills. Use `previews/trimmer_fit_check.pdf` at actual size to check fit; verify the calibration line before relying on the print.
 
-The electrical plan is a rheostat: pin 1 → TRIM_TOP; pin 2 (wiper) → BASE; pin 3 → BASE. The unused end is tied to the wiper. The real manufacturer's pin numbering and footprint must be verified before transferring that plan to the final part. The approximately 119.8 ohm setting is between TRIM_TOP and BASE, not necessarily the resistance between any arbitrary pair of physical legs.
+The electrical plan remains a rheostat: schematic pin 1 → TRIM_TOP; schematic pin 2 (wiper) → BASE; pin 3 → BASE. **Mapping the offset physical hole to pad 2 is provisional, not a wiper identification.** If the real wiper is another physical hole, correct the footprint pad roles and recheck routing before fabrication. The approximately 119.8 ohm setting is between TRIM_TOP and BASE, not necessarily between an arbitrary pair of physical legs.
 
 When the actual part arrives:
 
-1. Identify its model, pin pitch, body dimensions, screw access and wiper pin.
-2. Replace RV1's placeholder **in both the schematic and PCB** with the correct footprint; preserve the pin-to-net function above.
-3. Adjust placement and nearby tracks within the reserved area; enlarge/move parts if necessary.
+1. On the loose unpowered trimmer, find the pair whose resistance stays roughly constant while turning; the remaining pin is the wiper. Confirm the total resistance is approximately 500 ohm.
+2. Confirm or correct the physical pad roles **in both the schematic and PCB**; preserve the pin-to-net function above.
+3. Check the measured hole pattern against the actual part and verify the assumed 1 mm drills. Adjust nearby tracks if pin mapping changes.
 4. Rerun ERC, PCB DRC with schematic parity, and the bottom-layer/no-via checks.
 5. Update the README and board revision, remove the provisional status, and only then generate the actual copper mask.
 
-The generation scripts intentionally recreate the P0 placeholder. **Do not rerun them over a manually finalized board without updating their component/footprint definitions first.**
+The generation scripts recreate the measured P1 geometry with provisional pad roles. **Do not rerun them over a manually finalized board without updating their component/footprint definitions first.** Existing `.kicad_pro` preferences are preserved. A local P0 snapshot is kept in the ignored `current_mirror-backups/before_P1_2026-10-29/` folder.
 
 ## Other physical assumptions to check
 
@@ -112,7 +112,7 @@ Adjust RV1 carefully to target approximately 5 mA. A resistance preset near 119.
 
 ## Fabrication handoff
 
-Do not fabricate P0. After finalization, export **B.Cu only** as a black copper pattern at **1:1 scale**, with drill-center marks if the college wants them. Keep the outline/assembly drawing separate from the copper mask; outline graphics must not accidentally become copper. Include a separate known-length calibration mark or check the 78 × 67 mm outline print dimensions. Disable fit-to-page, shrink-to-fit and printer scaling.
+Do not fabricate P1 until RV1's wiper/pad mapping and physical checks are complete. After finalization, export **B.Cu only** as a black copper pattern at **1:1 scale**, with drill-center marks if the college wants them. Keep the outline/assembly drawing separate from the copper mask; outline graphics must not accidentally become copper. Include a separate known-length calibration mark or check the 78 × 67 mm outline print dimensions. Disable fit-to-page, shrink-to-fit and printer scaling.
 
 Confirm whether the college uses toner transfer or photoresist, which side of the film/paper contacts the board, whether a mirrored image is required, and which mask polarity they expect. Provide clearly named mirrored/unmirrored versions only once that is established. Do not decide orientation by appearance alone. A final Gerber/drill set can also be exported if the college accepts it.
 

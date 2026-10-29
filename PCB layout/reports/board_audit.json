@@ -1,5 +1,6 @@
 {
   "result": "PASS",
+  "revision": "P1",
   "schematic_to_board_pad_nets": "exact match of native KiCad exported netlist",
   "nets": {
     "/VA": [
@@ -66,11 +67,12 @@
       "D2.2"
     ]
   },
-  "tracks": 179,
+  "tracks": 178,
   "routed_layers": [
     "B.Cu"
   ],
   "vias": 0,
   "footprints": 21,
-  "note": "Independent structural audit; does not replace KiCad clearance/physical DRC. RV1 remains provisional."
+  "rv1_geometry": "9mm body; 8mm across pair; third pin offset 5mm",
+  "note": "Independent structural audit; does not replace KiCad clearance/physical DRC. RV1 physical wiper/pad mapping is unverified."
 }

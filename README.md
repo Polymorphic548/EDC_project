@@ -2,7 +2,7 @@
 
 This repository contains the group's LTspice circuit and its KiCad translation into a **single-sided, through-hole PCB** for college chemical etching. The design uses a 12 V DC supply and targets approximately 5 mA through an on-board 1 kohm load.
 
-**Current revision: P0, provisional. Do not fabricate yet.** The circuit is routed and passes the saved CAD checks, but the real trimmer's footprint still needs confirmation. Fabrication is planned for **Friday, 30 October 2026**; physical-part confirmation is expected on **Thursday, 29 October**.
+**Current revision: P1, provisional. Do not fabricate yet.** The user-measured trimmer hole pattern is fitted: **9 mm body, 8 mm across the opposite pair, third pin 5 mm from the centre**. Its actual wiper and physical pad roles remain unverified. Fabrication is targeted for **Friday, 30 October 2026**, after the remaining checks below.
 
 ## Open and view the board
 
@@ -14,7 +14,7 @@ Use **KiCad 10.0.7 or later**.
 
 You can also open [the PCB file](PCB%20layout/current_mirror.kicad_pcb) directly in the PCB Editor. Windows may hide its extension; choose the file with type **KiCad Board**, rather than KiCad Project or KiCad Schematic. No separate 3D file needs to be opened.
 
-All 14 referenced standard-component 3D models were verified as installed on the development laptop. RV1 has no body model while its footprint is unknown; the measurement points appear as pads rather than modeled pins.
+All 14 referenced standard-component 3D models were verified as installed on the development laptop. RV1 has a measured 2D footprint but no body model because its height/model is unconfirmed; the measurement points appear as pads rather than modeled pins.
 
 For a quick view without KiCad:
 
@@ -36,9 +36,10 @@ These are **draft review images**, not production printing masks.
 | [Project.pretty/](PCB%20layout/Project.pretty/) | Project-local footprints, including enlarged etching pads and the RV1 placeholder |
 | [previews/](PCB%20layout/previews/) | Schematic, assembly and copper review PDFs/PNGs |
 | [reports/](PCB%20layout/reports/) | Connectivity checks, ERC/DRC reports, design hashes and trimmer review |
-| [Latest re-review](PCB%20layout/reports/review_2026-10-28/README.md) | Independent re-review of the saved CAD files on 28 October 2026 |
+| [Baseline re-review](PCB%20layout/reports/review_2026-10-28/README.md) | Historical P0 review on 28 October 2026 |
+| [P1 update](PCB%20layout/reports/update_2026-10-29/README.md) | Measured trimmer geometry, pending pinout and updated validation |
 | [scripts/](PCB%20layout/scripts/) | Project generation, routing, checking and preview export helpers |
-| [fabrication/](PCB%20layout/fabrication/) | Release-status notice; no production copper mask is released at P0 |
+| [fabrication/](PCB%20layout/fabrication/) | Release-status notice; no production copper mask is released at P1 |
 
 ## Circuit and components
 
@@ -95,7 +96,7 @@ With nominal R6 = 1000 ohm, **5.00 V corresponds to 5.00 mA**. Resistor toleranc
 - The KiCad file uses its normal two-copper-layer data model for through-hole pads; the fabrication pattern uses **bottom copper only**.
 - RV1 has an **18 x 14 mm** reserved area, clear of other component bodies/pads.
 
-The latest saved checks, run on **28 October 2026 with KiCad 10.0.7**, report:
+The current P1 checks, run on **29 October 2026 with KiCad 10.0.7**, report:
 
 | Validation | Result |
 |---|---|
@@ -112,13 +113,13 @@ The JSON reports record the active severities and standard ignored check categor
 
 ## What still needs confirmation
 
-1. **RV1:** exact part/model, actual resistance, body dimensions, pin-centre spacing and wiper identification. The intended value remains **500 ohm**. Photos and a reported approximately 7.5 mm body size resemble an RM065-style single-turn preset, but this identification is tentative. The original inventory called it multiturn. No candidate footprint has been applied. See [the photo review](PCB%20layout/reports/trimmer_photo_review.md).
+1. **RV1:** identify the physical wiper and confirm the intended **500 ohm** resistance. The custom footprint now uses the user's **9 mm body, 8 mm opposite-pair spacing and 5 mm third-pin offset**; it does not substitute an inferred RM065 footprint. **Offset pad 2 is only a provisional wiper assignment.** The 1 mm drill diameter remains an assumption to check against the real leads. The original inventory's multiturn description is not confirmed. See the [P1 update](PCB%20layout/reports/update_2026-10-29/README.md); the [older photo review](PCB%20layout/reports/trimmer_photo_review.md) records the earlier tentative identification.
 2. **Transistors:** verify the actual manufacturer's pinout against the assumed **1 = emitter, 2 = base, 3 = collector** footprint. The chosen wide footprint requires lead forming to 2.54 mm pitch.
 3. **Capacitor:** confirm C1's assumed **5 mm lead spacing**.
 4. **Connections:** J1 uses 2.54 mm-spaced holes for a header or soldered wires; it is not a 5.08 mm screw-terminal footprint. Supply hardware and optional test pins are additional to the listed electronic components.
 5. **College process:** confirm achievable clearances, mask polarity, required mirroring, transfer method and printing scale.
 
-Once RV1 is identified, replace its placeholder in **both schematic and PCB**, preserve its electrical function, finish nearby tracks, rerun checks and update the release status. The present 2.54 mm-spaced placeholder holes are **not** a claim about the real trimmer's dimensions.
+Once RV1's wiper is identified, confirm or correct the physical pad-to-net mapping in **both schematic and PCB**, preserve the wiper-to-end connection, rerun checks and update release status. The original P0 2.54 mm-spaced placeholder has been replaced. For a fit check, use the [1:1 trimmer fitting template](PCB%20layout/previews/trimmer_fit_check.pdf); print at actual size and verify its calibration line. It is not a copper mask.
 
 ## Fabrication handoff
 
@@ -142,6 +143,6 @@ For a physical experiment, first adjust near 5 mA at a measured room temperature
 
 Edit the saved project in KiCad for normal design work. The [PCB README](PCB%20layout/README.md#reproduce-the-provisional-files) contains the generation, checking and preview commands for the installed Windows tools.
 
-**The generator recreates provisional P0 and can overwrite manual layout changes.** Update its definitions before using it after the real trimmer is fitted. Project-local footprints should travel with the KiCad files. Optional PNG rendering uses the laptop's existing Python/PyMuPDF installation; KiCad produces the PDFs.
+**The generator recreates provisional P1 and can overwrite manual layout changes.** Its trimmer geometry matches the user measurements, but its pad roles remain provisional until the wiper test. Preserve manual edits and update the definitions before using it after final pinout confirmation. Project-local footprints should travel with the KiCad files. Optional PNG rendering uses the laptop's existing Python/PyMuPDF installation; KiCad produces the PDFs.
 
 An early KiCad Python/SWIG track-removal operation caused an access violation. The saved routing helper avoids that operation, and the corrected route and subsequent checks completed successfully. Opening the board or its 3D viewer does not require a Python process to stay running.

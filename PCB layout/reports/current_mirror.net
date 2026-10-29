@@ -2,7 +2,7 @@
 	(version "E")
 	(design
 		(source "C:\\Users\\swastik\\Desktop\\EDC_project\\PCB layout\\current_mirror.kicad_sch")
-		(date "2026-10-28T22:56:54")
+		(date "2026-10-29T11:58:31")
 		(tool "Eeschema 10.0.7")
 		(sheet
 			(number "1")
@@ -11,7 +11,7 @@
 			(title_block
 				(title "5 mA diode-compensated current mirror")
 				(company)
-				(rev "P0 - TRIMMER FOOTPRINT PENDING")
+				(rev "P1 - VERIFY RV1 WIPER")
 				(date)
 				(source "current_mirror.kicad_sch")
 				(comment
@@ -811,10 +811,10 @@
 		(comp
 			(ref "RV1")
 			(value "500R TRIM / set ~119.8R")
-			(footprint "Project:RV1_PENDING")
+			(footprint "Project:RV1_D9_P8_Offset5_PINOUT_UNVERIFIED")
 			(fields
 				(field
-					(name "Footprint") "Project:RV1_PENDING")
+					(name "Footprint") "Project:RV1_D9_P8_Offset5_PINOUT_UNVERIFIED")
 				(field
 					(name "Datasheet")
 				)

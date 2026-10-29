@@ -1,0 +1,39 @@
+{
+  "revision": "P1",
+  "date": "2026-10-29",
+  "status": "MEASURED GEOMETRY FITTED; WIPER IDENTIFICATION REQUIRED",
+  "body_diameter_mm": 9,
+  "across_pair_mm": 8,
+  "third_pin_offset_from_body_centre_mm": 5,
+  "footprint": "Project:RV1_D9_P8_Offset5_PINOUT_UNVERIFIED",
+  "body_centre_on_board_mm": [
+    49,
+    38
+  ],
+  "pad_centres_relative_to_body_mm": {
+    "1": [
+      -4.0,
+      0.0
+    ],
+    "3": [
+      4.0,
+      0.0
+    ],
+    "2": [
+      0.0,
+      5.0
+    ]
+  },
+  "provisional_pad_roles": {
+    "1": "TRIM_TOP",
+    "2": "BASE",
+    "3": "BASE"
+  },
+  "important": "Pad 2 at the offset third hole is NOT a confirmed physical wiper. Verify before fabrication; swap physical pad roles if needed.",
+  "drill_mm": 1.0,
+  "copper_pad_size_mm": 2.4,
+  "drill_status": "assumed from thin pins; confirm physical fit",
+  "view": "KiCad component-side view. Bottom/pin-side view mirrors left and right; the symmetric hole pattern is unchanged.",
+  "body_height": "unknown; no guessed 3D model added",
+  "backup": "current_mirror-backups\\before_P1_2026-10-29"
+}

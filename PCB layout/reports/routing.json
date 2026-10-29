@@ -1,5 +1,5 @@
 {
-  "status": "ROUTED - TRIMMER STILL PROVISIONAL",
+  "status": "ROUTED - RV1 PHYSICAL WIPER/PAD MAPPING UNVERIFIED",
   "layer": "B.Cu only",
   "track_width_mm": 0.6,
   "design_clearance_mm": 0.4,
@@ -8,5 +8,6 @@
   "pad_pair_routes": 27,
   "grid_mm": 0.25,
   "routing_attempt": 0,
-  "note": "KiCad DRC must be run separately; this report is not a fabrication release."
+  "note": "KiCad DRC must be run separately; this report is not a fabrication release.",
+  "revision": "P1"
 }

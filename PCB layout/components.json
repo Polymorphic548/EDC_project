@@ -156,19 +156,19 @@
     "reference": "RV1",
     "value": "500R TRIM / set ~119.8R",
     "symbol": "Device:R_Potentiometer",
-    "footprint": "Project:RV1_PENDING",
-    "stock_footprint_basis": "Project:RV1_PENDING",
+    "footprint": "Project:RV1_D9_P8_Offset5_PINOUT_UNVERIFIED",
+    "stock_footprint_basis": "Project:RV1_D9_P8_Offset5_PINOUT_UNVERIFIED",
     "connections": {
       "1": "TRIM_TOP",
       "2": "BASE",
       "3": "BASE"
     },
     "position_mm": [
-      45,
+      49,
       38,
       0
     ],
-    "status": "PLACEHOLDER - NOT FABRICABLE"
+    "status": "MEASURED GEOMETRY - WIPER/PAD MAPPING UNVERIFIED - NOT FABRICABLE"
   },
   {
     "reference": "Q1",
