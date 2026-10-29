@@ -153,22 +153,23 @@
     "status": "package assumption - confirm physical part"
   },
   {
-    "reference": "RV1",
-    "value": "500R TRIM / set ~119.8R",
-    "symbol": "Device:R_Potentiometer",
-    "footprint": "Project:RV1_D9_P8_Offset5_PINOUT_UNVERIFIED",
-    "stock_footprint_basis": "Project:RV1_D9_P8_Offset5_PINOUT_UNVERIFIED",
+    "reference": "R7",
+    "value": "120R",
+    "symbol": "Device:R",
+    "footprint": "Project:R7_ETCH",
+    "stock_footprint_basis": "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal",
     "connections": {
       "1": "TRIM_TOP",
-      "2": "BASE",
-      "3": "BASE"
+      "2": "BASE"
     },
     "position_mm": [
-      49,
+      45,
       38,
       0
     ],
-    "status": "MEASURED GEOMETRY - WIPER/PAD MAPPING UNVERIFIED - NOT FABRICABLE"
+    "status": "package assumption - confirm physical part",
+    "measured_resistance_ohm": 117.6,
+    "replaces": "LT RV1; fixed nominal 120 ohm approved by user"
   },
   {
     "reference": "Q1",

@@ -1,0 +1,19 @@
+{
+  "result": "PASS",
+  "revision": "P2",
+  "replacement": "RV1 removed; R7 fixed nominal 120 ohm, user measured 117.6 ohm",
+  "r7_pad_nets": {
+    "1": "TRIM_TOP",
+    "2": "BASE"
+  },
+  "r7_lead_pitch_mm": 7.62,
+  "other_component_values_and_placements_unchanged": true,
+  "all_other_net_connections_preserved": true,
+  "erc_violations": 0,
+  "drc_violations": 0,
+  "unconnected_items": 0,
+  "schematic_parity_issues": 0,
+  "design_hashes_match": true,
+  "no_new_simulation": true,
+  "no_physical_performance_validation": true
+}

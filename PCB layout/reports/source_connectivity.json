@@ -1,5 +1,6 @@
 {
-  "result": "PASS",
+  "result": "PASS - TOPOLOGY WITH APPROVED VALUE SUBSTITUTION",
+  "revision": "P2",
   "source": "diode_comp_mirror_enhanced_v2.asc",
   "source_electrical_nets": 12,
   "nets": {
@@ -37,13 +38,13 @@
     ],
     "TRIM_TOP": [
       "R3.2",
-      "RV1.1"
+      "R7.1"
     ],
     "BASE": [
       "Q1.2",
       "Q1.3",
       "Q2.2",
-      "RV1.2"
+      "R7.2"
     ],
     "E1": [
       "Q1.1",
@@ -60,7 +61,8 @@
   },
   "notes": [
     "J1 replaces ideal 12V source V1.",
-    "RV1 pin 3 tied to wiper pin 2; the two-terminal resistance is preserved.",
+    "User-authorized fixed R7=120 ohm replaces LT RV1=119.8 ohm; supplied resistor measured 117.6 ohm.",
+    "Original source/simulation files are unchanged; no new simulation or exact 5mA guarantee.",
     "Test points add no circuit components."
   ]
 }

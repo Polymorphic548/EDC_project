@@ -11,6 +11,7 @@ import build_design as d
 ROOT=d.ROOT
 
 def main():
+    raise SystemExit('Historical P1 helper retired: current P2 uses fixed R7=120 ohm. Use build_design.py for the current design.')
     backup=ROOT/'current_mirror-backups/before_P1_2026-10-29'
     backup.mkdir(parents=True,exist_ok=True)
     for name in ('current_mirror.kicad_pcb','current_mirror.kicad_sch','current_mirror.kicad_pro','components.json','reports/design_sha256.json'):

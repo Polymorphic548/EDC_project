@@ -2,7 +2,7 @@
 	(version "E")
 	(design
 		(source "C:\\Users\\swastik\\Desktop\\EDC_project\\PCB layout\\current_mirror.kicad_sch")
-		(date "2026-10-29T11:58:31")
+		(date "2026-10-29T13:29:24")
 		(tool "Eeschema 10.0.7")
 		(sheet
 			(number "1")
@@ -11,12 +11,12 @@
 			(title_block
 				(title "5 mA diode-compensated current mirror")
 				(company)
-				(rev "P1 - VERIFY RV1 WIPER")
+				(rev "P2 - FIXED 120R")
 				(date)
 				(source "current_mirror.kicad_sch")
 				(comment
 					(number "1")
-					(value "Exact LTspice connectivity; added power connector and voltage test points")
+					(value "LTspice topology; RV1 replaced by fixed R7=120R at user request")
 				)
 				(comment
 					(number "2")
@@ -809,12 +809,12 @@
 			)
 		)
 		(comp
-			(ref "RV1")
-			(value "500R TRIM / set ~119.8R")
-			(footprint "Project:RV1_D9_P8_Offset5_PINOUT_UNVERIFIED")
+			(ref "R7")
+			(value "120R")
+			(footprint "Project:R7_ETCH")
 			(fields
 				(field
-					(name "Footprint") "Project:RV1_D9_P8_Offset5_PINOUT_UNVERIFIED")
+					(name "Footprint") "Project:R7_ETCH")
 				(field
 					(name "Datasheet")
 				)
@@ -824,8 +824,8 @@
 			)
 			(libsource
 				(lib "Device")
-				(part "R_Potentiometer")
-				(description "Potentiometer")
+				(part "R")
+				(description "Resistor")
 			)
 			(property
 				(name "Sheetname")
@@ -837,26 +837,23 @@
 			)
 			(property
 				(name "ki_keywords")
-				(value "resistor variable")
+				(value "R res resistor")
 			)
 			(property
 				(name "ki_fp_filters")
-				(value "Potentiometer*")
+				(value "R_*")
 			)
 			(sheetpath
 				(names "/")
 				(tstamps "/")
 			)
-			(tstamps "e2e30f37-3b6e-5e47-ab5f-6e2dacbcfb51")
+			(tstamps "e0c6abca-d432-5ecf-96f9-fd60069ed2d1")
 			(units
 				(unit
 					(name "A")
 					(pins
 						(pin
 							(num "1")
-						)
-						(pin
-							(num "3")
 						)
 						(pin
 							(num "2")
@@ -1386,51 +1383,6 @@
 			)
 		)
 		(libpart
-			(lib "Device")
-			(part "R_Potentiometer")
-			(description "Potentiometer")
-			(footprints
-				(fp "Potentiometer*")
-			)
-			(fields
-				(field
-					(name "Reference") "RV")
-				(field
-					(name "Value") "R_Potentiometer")
-				(field
-					(name "Footprint")
-				)
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description") "Potentiometer")
-				(field
-					(name "Sim.Device") "R")
-				(field
-					(name "Sim.Type") "POT")
-				(field
-					(name "Sim.Pins") "1=r0 2=wiper 3=r1")
-			)
-			(pins
-				(pin
-					(num "1")
-					(name "1")
-					(type "passive")
-				)
-				(pin
-					(num "2")
-					(name "2")
-					(type "passive")
-				)
-				(pin
-					(num "3")
-					(name "3")
-					(type "passive")
-				)
-			)
-		)
-		(libpart
 			(lib "Transistor_BJT")
 			(part "Q_NPN_EBC")
 			(description "NPN transistor, emitter/base/collector")
@@ -1513,15 +1465,8 @@
 				(pintype "input")
 			)
 			(node
-				(ref "RV1")
+				(ref "R7")
 				(pin "2")
-				(pinfunction "2_2")
-				(pintype "passive")
-			)
-			(node
-				(ref "RV1")
-				(pin "3")
-				(pinfunction "3_3")
 				(pintype "passive")
 			)
 			(node
@@ -1666,9 +1611,8 @@
 				(pintype "passive")
 			)
 			(node
-				(ref "RV1")
+				(ref "R7")
 				(pin "1")
-				(pinfunction "1_1")
 				(pintype "passive")
 			)
 		)

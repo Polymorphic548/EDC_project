@@ -1,6 +1,7 @@
-P1 - NOT FOR FABRICATION
+P2 - FIXED R7 120 OHM; NO TRIMMER
 
-The measured RV1 geometry is fitted: 9mm body, 8mm opposite pair, 5mm third-pin offset.
-Physical wiper/pad mapping and the assumed 1mm drill fit require confirmation.
-No production copper mask is released. Use the editable board and draft previews.
-See ../README.md for finalization and college etching requirements.
+The user-approved single nominal 120 ohm resistor (measured 117.6 ohm)
+replaces RV1. Wiper identification is no longer relevant.
+Check physical component fit, actual transistor pinout, mask polarity,
+mirror convention and 1:1 printing before fabrication.
+No production copper mask is released; previews are review drawings.

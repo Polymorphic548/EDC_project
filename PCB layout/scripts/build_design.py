@@ -17,11 +17,6 @@ RFP = 'Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal'
 DFP = 'Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal'
 QFP = 'Package_TO_SOT_THT:TO-92_Inline_Wide'
 TPFP = 'TestPoint:TestPoint_THTPad_D2.0mm_Drill1.0mm'
-TRIMMER_FP = 'RV1_D9_P8_Offset5_PINOUT_UNVERIFIED'
-TRIMMER_PINS = {'1':(-4.0,0.0), '3':(4.0,0.0), '2':(0.0,5.0)}
-# These are provisional pad roles, NOT an identification of the actual wiper.
-# Pin-view measurements are symmetric about x=0; the board top view may swap
-# left/right. Identify the real wiper and check orientation before fabrication.
 # ref, value, symbol, footprint, pin-to-net map, board x/y/angle, schematic x/y
 PARTS = [
  ('J1','12V INPUT','Connector_Generic:Conn_01x02','Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical',{'1':'VIN','2':'GND'},(8,10,0),(25.4,40.64)),
@@ -33,7 +28,7 @@ PARTS = [
  ('D1','1N4148','Device:D',DFP,{'1':'D12','2':'ZD_A'},(29,53,90),(76.2,76.2)),
  ('D2','1N4148','Device:D',DFP,{'1':'GND','2':'D12'},(29,64,90),(101.6,76.2)),
  ('R3','1k (LT R1a)','Device:R',RFP,{'1':'VA','2':'TRIM_TOP'},(43,20,270),(139.7,40.64)),
- ('RV1','500R TRIM / set ~119.8R','Device:R_Potentiometer','Project:'+TRIMMER_FP,{'1':'TRIM_TOP','2':'BASE','3':'BASE'},(49,38,0),(139.7,76.2)),
+ ('R7','120R','Device:R',RFP,{'1':'TRIM_TOP','2':'BASE'},(45,38,0),(139.7,76.2)),
  ('Q1','2N3904','Transistor_BJT:Q_NPN_EBC',QFP,{'1':'E1','2':'BASE','3':'BASE'},(45,50,0),(177.8,40.64)),
  ('Q2','2N3904','Transistor_BJT:Q_NPN_EBC',QFP,{'1':'E2','2':'BASE','3':'OUT'},(59,50,0),(215.9,40.64)),
  ('R4','22R (LT Re1)','Device:R',RFP,{'1':'E1','2':'GND'},(45,58,270),(177.8,76.2)),
@@ -49,7 +44,7 @@ PARTS = [
 # Publish the etching-oriented pad changes as project-local footprints, rather
 # than silently changing copies of the stock library footprints.
 STOCK_FOOTPRINTS={part[0]:part[3] for part in PARTS}
-PARTS=[(*part[:3], 'Project:'+(TRIMMER_FP if part[0]=='RV1' else part[0]+'_ETCH'), *part[4:]) for part in PARTS]
+PARTS=[(*part[:3], 'Project:'+part[0]+'_ETCH', *part[4:]) for part in PARTS]
 
 def parse(s):
     tokens = re.findall(r'"(?:\\.|[^"\\])*"|[^\s()]+|[()]',s)
@@ -80,7 +75,7 @@ def write_schematic():
     libs={p[2]:library_symbol(p[2]) for p in PARTS}
     rootid=uid('schematic')
     out=[f'(kicad_sch (version 20250114) (generator "pcb_layout_script") (uuid {rootid}) (paper "A4")',
-         '(title_block (title "5 mA diode-compensated current mirror") (rev "P1 - VERIFY RV1 WIPER") (comment 1 "Exact LTspice connectivity; added power connector and voltage test points"))',
+         '(title_block (title "5 mA diode-compensated current mirror") (rev "P2 - FIXED 120R") (comment 1 "LTspice topology; RV1 replaced by fixed R7=120R at user request"))',
          '(lib_symbols '+' '.join(dump(s) for s in libs.values())+')']
     for ref,value,lib,fp,nets,board,(x,y) in PARTS:
         sid=uid(ref)
@@ -100,8 +95,8 @@ def write_schematic():
             out.append(f'(wire (pts (xy {px} {py}) (xy {ex} {ey})) (stroke (width 0) (type default)) (uuid {uid(ref+"wire"+n)}))')
             out.append(f'(label {q(nets[n])} (at {ex} {ey} 0) (effects (font (size 1.0 1.0)) (justify left bottom)) (uuid {uid(ref+"label"+n)}))')
     notes=[(20,20,'SUPPLY: J1 -> R1 -> D4 -> VCC. R1 is a resistor, not a fuse.'),
-           (20,145,'RV1: 500 ohm; ~119.8 ohm nominal setting. Pad 2 + 3 tied; actual wiper identification PENDING.'),
-           (20,153,'P1 PROVISIONAL: RV1 measured geometry fitted; verify actual wiper/pin mapping before fabrication.'),
+           (20,145,'R7=120 ohm fixed resistor replaces LT RV1 (119.8 ohm simulated setting). User measured 117.6 ohm.'),
+           (20,153,'P2: no trimmer. Verify physical part pinouts, lead fit and printing process before fabrication.'),
            (20,161,'Measure V(TP3)-V(TP6) across R6: approximately 5 V means approximately 5 mA (nominal 1k load).'),
            (20,169,'LT names: R1=F1, R2=Rs, R3=R1a, R4=Re1, R5=Re2, R6=Rload, D3=Dz.'),
            (20,177,'All resistors 1/4 W. Labels with matching names are electrically connected.')]
@@ -112,35 +107,13 @@ def write_schematic():
 def text(board,s,x,y,size=1,layer=pcb.F_SilkS):
     t=pcb.PCB_TEXT(board); t.SetText(s); t.SetPosition(pos(x,y)); t.SetTextSize(pos(size,size)); t.SetTextThickness(mm(.15)); t.SetLayer(layer); board.Add(t)
 
-def trimmer_footprint(board):
-    """Measured geometry; pad numbering is provisional until wiper is tested."""
-    f=pcb.FOOTPRINT(board); f.SetFPID(pcb.LIB_ID('Project',TRIMMER_FP)); f.SetAttributes(pcb.FP_THROUGH_HOLE)
-    f.SetLibDescription('User-measured 9mm body, 8mm across pair, third pin offset 5mm. WIPER AND PAD ROLES UNVERIFIED. Drill 1.0mm assumed.')
-    layers=pcb.LSET()
-    for layer in (pcb.F_Cu,pcb.B_Cu,pcb.F_Mask,pcb.B_Mask): layers.AddLayer(layer)
-    for number,(x,y) in TRIMMER_PINS.items():
-        pad=pcb.PAD(f); pad.SetNumber(number); pad.SetAttribute(pcb.PAD_ATTRIB_PTH)
-        pad.SetShape(pcb.PAD_SHAPE_RECT if number=='1' else pcb.PAD_SHAPE_CIRCLE)
-        pad.SetSize(pos(2.4,2.4)); pad.SetDrillSize(pos(1,1)); pad.SetLayerSet(layers); pad.SetPosition(pos(x,y)); f.Add(pad)
-    circle=pcb.PCB_SHAPE(); circle.SetShape(pcb.SHAPE_T_CIRCLE); circle.SetStart(pos(0,0)); circle.SetEnd(pos(4.5,0)); circle.SetLayer(pcb.F_Fab); circle.SetWidth(mm(.1)); f.Add(circle)
-    for a,c in [((-5.5,-5),(5.5,-5)),((5.5,-5),(5.5,6.5)),((5.5,6.5),(-5.5,6.5)),((-5.5,6.5),(-5.5,-5))]:
-        edge=pcb.PCB_SHAPE(); edge.SetShape(pcb.SHAPE_T_SEGMENT); edge.SetStart(pos(*a)); edge.SetEnd(pos(*c)); edge.SetLayer(pcb.F_CrtYd); edge.SetWidth(mm(.05)); f.Add(edge)
-    # Existing reservation remains 40..58 by 31..45 in board coordinates.
-    for a,c in [((-9,-7),(9,-7)),((9,-7),(9,7)),((9,7),(-9,7)),((-9,7),(-9,-7))]:
-        edge=pcb.PCB_SHAPE(); edge.SetShape(pcb.SHAPE_T_SEGMENT); edge.SetStart(pos(*a)); edge.SetEnd(pos(*c)); edge.SetLayer(pcb.Dwgs_User); edge.SetWidth(mm(.2)); f.Add(edge)
-    f.Reference().SetPosition(pos(0,-6.4)); f.Value().SetVisible(False)
-    return f
-
 def build_board():
     b=pcb.BOARD(); b.SetCopperLayerCount(2)
     netobjs={}
     for n in sorted({n for p in PARTS for n in p[4].values()}):
         net=pcb.NETINFO_ITEM(b,'/'+n); b.Add(net); netobjs[n]=net
     for ref,value,lib,fp,nets,(x,y,angle),sch in PARTS:
-        if ref=='RV1':
-            f=trimmer_footprint(b)
-        else:
-            libname,fpname=STOCK_FOOTPRINTS[ref].split(':'); f=pcb.FootprintLoad(str(SHARE/'footprints'/f'{libname}.pretty'),fpname); assert f,fp
+        libname,fpname=STOCK_FOOTPRINTS[ref].split(':'); f=pcb.FootprintLoad(str(SHARE/'footprints'/f'{libname}.pretty'),fpname); assert f,fp
         b.Add(f); f.SetReference(ref); f.SetValue(value); f.SetFPID(pcb.LIB_ID(*fp.split(':'))); f.SetPath(pcb.KIID_PATH('/'+uid('schematic')+'/'+uid(ref)))
         f.SetPosition(pos(x,y)); f.SetOrientationDegrees(angle)
         f.Reference().SetTextSize(pos(1,1)); f.Reference().SetTextThickness(mm(.15)); f.Value().SetVisible(False)
@@ -160,8 +133,7 @@ def build_board():
     for a,c in [((3,3),(81,3)),((81,3),(81,70)),((81,70),(3,70)),((3,70),(3,3))]:
         s=pcb.PCB_SHAPE(); s.SetShape(pcb.SHAPE_T_SEGMENT); s.SetStart(pos(*a)); s.SetEnd(pos(*c)); s.SetLayer(pcb.Edge_Cuts); s.SetWidth(mm(.05)); b.Add(s)
     text(b,'5 mA CURRENT MIRROR',43,5.7,1.2)
-    text(b,'P1 - VERIFY RV1 WIPER',42,68,1.1)
-    text(b,'RV1 PINOUT UNVERIFIED',49,33,0.8,pcb.Dwgs_User)
+    text(b,'P2 - FIXED R7 120R',42,68,1.1)
     text(b,'+12V',8,7.5,.85); text(b,'GND',8,16,.85)
     text(b,'GND',75,63,.85); text(b,'OUT',75,41,.85)
     text(b,'VCC',53,13,.85); text(b,'VA',20,35,.85); text(b,'BASE',73,52,.85)
@@ -223,7 +195,7 @@ def verify_source():
         if name in named: union(pt,named[name])
         else: named[name]=pt
     # Expected KiCad pin -> LTspice terminal; diode pin ordering is reversed.
-    refs={'R1':'F1','R2':'Rs','R3':'R1a','R4':'Re1','R5':'Re2','R6':'Rload','D3':'Dz'}
+    refs={'R1':'F1','R2':'Rs','R3':'R1a','R4':'Re1','R5':'Re2','R6':'Rload','R7':'RV1','D3':'Dz'}
     groups={}; expected={}
     for ref,v,lib,fp,nets,*_ in PARTS:
         if ref.startswith(('TP','J')): continue
@@ -236,7 +208,7 @@ def verify_source():
     assert len({next(iter(s)) for s in expected.values()})==len(expected),'Unexpected source net split'
     assert next(iter(expected[find(terminal[('V1','1')])]))=='VIN'
     assert next(iter(expected[find(terminal[('V1','2')])]))=='GND'
-    report={'result':'PASS','source':src.name,'source_electrical_nets':len(groups),'nets':{next(iter(expected[r])):sorted(pins) for r,pins in groups.items()},'notes':['J1 replaces ideal 12V source V1.','RV1 pin 3 tied to wiper pin 2; the two-terminal resistance is preserved.','Test points add no circuit components.']}
+    report={'result':'PASS - TOPOLOGY WITH APPROVED VALUE SUBSTITUTION','revision':'P2','source':src.name,'source_electrical_nets':len(groups),'nets':{next(iter(expected[r])):sorted(pins) for r,pins in groups.items()},'notes':['J1 replaces ideal 12V source V1.','User-authorized fixed R7=120 ohm replaces LT RV1=119.8 ohm; supplied resistor measured 117.6 ohm.','Original source/simulation files are unchanged; no new simulation or exact 5mA guarantee.','Test points add no circuit components.']}
     (ROOT/'reports/source_connectivity.json').write_text(json.dumps(report,indent=2))
     print('Independent LTspice connectivity check: PASS',flush=True)
 
@@ -244,8 +216,8 @@ def write_project():
     pro={'meta':{'filename':NAME+'.kicad_pro','version':3},'board':{'design_settings':{'rules':{'min_clearance':.4,'min_track_width':.6,'min_through_hole_diameter':.7,'min_hole_clearance':.25,'min_copper_edge_clearance':.5}}},'net_settings':{'classes':[{'name':'Default','clearance':.4,'track_width':.6,'via_diameter':1.6,'via_drill':.8,'microvia_diameter':.3,'microvia_drill':.1,'diff_pair_width':.6,'diff_pair_gap':.4,'diff_pair_via_gap':.4,'wire_width':6,'bus_width':12,'line_style':0,'schematic_color':'rgba(0, 0, 0, 0.000)','pcb_color':'rgba(0, 0, 0, 0.000)'}],'meta':{'version':4}}}
     if not (ROOT/f'{NAME}.kicad_pro').exists():
         (ROOT/f'{NAME}.kicad_pro').write_text(json.dumps(pro,indent=2))
-    (ROOT/'fp-lib-table').write_text('(fp_lib_table (version 7) (lib (name "Project") (type "KiCad") (uri "${KIPRJMOD}/Project.pretty") (options "") (descr "Local etching footprints; RV1 measured geometry, wiper unverified")))\n')
-    manifest=[{'reference':r,'value':v,'symbol':lib,'footprint':fp,'stock_footprint_basis':STOCK_FOOTPRINTS[r],'connections':nets,'position_mm':list(bp),'status':'MEASURED GEOMETRY - WIPER/PAD MAPPING UNVERIFIED - NOT FABRICABLE' if r=='RV1' else 'package assumption - confirm physical part'} for r,v,lib,fp,nets,bp,sp in PARTS]
+    (ROOT/'fp-lib-table').write_text('(fp_lib_table (version 7) (lib (name "Project") (type "KiCad") (uri "${KIPRJMOD}/Project.pretty") (options "") (descr "Local etching footprints; P2 fixed R7=120 ohm")))\n')
+    manifest=[{'reference':r,'value':v,'symbol':lib,'footprint':fp,'stock_footprint_basis':STOCK_FOOTPRINTS[r],'connections':nets,'position_mm':list(bp),'status':'package assumption - confirm physical part',**({'measured_resistance_ohm':117.6,'replaces':'LT RV1; fixed nominal 120 ohm approved by user'} if r=='R7' else {})} for r,v,lib,fp,nets,bp,sp in PARTS]
     (ROOT/'components.json').write_text(json.dumps(manifest,indent=2))
 
 if __name__=='__main__':

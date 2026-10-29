@@ -44,13 +44,12 @@ def audit():
     assert expected==actual, {'schematic':expected,'board':actual}
     assert all(t.GetLayer()==p.B_Cu and isinstance(t,p.PCB_TRACK) and not isinstance(t,p.PCB_VIA) for t in b.GetTracks()),'Track on wrong layer or via present'
     assert min(p.ToMM(t.GetWidth()) for t in b.GetTracks())>=.6
-    rv=next(f for f in b.GetFootprints() if f.GetReference()=='RV1')
-    for pad in rv.Pads():
-        expected=d.TRIMMER_PINS[pad.GetNumber()]
-        assert abs(p.ToMM(pad.GetPosition().x-rv.GetPosition().x)-expected[0])<.001
-        assert abs(p.ToMM(pad.GetPosition().y-rv.GetPosition().y)-expected[1])<.001
-        assert abs(p.ToMM(pad.GetDrillSize().x)-1)<.001
-    report={'result':'PASS','revision':'P1','schematic_to_board_pad_nets':'exact match of native KiCad exported netlist','nets':actual,'tracks':len(list(b.GetTracks())),'routed_layers':['B.Cu'],'vias':0,'footprints':len(list(b.GetFootprints())),'rv1_geometry':'9mm body; 8mm across pair; third pin offset 5mm','note':'Independent structural audit; does not replace KiCad clearance/physical DRC. RV1 physical wiper/pad mapping is unverified.'}
+    assert not any(f.GetReference()=='RV1' for f in b.GetFootprints())
+    resistor=next(f for f in b.GetFootprints() if f.GetReference()=='R7')
+    assert resistor.GetValue()=='120R'
+    assert {pad.GetNumber():pad.GetNetname() for pad in resistor.Pads()}=={'1':'/TRIM_TOP','2':'/BASE'}
+    assert len(list(resistor.Pads()))==2
+    report={'result':'PASS','revision':'P2','schematic_to_board_pad_nets':'exact match of native KiCad exported netlist','nets':actual,'tracks':len(list(b.GetTracks())),'routed_layers':['B.Cu'],'vias':0,'footprints':len(list(b.GetFootprints())),'replacement':'R7 fixed 120 ohm; user measured 117.6 ohm; no RV1','note':'CAD consistency only; no new simulation or physical performance measurement.'}
     (ROOT/'reports/board_audit.json').write_text(json.dumps(report,indent=2))
     parts=json.loads((ROOT/'components.json').read_text())
     for item in parts:

@@ -8,7 +8,7 @@ D3,BZX55C5V1,Project:D3_ETCH,package assumption - confirm physical part
 D1,1N4148,Project:D1_ETCH,package assumption - confirm physical part
 D2,1N4148,Project:D2_ETCH,package assumption - confirm physical part
 R3,1k (LT R1a),Project:R3_ETCH,package assumption - confirm physical part
-RV1,500R TRIM / set ~119.8R,Project:RV1_D9_P8_Offset5_PINOUT_UNVERIFIED,MEASURED GEOMETRY - WIPER/PAD MAPPING UNVERIFIED - NOT FABRICABLE
+R7,120R,Project:R7_ETCH,package assumption - confirm physical part
 Q1,2N3904,Project:Q1_ETCH,package assumption - confirm physical part
 Q2,2N3904,Project:Q2_ETCH,package assumption - confirm physical part
 R4,22R (LT Re1),Project:R4_ETCH,package assumption - confirm physical part
