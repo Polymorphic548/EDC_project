@@ -82,7 +82,11 @@ Historical P0/P1/P2/P3 reports, old trimmer footprints and the trimmer fitting t
 
 ## Print and fabricate
 
-Two **B.Cu-only, 1:1** PDFs are prepared:
+**College direct-copper printer / automated drill:** use the prepared [machine package ZIP](PCB%20layout/fabrication/dual_panel_machine_files.zip), or [machine-files folder](PCB%20layout/fabrication/machine_files/README.md). Print **`dual_current_mirror-B_Cu.gbr`** and drill **`dual_current_mirror.drl`**. The separate `Edge_Cuts.gbr` is an optional outline reference, not copper artwork. No F.Cu Gerber is exported. Copper/drill origins and orientation match, and all 76 holes and copper pad features were checked against the saved PCB. See [verification](PCB%20layout/fabrication/machine_files/verification.json). The design files were not changed by this export.
+
+The operator must configure the copper-side fixture/transform for the matching file pair; do not mirror/offset only the drill or only the copper file. The one physical copper face is B.Cu in the CAD design, with components installed from the opposite face. Through-hole pads showing on F.Cu in KiCad do not request a second copper layer. The package uses millimetres, absolute coordinates and unmirrored standard Gerber/Excellon output. Confirm machine ink/resist polarity before running.
+
+For an alternative paper/film transfer workflow, two **B.Cu-only, 1:1** PDFs are also prepared:
 
 - [Unmirrored copper](PCB%20layout/fabrication/dual_panel_BCu_unmirrored_1to1.pdf)
 - [Mirrored copper](PCB%20layout/fabrication/dual_panel_BCu_mirrored_1to1.pdf)

@@ -1,0 +1,24 @@
+Drill report for dual_current_mirror.kicad_pcb
+Created on 2026-10-30T16:31:00
+
+Copper Layer Stackup:
+    =============================================================
+    L1 :  F.Cu                      front
+    L2 :  B.Cu                      back
+
+
+Drill file 'dual_current_mirror.drl' contains
+    plated through holes:
+    =============================================================
+    T1  0.800mm  0.0315"  (56 holes))
+    T2  1.000mm  0.0394"  (16 holes))
+    T3  1.100mm  0.0433"  (4 holes))
+
+    Total plated holes count 76
+
+
+Not plated through holes are merged with plated holes
+    unplated through holes:
+    =============================================================
+
+    Total unplated holes count 0

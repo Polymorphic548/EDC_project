@@ -45,6 +45,16 @@ Both projects pass native ERC/DRC with zero reported violations, unconnected ite
 
 ## Copper printing
 
+For the college's **direct copper printer + automated drilling**, use `fabrication/dual_panel_machine_files.zip` or the files under `fabrication/machine_files/`:
+
+- **`dual_current_mirror-B_Cu.gbr`**: the only copper print layer.
+- **`dual_current_mirror.drl`**: matched Excellon drill program, 76 holes.
+- **`dual_current_mirror-Edge_Cuts.gbr`**: optional 150 x 100 mm outline reference; not copper artwork.
+
+The package includes a drill map, tool report, export verification, instructions and SHA-256 hashes. No front-copper file is supplied. F.Cu can be visible in the editor because pads are through-hole, while every routed track is B.Cu. The machine operator should load the copper and drill files together using their shared absolute origin and millimetre units; any fixture-side mirroring/positioning must be applied consistently to both. The physical panel remains single-sided; the KiCad hole-plating annotations do not request plated barrels.
+
+To regenerate machine files, run `scripts/export_machine_files.ps1` with a process-only execution-policy override, then run `scripts/check_machine_files.py` with regular Python. This exporter produces standard RS-274X Gerber and metric decimal Excellon; the checker verifies all hole locations/sizes, pad shapes and tracks against the saved board. ZIP packaging is a convenience copy of that checked folder. CAD files are unchanged by export.
+
 `fabrication/dual_panel_BCu_unmirrored_1to1.pdf` and `dual_panel_BCu_mirrored_1to1.pdf` contain **B.Cu only**, without outline, assembly graphics or centre guides. Both variants are normalized to the same 150 x 100 mm rectangle at the top left of an A4 landscape page, without scaling. Labels and a 50 mm calibration line are outside the blank area. Black denotes copper to keep.
 
 Confirm mirror orientation and exposure polarity with college staff. Print the selected version at Actual Size / 100%, verify the 50 mm line, and transfer only the board area. A negative-polarity resist process may require the lab's inversion. Do not use review images/PDFs as masks. Chemical etching alone will not produce silkscreen labels; follow the assembly guide and label the connections manually as needed.
