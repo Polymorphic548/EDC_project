@@ -2,21 +2,21 @@
 	(version "E")
 	(design
 		(source "C:\\Users\\swastik\\Desktop\\EDC_project\\PCB layout\\current_mirror.kicad_sch")
-		(date "2026-10-30T15:18:02")
+		(date "2026-10-30T15:51:37")
 		(tool "Eeschema 10.0.7")
 		(sheet
 			(number "1")
 			(name "/")
 			(tstamps "/")
 			(title_block
-				(title "Diode-compensated current mirror")
+				(title "Diode-compensated current mirror - header unit")
 				(company)
-				(rev "P3 - SOURCE VALUES SYNC")
+				(rev "P4 - MEASUREMENT HEADERS")
 				(date)
 				(source "current_mirror.kicad_sch")
 				(comment
 					(number "1")
-					(value "9.8V input; Rs=662R; C1=1.33nF; fixed R7=120R nominal, 117.6R measured")
+					(value "J1 power; J2 load voltage; J3 Q1 Vbe; J4 Q2 Vbe. Pin 1 positive, pin 2 negative.")
 				)
 				(comment
 					(number "2")
@@ -364,6 +364,168 @@
 				(tstamps "/")
 			)
 			(tstamps "cbe97558-979c-5374-a82e-376b21e03ebd")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "J2")
+			(value "RLOAD VOLTAGE")
+			(footprint "Project:J2_ETCH")
+			(fields
+				(field
+					(name "Footprint") "Project:J2_ETCH")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Connector_Generic")
+				(part "Conn_01x02")
+				(description "Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)")
+			)
+			(property
+				(name "Sheetname")
+				(value "current_mirror")
+			)
+			(property
+				(name "Sheetfile")
+				(value "current_mirror.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "connector")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "Connector*:*_1x??_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "8c48ffe2-8493-54dc-ac5b-5de94f062705")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "J3")
+			(value "Q1 BASE-EMITTER")
+			(footprint "Project:J3_ETCH")
+			(fields
+				(field
+					(name "Footprint") "Project:J3_ETCH")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Connector_Generic")
+				(part "Conn_01x02")
+				(description "Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)")
+			)
+			(property
+				(name "Sheetname")
+				(value "current_mirror")
+			)
+			(property
+				(name "Sheetfile")
+				(value "current_mirror.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "connector")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "Connector*:*_1x??_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "a9606ece-4751-517e-8c9c-7e993745b2b9")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "J4")
+			(value "Q2 BASE-EMITTER")
+			(footprint "Project:J4_ETCH")
+			(fields
+				(field
+					(name "Footprint") "Project:J4_ETCH")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Connector_Generic")
+				(part "Conn_01x02")
+				(description "Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)")
+			)
+			(property
+				(name "Sheetname")
+				(value "current_mirror")
+			)
+			(property
+				(name "Sheetfile")
+				(value "current_mirror.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "connector")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "Connector*:*_1x??_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "b1b7082e-8f64-5f19-b86c-8569e1c7b2f2")
 			(units
 				(unit
 					(name "A")
@@ -862,346 +1024,10 @@
 				)
 			)
 		)
-		(comp
-			(ref "TP1")
-			(value "GND")
-			(footprint "Project:TP1_ETCH")
-			(fields
-				(field
-					(name "Footprint") "Project:TP1_ETCH")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Connector")
-				(part "TestPoint")
-				(description "test point")
-			)
-			(property
-				(name "Sheetname")
-				(value "current_mirror")
-			)
-			(property
-				(name "Sheetfile")
-				(value "current_mirror.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "test point tp")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "Pin* Test*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "e980570a-19d1-58ea-8250-3bc9e93c12d1")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "TP2")
-			(value "VIN")
-			(footprint "Project:TP2_ETCH")
-			(fields
-				(field
-					(name "Footprint") "Project:TP2_ETCH")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Connector")
-				(part "TestPoint")
-				(description "test point")
-			)
-			(property
-				(name "Sheetname")
-				(value "current_mirror")
-			)
-			(property
-				(name "Sheetfile")
-				(value "current_mirror.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "test point tp")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "Pin* Test*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "43ae118f-bfee-5c2d-927d-731be54b7b7b")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "TP3")
-			(value "VCC / LOAD+")
-			(footprint "Project:TP3_ETCH")
-			(fields
-				(field
-					(name "Footprint") "Project:TP3_ETCH")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Connector")
-				(part "TestPoint")
-				(description "test point")
-			)
-			(property
-				(name "Sheetname")
-				(value "current_mirror")
-			)
-			(property
-				(name "Sheetfile")
-				(value "current_mirror.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "test point tp")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "Pin* Test*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "48a63355-2276-5b06-95ef-d64e79f187a7")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "TP4")
-			(value "VA")
-			(footprint "Project:TP4_ETCH")
-			(fields
-				(field
-					(name "Footprint") "Project:TP4_ETCH")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Connector")
-				(part "TestPoint")
-				(description "test point")
-			)
-			(property
-				(name "Sheetname")
-				(value "current_mirror")
-			)
-			(property
-				(name "Sheetfile")
-				(value "current_mirror.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "test point tp")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "Pin* Test*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "c12f4788-1d59-5c74-806b-49bbcdb6d612")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "TP5")
-			(value "BASE")
-			(footprint "Project:TP5_ETCH")
-			(fields
-				(field
-					(name "Footprint") "Project:TP5_ETCH")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Connector")
-				(part "TestPoint")
-				(description "test point")
-			)
-			(property
-				(name "Sheetname")
-				(value "current_mirror")
-			)
-			(property
-				(name "Sheetfile")
-				(value "current_mirror.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "test point tp")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "Pin* Test*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "74f47bf5-beac-5fd7-ae1b-8dff69d8c914")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-					)
-				)
-			)
-		)
-		(comp
-			(ref "TP6")
-			(value "OUT / LOAD-")
-			(footprint "Project:TP6_ETCH")
-			(fields
-				(field
-					(name "Footprint") "Project:TP6_ETCH")
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description")
-				)
-			)
-			(libsource
-				(lib "Connector")
-				(part "TestPoint")
-				(description "test point")
-			)
-			(property
-				(name "Sheetname")
-				(value "current_mirror")
-			)
-			(property
-				(name "Sheetfile")
-				(value "current_mirror.kicad_sch")
-			)
-			(property
-				(name "ki_keywords")
-				(value "test point tp")
-			)
-			(property
-				(name "ki_fp_filters")
-				(value "Pin* Test*")
-			)
-			(sheetpath
-				(names "/")
-				(tstamps "/")
-			)
-			(tstamps "dbd05163-a79c-58a8-90f3-9ce395031ff3")
-			(units
-				(unit
-					(name "A")
-					(pins
-						(pin
-							(num "1")
-						)
-					)
-				)
-			)
-		)
 	)
 	(groups)
 	(variants)
 	(libparts
-		(libpart
-			(lib "Connector")
-			(part "TestPoint")
-			(description "test point")
-			(footprints
-				(fp "Pin*")
-				(fp "Test*")
-			)
-			(fields
-				(field
-					(name "Reference") "TP")
-				(field
-					(name "Value") "TestPoint")
-				(field
-					(name "Footprint")
-				)
-				(field
-					(name "Datasheet")
-				)
-				(field
-					(name "Description") "test point")
-			)
-			(pins
-				(pin
-					(num "1")
-					(name "1")
-					(type "passive")
-				)
-			)
-		)
 		(libpart
 			(lib "Connector_Generic")
 			(part "Conn_01x02")
@@ -1425,10 +1251,6 @@
 	)
 	(libraries
 		(library
-			(logical "Connector")
-			(uri "${KICAD10_SYMBOL_DIR}/Connector.kicad_sym")
-		)
-		(library
 			(logical "Connector_Generic")
 			(uri "${KICAD10_SYMBOL_DIR}/Connector_Generic.kicad_sym")
 		)
@@ -1446,6 +1268,18 @@
 			(code "1")
 			(name "/BASE")
 			(class "Default")
+			(node
+				(ref "J3")
+				(pin "1")
+				(pinfunction "Pin_1_1")
+				(pintype "passive")
+			)
+			(node
+				(ref "J4")
+				(pin "1")
+				(pinfunction "Pin_1_1")
+				(pintype "passive")
+			)
 			(node
 				(ref "Q1")
 				(pin "2")
@@ -1467,12 +1301,6 @@
 			(node
 				(ref "R7")
 				(pin "2")
-				(pintype "passive")
-			)
-			(node
-				(ref "TP5")
-				(pin "1")
-				(pinfunction "1_1")
 				(pintype "passive")
 			)
 		)
@@ -1498,6 +1326,12 @@
 			(name "/E1")
 			(class "Default")
 			(node
+				(ref "J3")
+				(pin "2")
+				(pinfunction "Pin_2_2")
+				(pintype "passive")
+			)
+			(node
 				(ref "Q1")
 				(pin "1")
 				(pinfunction "E_1")
@@ -1513,6 +1347,12 @@
 			(code "4")
 			(name "/E2")
 			(class "Default")
+			(node
+				(ref "J4")
+				(pin "2")
+				(pinfunction "Pin_2_2")
+				(pintype "passive")
+			)
 			(node
 				(ref "Q2")
 				(pin "1")
@@ -1556,17 +1396,17 @@
 				(pin "2")
 				(pintype "passive")
 			)
-			(node
-				(ref "TP1")
-				(pin "1")
-				(pinfunction "1_1")
-				(pintype "passive")
-			)
 		)
 		(net
 			(code "6")
 			(name "/OUT")
 			(class "Default")
+			(node
+				(ref "J2")
+				(pin "2")
+				(pinfunction "Pin_2_2")
+				(pintype "passive")
+			)
 			(node
 				(ref "Q2")
 				(pin "3")
@@ -1576,12 +1416,6 @@
 			(node
 				(ref "R6")
 				(pin "2")
-				(pintype "passive")
-			)
-			(node
-				(ref "TP6")
-				(pin "1")
-				(pinfunction "1_1")
 				(pintype "passive")
 			)
 		)
@@ -1636,12 +1470,6 @@
 				(pin "1")
 				(pintype "passive")
 			)
-			(node
-				(ref "TP4")
-				(pin "1")
-				(pinfunction "1_1")
-				(pintype "passive")
-			)
 		)
 		(net
 			(code "10")
@@ -1659,6 +1487,12 @@
 				(pintype "passive")
 			)
 			(node
+				(ref "J2")
+				(pin "1")
+				(pinfunction "Pin_1_1")
+				(pintype "passive")
+			)
+			(node
 				(ref "R2")
 				(pin "1")
 				(pintype "passive")
@@ -1666,12 +1500,6 @@
 			(node
 				(ref "R6")
 				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "TP3")
-				(pin "1")
-				(pinfunction "1_1")
 				(pintype "passive")
 			)
 		)
@@ -1688,12 +1516,6 @@
 			(node
 				(ref "R1")
 				(pin "1")
-				(pintype "passive")
-			)
-			(node
-				(ref "TP2")
-				(pin "1")
-				(pinfunction "1_1")
 				(pintype "passive")
 			)
 		)

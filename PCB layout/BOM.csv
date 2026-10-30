@@ -14,9 +14,6 @@ Q2,2N3904,Project:Q2_ETCH,package assumption - confirm physical part
 R4,22R (LT Re1),Project:R4_ETCH,package assumption - confirm physical part
 R5,22R (LT Re2),Project:R5_ETCH,package assumption - confirm physical part
 R6,1k (LT Rload),Project:R6_ETCH,package assumption - confirm physical part
-TP1,GND,Project:TP1_ETCH,package assumption - confirm physical part
-TP2,VIN,Project:TP2_ETCH,package assumption - confirm physical part
-TP3,VCC / LOAD+,Project:TP3_ETCH,package assumption - confirm physical part
-TP4,VA,Project:TP4_ETCH,package assumption - confirm physical part
-TP5,BASE,Project:TP5_ETCH,package assumption - confirm physical part
-TP6,OUT / LOAD-,Project:TP6_ETCH,package assumption - confirm physical part
+J2,RLOAD VOLTAGE,Project:J2_ETCH,package assumption - confirm physical part
+J3,Q1 BASE-EMITTER,Project:J3_ETCH,package assumption - confirm physical part
+J4,Q2 BASE-EMITTER,Project:J4_ETCH,package assumption - confirm physical part

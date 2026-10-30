@@ -1,0 +1,10 @@
+{
+  "dual_current_mirror.kicad_pcb": "aeac9ceec57c7e5cfdb3d331e2ea946bcb66e287201421929053fa4cc8da99c7",
+  "dual_current_mirror.kicad_sch": "035a827b620b48378be07d82e96d7ea5f0247c7f0cbade9c7f526a040e8271ad",
+  "dual_current_mirror.kicad_pro": "e6f42b12f865c64bf03c4940814eab437510ea8940ce14a4f8cbfb063c091367",
+  "current_mirror.kicad_pcb": "a0069bccd6deb269378c8d55fea46b58df0886d3eb069b073f899d4e67741b64",
+  "current_mirror.kicad_sch": "0435b870bb112ce616b03912d6133943592bf63647df437a2e8bb6c87c30845a",
+  "current_mirror.kicad_pro": "dbb641ff21ba79f10911ac9a61c18213d1195a10659e9e46c1007a402534ce96",
+  "fabrication/dual_panel_BCu_unmirrored_1to1.pdf": "730dc92c5bcb6598af3ed8de5b7c27b98395bed0aa1c2a9e9fe1fd358031c180",
+  "fabrication/dual_panel_BCu_mirrored_1to1.pdf": "7bbe4e53eebfd4e7257fa008d405b60a12bfffc239a26a9e02b4fafc31347ab0"
+}

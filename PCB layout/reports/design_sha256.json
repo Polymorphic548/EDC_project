@@ -1,6 +1,6 @@
 {
   "../schematics/diode_comp_mirror_enhanced_v2.asc": "cb87bb12d4b6f7e8dec4fb8ae6f92f304def228c90d368358da6369825d87636",
-  "current_mirror.kicad_sch": "b4389085a722d13c540fa747ea8c9757033d0d13cf9e909e4ca7891c59213b84",
-  "current_mirror.kicad_pcb": "1ace267b4e413db6dd805f7206b6844f642fb57cb52acd2dbf491f35d62c321d",
+  "current_mirror.kicad_sch": "0435b870bb112ce616b03912d6133943592bf63647df437a2e8bb6c87c30845a",
+  "current_mirror.kicad_pcb": "a0069bccd6deb269378c8d55fea46b58df0886d3eb069b073f899d4e67741b64",
   "current_mirror.kicad_pro": "dbb641ff21ba79f10911ac9a61c18213d1195a10659e9e46c1007a402534ce96"
 }

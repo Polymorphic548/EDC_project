@@ -1,6 +1,6 @@
 {
-  "status": "ROUTED - FIXED R7 120 OHM, NO TRIMMER",
-  "revision": "P3",
+  "status": "ROUTED - HEADER UNIT",
+  "revision": "P4",
   "layer": "B.Cu only",
   "track_width_mm": 0.6,
   "design_clearance_mm": 0.4,
@@ -8,6 +8,6 @@
   "wire_jumpers": 0,
   "pad_pair_routes": 26,
   "grid_mm": 0.25,
-  "routing_attempt": 0,
-  "note": "P3 value/label sync only; all original track/pad geometry preserved, no rerouting."
+  "routing_attempt": 3,
+  "note": "Rerouted for J2/J3/J4 measurement headers; validate with KiCad DRC."
 }

@@ -1,79 +1,71 @@
-# Single-layer current mirror - P3 source values synced
+# P4: header-equipped unit and two-copy 150 x 100 mm panel
 
-The current design uses **R7, a single nominal 120 ohm fixed resistor**, in place of RV1. The user's supplied resistor measured **117.6 ohm**. There is no trimmer in the active schematic, PCB or BOM, so no wiper identification is required.
+**Open `dual_current_mirror.kicad_pro` / `dual_current_mirror.kicad_pcb` for the complete two-copy panel.** `current_mirror.kicad_pro` remains the reusable single 78 x 67 mm unit. KiCad 10.0.7 or later is required. In PCB Editor, press **Alt+3** for 3D. The shared project-local library is `Project.pretty` via `fp-lib-table`.
 
-## Open and review
+## Hardware change
 
-Open `current_mirror.kicad_pro`, then `current_mirror.kicad_pcb` in KiCad 10.0.7 or later. **Alt+3** opens the 3D Viewer. The new R7 has a standard axial resistor model. Review drawings are in `previews/`; they are not production copper masks.
+The earlier six TP pads are removed. Every copy now has one power header and three measurement headers, all **1x2 male, 2.54 mm pitch**, with 2 mm copper pads and 1 mm drills. Solder the pins on the copper side; attach female jumper leads above. Pads/holes are still needed to solder the pins. Do not fit shorting caps.
 
-## Circuit change
+| Function | Copy A | Copy B | Pin 1 / red / square pad | Pin 2 / black |
+|---|---|---|---|---|
+| 9.8 V power | J1 | J101 | VIN | GND |
+| Rload voltage | J2 | J102 | VCC | OUT |
+| Q1-role base-emitter | J3 | J103 | BASE | E1 |
+| Q2-role base-emitter | J4 | J104 | BASE | E2 |
 
-R7 connects **TRIM_TOP -> 120 ohm -> BASE**, replacing the two-terminal resistance formerly supplied by LTspice RV1. TRIM_TOP is retained as a legacy net name for the R3/R7 junction. R7 has two pads, no polarity and no wiper/end jumper.
+Copy B transistor names are Q101/Q102. Base nodes are common only within a copy; E1 and E2 remain separate and are not ground. Use DC voltage mode and COM/V-ohm sockets. Voltage across J2/J102 divided by nominal 1000 ohm gives load current. No meter is needed for normal operation. J1/J101 are the supply inputs; J2/J102 VCC is the internal supply after R1/D4.
 
-The user updated the LTspice files on 30 October: supply 9.8 V, Rs 662 ohm, C1 1.33 nF and RV parameter 117.6 ohm. The PCB now follows these values, while retaining the approved fixed nominal 120 ohm part R7 with its measured 117.6 ohm value shown. Reference designators and all connections are unchanged. The supplied log reports 4.624594 mA at 25 C and 4.667352 mA at 75 C; no new simulation or physical measurement was run. All tracks, pads, placements, footprints and outline were preserved; no rerouting was performed.
+## Panel construction
 
-| KiCad | Source reference | Value |
-|---|---|---|
-| J1 | Replaces V1 | 9.8 V external input |
-| R1 | F1 | 1 ohm, 1/4 W resistor, not fuse |
-| R2 | Rs | 662 ohm, 1/4 W |
-| R3 | R1a | 1 kohm, 1/4 W |
-| R4, R5 | Re1, Re2 | 22 ohm, 1/4 W |
-| R6 | Rload | 1 kohm, 1/4 W |
-| R7 | Replaces RV1 | 120 ohm, 1/4 W; user measured 117.6 ohm |
-| D1, D2 | D1, D2 | 1N4148 |
-| D3 | Dz | BZX55C5V1, 5.1 V Zener |
-| D4 | D4 | 1N4007 |
-| Q1, Q2 | Q1, Q2 | 2N3904 |
-| C1 | C1 | 1.33 nF, at least 25 V |
+Each unit is rotated 90 degrees to 67 x 78 mm. Copy A bounds are (5.5,11)..(72.5,89) mm; copy B bounds are (77.5,11)..(144.5,89) mm. The blank is 150 x 100 mm, with a 5 mm unit gap, 5.5 mm side margins and 11 mm top/bottom margins.
 
-All other circuit connections and component values are preserved. Q1 collector is tied to its base; Q2 collector is OUT. Q1/Q2 emitters connect through their separate 22 ohm resistors to GND. Input is J1 pin 1 -> R1 -> D4 anode -> D4 cathode -> VCC; J1 pin 2 is GND. There is no added fuse or general overcurrent protection.
+The panel has **36 components, including 8 headers / 16 header pins**, and **24 nets in two disjoint groups**. A_ and B_ nets do not share power, ground, copper or component terminals. Shared external supplies/instruments may connect them externally. The centre guide at x=75 mm is drawing-layer documentation only; no slot or cut is manufactured automatically. Both copies can stay on the same blank.
 
-## Test points
+Tracks are 0.6 mm on B.Cu, minimum configured clearance 0.4 mm, no vias/jumpers/pours. Only the outer 150 x 100 mm boundary is Edge.Cuts. Through-hole pads appear on both layers in the data model; no front tracks are fabricated.
 
-| Point | Node |
-|---|---|
-| TP1 | GND |
-| TP2 | VIN, before R1/D4 |
-| TP3 | VCC / LOAD+, after R1/D4 |
-| TP4 | VA, reference node |
-| TP5 | BASE, shared transistor bases and Q1 collector |
-| TP6 | OUT / LOAD-, Q2 collector |
+## Electrical values and footprints
 
-Normal operation needs no multimeter. To infer output current, use DC volts: red TP3, black TP6. `Iout = (V(TP3)-V(TP6))/R6`. With nominal 1 kohm R6, 5 V corresponds to 5 mA. Do not use current mode across TP3/TP6. R7 is fixed, so there is no adjustment screw.
+Per copy: input 9.8 V; Rs/R2=662 ohm; R3 and load R6=1 kohm; R1=1 ohm; emitter R4/R5=22 ohm; fixed R7=120 ohm nominal; C1=1.33 nF; 2N3904 pair; 1N4007 input diode; BZX55C5V1 Zener; two 1N4148 diodes. Resistors use quarter-watt axial footprints at 7.62 mm pitch; C1 uses 5 mm pitch. Transistors use the wide TO-92 footprint with 1=E, 2=B, 3=C. Verify physical parts before assembly.
 
-## Board and files
+Copy B references add 100: R1->R101, Q1->Q101, J1->J101, etc. The fixed resistor's reported 117.6 ohm measurement refers to the original part only; the duplicate CAD label carries source context, not a measured claim for a second part. Measure both physical copies separately. There is no trimmer, wiper, current-adjustment screw or added fuse.
 
-- Board remains **78 x 67 mm**, through-hole, bottom copper only.
-- Tracks 0.6 mm; configured minimum clearance 0.4 mm; no vias, jumpers or pours.
-- R7 uses `Project:R7_ETCH`, based on the same 7.62 mm axial quarter-watt footprint as the other resistors; pads 2.2 mm, drills 0.8 mm.
-- `components.json` records the nominal value, reported measured value, nets, footprints and positions; `BOM.csv` lists assembly parts.
-- `Project.pretty` includes current local footprints. Unused P0/P1 trimmer footprints and `previews/trimmer_fit_check.pdf` are historical and must not be used for P3 fabrication.
-- `reports/P3_source_sync_2026-10-30/README.md` records the latest change; earlier P2/P1/P0 records are historical. Current machine reports are `reports/erc.json`, `reports/drc.json`, `reports/board_audit.json`, `reports/source_connectivity.json` and `reports/routing.json`.
-- `reports/design_sha256.json` identifies the current source and CAD files. Historical P0/P1 reports remain dated baseline evidence.
+The original LTspice topology is retained, with fixed R7 replacing its RV parameter. Source files are unchanged. Supplied results are 4.624594 mA at 25 C and 4.667352 mA at 75 C. CAD checks do not establish real current/temperature performance; no new simulation or physical measurement was performed.
 
-The CAD checks verify connectivity and layout under their configured rules, not actual part fit, temperature behavior or a guaranteed 5 mA physical result. Reported old LTspice output/temperature values apply to the original simulation only.
+## Files and validation
 
-## Physical and fabrication checks
+- `dual_current_mirror.kicad_*`: panel project, flat schematic with independent A_/B_ labels, and routed PCB.
+- `panel_BOM.csv`, `panel_components.json`: both copies and their header pin maps.
+- `current_mirror.kicad_*`, `BOM.csv`, `components.json`: reusable header unit.
+- `previews/dual_panel_assembly.*`, `dual_panel_copper_review.*`, `dual_panel_schematic.*`: panel review drawings.
+- `reports/panel_erc.json`, `panel_drc.json`, `panel_audit.json`, `panel_sha256.json`: panel checks, isolation audit and hashes.
+- `reports/erc.json`, `drc.json`, `board_audit.json`, `source_connectivity.json`: unit checks.
+- `reports/P4_dual_panel_2026-10-30/README.md`: current handoff; earlier reports and trimmer templates are historical.
 
-Verify the actual 2N3904 manufacturer's pinout against **1=E, 2=B, 3=C** and form the leads for the selected wide footprint. Verify C1's assumed 5 mm lead spacing and each resistor's physical fit. J1 uses 2.54 mm spacing for a header or soldered wires, not a 5.08 mm screw-terminal block. Test points have 1 mm drills. Supply and optional test-point hardware are additional to the component inventory.
+Both projects pass native ERC/DRC with zero reported violations, unconnected items or schematic parity issues. The independent audit verifies header roles, all panel pads against the exported netlist, rotations, fit, isolated grounds, unique UUIDs and bottom-only tracks. Standard ignored check categories are listed in native reports; no new exclusions were added.
 
-Confirm the college's etching process, mask polarity and mirror convention. After checks, export B.Cu only at 1:1 with drill-centre marks as requested; keep outline and assembly graphics separate from the copper mask. Disable printer scaling and verify dimensions. Current review PDFs contain outline/notices and are not production masks. No production mask has been released.
+## Copper printing
 
-## Reproduce P3
+`fabrication/dual_panel_BCu_unmirrored_1to1.pdf` and `dual_panel_BCu_mirrored_1to1.pdf` contain **B.Cu only**, without outline, assembly graphics or centre guides. Both variants are normalized to the same 150 x 100 mm rectangle at the top left of an A4 landscape page, without scaling. Labels and a 50 mm calibration line are outside the blank area. Black denotes copper to keep.
 
-Run from the repository root in PowerShell. **Back up manual edits first: regeneration overwrites schematic/board.** An existing `.kicad_pro` is preserved by the generator; KiCad CLI may normalize its UI metadata. A local pre-P3 snapshot is retained in the ignored `current_mirror-backups/before_P3_source_sync_2026-10-30/` folder. `scripts/sync_source_values.py` applies the reviewed P3 value/label changes without rerouting; full generation below rebuilds the design.
+Confirm mirror orientation and exposure polarity with college staff. Print the selected version at Actual Size / 100%, verify the 50 mm line, and transfer only the board area. A negative-polarity resist process may require the lab's inversion. Do not use review images/PDFs as masks. Chemical etching alone will not produce silkscreen labels; follow the assembly guide and label the connections manually as needed.
+
+## Reproduce
+
+Back up manual CAD edits before running generators. Existing unit project settings are preserved. A pre-P4 snapshot is stored locally in the ignored `current_mirror-backups/before_P4_panel_2026-10-30/` folder. Full generation recreates the header unit, then panelizes it. KiCad's bundled Python supplies pcbnew and NumPy; optional PNG generation uses the existing regular Python/PyMuPDF installation.
 
 ```powershell
 & 'C:\Program Files\KiCad\10.0\bin\python.exe' -B 'PCB layout\scripts\build_design.py'
 & 'C:\Program Files\KiCad\10.0\bin\python.exe' -B 'PCB layout\scripts\route_board.py'
-& 'C:\Program Files\KiCad\10.0\bin\kicad-cli.exe' sch export netlist -o 'PCB layout\reports\current_mirror.net' 'PCB layout\current_mirror.kicad_sch'
-& 'C:\Program Files\KiCad\10.0\bin\kicad-cli.exe' sch erc --format json -o 'PCB layout\reports\erc.json' 'PCB layout\current_mirror.kicad_sch'
-& 'C:\Program Files\KiCad\10.0\bin\kicad-cli.exe' pcb drc --format json --schematic-parity -o 'PCB layout\reports\drc.json' 'PCB layout\current_mirror.kicad_pcb'
-& 'C:\Program Files\KiCad\10.0\bin\python.exe' -B 'PCB layout\scripts\check_design.py'
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File '.\PCB layout\scripts\export_previews.ps1'
+& 'C:\Program Files\KiCad\10.0\bin\python.exe' -B 'PCB layout\scripts\build_dual_panel.py'
 ```
 
-Source extraction needs the installed LTspice symbols in `%LOCALAPPDATA%\LTspice\lib\sym`. Routing uses NumPy in KiCad's Python. Optional PNG rendering uses the existing regular Python/PyMuPDF installation. The process-only execution policy setting does not change the persistent Windows policy. Registry/font-cache permission messages can occur under restricted execution; inspect the actual generated ERC/DRC results.
+Run `kicad-cli sch export netlist`, `sch erc --format json`, and `pcb drc --format json --schematic-parity` for **both** projects, writing the reports named above. Then:
 
-The P1 trimmer-update helper is retired and refuses to restore the retired trimmer. KiCad/SWIG track-removal faults are avoided by stripping serialized tracks before loading/routing. Saved files do not require Python to remain running.
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File '.\PCB layout\scripts\export_previews.ps1'
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File '.\PCB layout\scripts\export_panel_previews.ps1'
+& 'C:\Program Files\KiCad\10.0\bin\python.exe' -B 'PCB layout\scripts\check_design.py'
+& 'C:\Program Files\KiCad\10.0\bin\python.exe' -B 'PCB layout\scripts\check_dual_panel.py'
+```
+
+The source checker also reads installed LTspice symbol files. Process-only execution-policy settings do not change Windows' persistent policy. Registry/font-cache warnings can occur under restricted execution; inspect the actual JSON reports. Saved boards need no background Python process. Historical trimmer/value-only helpers are retired so they cannot silently restore obsolete revisions.

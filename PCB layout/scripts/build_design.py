@@ -16,7 +16,7 @@ def pos(x,y): return pcb.VECTOR2I(mm(x),mm(y))
 RFP = 'Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal'
 DFP = 'Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal'
 QFP = 'Package_TO_SOT_THT:TO-92_Inline_Wide'
-TPFP = 'TestPoint:TestPoint_THTPad_D2.0mm_Drill1.0mm'
+HFP = 'Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical'
 # ref, value, symbol, footprint, pin-to-net map, board x/y/angle, schematic x/y
 PARTS = [
  ('J1','9.8V INPUT','Connector_Generic:Conn_01x02','Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical',{'1':'VIN','2':'GND'},(8,10,0),(25.4,40.64)),
@@ -34,12 +34,9 @@ PARTS = [
  ('R4','22R (LT Re1)','Device:R',RFP,{'1':'E1','2':'GND'},(45,58,270),(177.8,76.2)),
  ('R5','22R (LT Re2)','Device:R',RFP,{'1':'E2','2':'GND'},(59,58,270),(215.9,76.2)),
  ('R6','1k (LT Rload)','Device:R',RFP,{'1':'VCC','2':'OUT'},(64,25,270),(241.3,40.64)),
- ('TP1','GND','Connector:TestPoint',TPFP,{'1':'GND'},(75,60,0),(25.4,114.3)),
- ('TP2','VIN','Connector:TestPoint',TPFP,{'1':'VIN'},(8,20,0),(50.8,114.3)),
- ('TP3','VCC / LOAD+','Connector:TestPoint',TPFP,{'1':'VCC'},(53,10,0),(76.2,114.3)),
- ('TP4','VA','Connector:TestPoint',TPFP,{'1':'VA'},(20,32,0),(101.6,114.3)),
- ('TP5','BASE','Connector:TestPoint',TPFP,{'1':'BASE'},(73,49,0),(139.7,114.3)),
- ('TP6','OUT / LOAD-','Connector:TestPoint',TPFP,{'1':'OUT'},(73,38,0),(177.8,114.3)),
+ ('J2','RLOAD VOLTAGE','Connector_Generic:Conn_01x02',HFP,{'1':'VCC','2':'OUT'},(73,28,0),(25.4,114.3)),
+ ('J3','Q1 BASE-EMITTER','Connector_Generic:Conn_01x02',HFP,{'1':'BASE','2':'E1'},(40,45,0),(101.6,114.3)),
+ ('J4','Q2 BASE-EMITTER','Connector_Generic:Conn_01x02',HFP,{'1':'BASE','2':'E2'},(73,48,0),(177.8,114.3)),
 ]
 # Publish the etching-oriented pad changes as project-local footprints, rather
 # than silently changing copies of the stock library footprints.
@@ -75,7 +72,7 @@ def write_schematic():
     libs={p[2]:library_symbol(p[2]) for p in PARTS}
     rootid=uid('schematic')
     out=[f'(kicad_sch (version 20250114) (generator "pcb_layout_script") (uuid {rootid}) (paper "A4")',
-         '(title_block (title "Diode-compensated current mirror") (rev "P3 - SOURCE VALUES SYNC") (comment 1 "9.8V input; Rs=662R; C1=1.33nF; fixed R7=120R nominal, 117.6R measured"))',
+         '(title_block (title "Diode-compensated current mirror - header unit") (rev "P4 - MEASUREMENT HEADERS") (comment 1 "J1 power; J2 load voltage; J3 Q1 Vbe; J4 Q2 Vbe. Pin 1 positive, pin 2 negative."))',
          '(lib_symbols '+' '.join(dump(s) for s in libs.values())+')']
     for ref,value,lib,fp,nets,board,(x,y) in PARTS:
         sid=uid(ref)
@@ -96,8 +93,8 @@ def write_schematic():
             out.append(f'(label {q(nets[n])} (at {ex} {ey} 0) (effects (font (size 1.0 1.0)) (justify left bottom)) (uuid {uid(ref+"label"+n)}))')
     notes=[(20,20,'SUPPLY: J1 -> R1 -> D4 -> VCC. R1 is a resistor, not a fuse.'),
            (20,145,'R7=120 ohm nominal fixed resistor; measured 117.6 ohm matches updated LT RV1 parameter.'),
-           (20,153,'P3: 9.8V input, Rs=662 ohm, C1=1.33nF. No trimmer; same routing and footprints.'),
-           (20,161,'Measure V(TP3)-V(TP6) across R6: approximately 5 V means approximately 5 mA (nominal 1k load).'),
+           (20,153,'P4: 9.8V input, Rs=662 ohm, C1=1.33nF. J2/J3/J4 are measurement headers, not jumpers.'),
+           (20,161,'DC volts: red pin 1 / black pin 2. J2 across R6; J3 Q1 base-emitter; J4 Q2 base-emitter.'),
            (20,169,'LT names: R1=F1, R2=Rs, R3=R1a, R4=Re1, R5=Re2, R6=Rload, D3=Dz.'),
            (20,177,'All resistors 1/4 W. Labels with matching names are electrically connected.')]
     for x,y,t in notes: out.append(f'(text {q(t)} (at {x} {y} 0) (effects (font (size 1.27 1.27)) (justify left)) (uuid {uid(t)}))')
@@ -126,17 +123,20 @@ def build_board():
             p.SetNet(netobjs[nets[p.GetNumber()]])
             if ref.startswith('R') and ref!='RV1' or ref in ('D1','D2','D3','D4','C1','J1'):
                 p.SetSize(pos(2.2,2.2))
-                if ref=='J1': p.SetSize(pos(2.0,2.0))
+                if ref.startswith('J'): p.SetSize(pos(2.0,2.0)); p.SetDrillSize(pos(1,1))
                 # Preserve square pin 1 for polarity/numbering.
             if ref.startswith('TP'): p.SetSize(pos(2.8,2.8)); p.SetDrillSize(pos(1,1))
+            if ref.startswith('J'): p.SetSize(pos(2.0,2.0)); p.SetDrillSize(pos(1,1))
             if ref.startswith('Q'): p.SetSize(pos(2.0,2.0))
     for a,c in [((3,3),(81,3)),((81,3),(81,70)),((81,70),(3,70)),((3,70),(3,3))]:
         s=pcb.PCB_SHAPE(); s.SetShape(pcb.SHAPE_T_SEGMENT); s.SetStart(pos(*a)); s.SetEnd(pos(*c)); s.SetLayer(pcb.Edge_Cuts); s.SetWidth(mm(.05)); b.Add(s)
     text(b,'CURRENT MIRROR',43,5.7,1.2)
-    text(b,'P3 - SOURCE VALUES SYNC',42,68,1.1)
+    text(b,'P4 - MEASUREMENT HEADERS',42,68,1.0)
     text(b,'+9.8V',8,7.5,.85); text(b,'GND',8,16,.85)
-    text(b,'GND',75,63,.85); text(b,'OUT',75,41,.85)
-    text(b,'VCC',53,13,.85); text(b,'VA',20,35,.85); text(b,'BASE',73,52,.85)
+    text(b,'RLOAD',73,22.7,.8)
+    text(b,'+',76,28,.8); text(b,'-',76,30.54,.8)
+    text(b,'Q1 VBE',39,40.5,.8); text(b,'B',37,45,.8); text(b,'E',37,47.54,.8)
+    text(b,'Q2 VBE',73,42.7,.8); text(b,'B',76,48,.8); text(b,'E',76,50.54,.8)
     text(b,'BOTTOM COPPER ONLY',22,67,1,pcb.B_SilkS)
     for graphic in b.GetDrawings():
         if isinstance(graphic,pcb.PCB_TEXT) and graphic.GetLayer()==pcb.B_SilkS: graphic.SetMirrored(True)
@@ -208,7 +208,7 @@ def verify_source():
     assert len({next(iter(s)) for s in expected.values()})==len(expected),'Unexpected source net split'
     assert next(iter(expected[find(terminal[('V1','1')])]))=='VIN'
     assert next(iter(expected[find(terminal[('V1','2')])]))=='GND'
-    report={'result':'PASS - TOPOLOGY WITH NOMINAL/MEASURED VALUE DISTINCTION','revision':'P3','source':src.name,'source_electrical_nets':len(groups),'nets':{next(iter(expected[r])):sorted(pins) for r,pins in groups.items()},'notes':['J1 replaces updated ideal 9.8V source V1.','Rs=662 ohm and C1=1.33nF follow the updated LTspice source.','Fixed R7 remains 120 ohm nominal; its 117.6 ohm measured value matches updated LT RV1=117.6 ohm.','User-supplied simulation files preserved; no new simulation or physical measurement run.','Test points add no circuit components.']}
+    report={'result':'PASS - TOPOLOGY WITH NOMINAL/MEASURED VALUE DISTINCTION','revision':'P4','source':src.name,'source_electrical_nets':len(groups),'nets':{next(iter(expected[r])):sorted(pins) for r,pins in groups.items()},'notes':['J1 replaces updated ideal 9.8V source V1.','Rs=662 ohm and C1=1.33nF follow the updated LTspice source.','Fixed R7 remains 120 ohm nominal; its 117.6 ohm measured value matches updated LT RV1=117.6 ohm.','J2 across Rload, J3 across Q1 B-E, J4 across Q2 B-E; no shorting jumpers.','User-supplied simulation files preserved; no new simulation or physical measurement run.']}
     (ROOT/'reports/source_connectivity.json').write_text(json.dumps(report,indent=2))
     print('Independent LTspice connectivity check: PASS',flush=True)
 
@@ -216,7 +216,7 @@ def write_project():
     pro={'meta':{'filename':NAME+'.kicad_pro','version':3},'board':{'design_settings':{'rules':{'min_clearance':.4,'min_track_width':.6,'min_through_hole_diameter':.7,'min_hole_clearance':.25,'min_copper_edge_clearance':.5}}},'net_settings':{'classes':[{'name':'Default','clearance':.4,'track_width':.6,'via_diameter':1.6,'via_drill':.8,'microvia_diameter':.3,'microvia_drill':.1,'diff_pair_width':.6,'diff_pair_gap':.4,'diff_pair_via_gap':.4,'wire_width':6,'bus_width':12,'line_style':0,'schematic_color':'rgba(0, 0, 0, 0.000)','pcb_color':'rgba(0, 0, 0, 0.000)'}],'meta':{'version':4}}}
     if not (ROOT/f'{NAME}.kicad_pro').exists():
         (ROOT/f'{NAME}.kicad_pro').write_text(json.dumps(pro,indent=2))
-    (ROOT/'fp-lib-table').write_text('(fp_lib_table (version 7) (lib (name "Project") (type "KiCad") (uri "${KIPRJMOD}/Project.pretty") (options "") (descr "Local etching footprints; P3 source values synced, fixed R7 retained")))\n')
+    (ROOT/'fp-lib-table').write_text('(fp_lib_table (version 7) (lib (name "Project") (type "KiCad") (uri "${KIPRJMOD}/Project.pretty") (options "") (descr "P4 header-unit footprints shared by both isolated panel copies")))\n')
     manifest=[{'reference':r,'value':v,'symbol':lib,'footprint':fp,'stock_footprint_basis':STOCK_FOOTPRINTS[r],'connections':nets,'position_mm':list(bp),'status':'package assumption - confirm physical part',**({'measured_resistance_ohm':117.6,'replaces':'LT RV1; fixed nominal 120 ohm approved by user'} if r=='R7' else {})} for r,v,lib,fp,nets,bp,sp in PARTS]
     (ROOT/'components.json').write_text(json.dumps(manifest,indent=2))
 

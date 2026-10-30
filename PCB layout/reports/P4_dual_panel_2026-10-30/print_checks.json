@@ -1,0 +1,22 @@
+{
+  "result": "PASS",
+  "copper_pdf_bounds_points": {
+    "unmirrored": [
+      32.31496047973633,
+      45.070556640625,
+      400.3084716796875,
+      240.94515991210938
+    ],
+    "mirrored": [
+      24.888336181640625,
+      45.070556640625,
+      392.8832092285156,
+      240.94515991210938
+    ]
+  },
+  "mirroring_about_150mm_panel_width": true,
+  "calibration_line_mm": 50,
+  "annotations_outside_150x100mm_blank": true,
+  "current_readme_links_valid": true,
+  "panel_hashes_match": true
+}

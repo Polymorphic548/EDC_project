@@ -1,8 +1,0 @@
-P3 - UPDATED VALUES; FIXED R7; NO TRIMMER
-
-Input=9.8V, Rs=662 ohm, C1=1.33nF.
-The user-approved single nominal 120 ohm resistor (measured 117.6 ohm)
-replaces RV1. Wiper identification is no longer relevant.
-Check physical component fit, actual transistor pinout, mask polarity,
-mirror convention and 1:1 printing before fabrication.
-No production copper mask is released; previews are review drawings.

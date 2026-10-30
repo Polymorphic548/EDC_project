@@ -51,7 +51,11 @@ def audit():
         assert f.GetValue()==next(part[1] for part in d.PARTS if part[0]==f.GetReference()),f.GetReference()
     assert {pad.GetNumber():pad.GetNetname() for pad in resistor.Pads()}=={'1':'/TRIM_TOP','2':'/BASE'}
     assert len(list(resistor.Pads()))==2
-    report={'result':'PASS','revision':'P3','schematic_to_board_pad_nets':'exact match of native KiCad exported netlist','nets':actual,'tracks':len(list(b.GetTracks())),'routed_layers':['B.Cu'],'vias':0,'footprints':len(list(b.GetFootprints())),'values':'9.8V input; Rs=662 ohm; C1=1.33nF; R7 fixed 120 ohm nominal / 117.6 ohm measured','note':'CAD consistency only; no new simulation or physical performance measurement.'}
+    assert not any(f.GetReference().startswith('TP') for f in b.GetFootprints())
+    for ref,nets in {'J1':{'1':'/VIN','2':'/GND'},'J2':{'1':'/VCC','2':'/OUT'},'J3':{'1':'/BASE','2':'/E1'},'J4':{'1':'/BASE','2':'/E2'}}.items():
+        f=next(f for f in b.GetFootprints() if f.GetReference()==ref)
+        assert {pad.GetNumber():pad.GetNetname() for pad in f.Pads()}==nets
+    report={'result':'PASS','revision':'P4','schematic_to_board_pad_nets':'exact match of native KiCad exported netlist','nets':actual,'tracks':len(list(b.GetTracks())),'routed_layers':['B.Cu'],'vias':0,'footprints':len(list(b.GetFootprints())),'headers':'J1 power; J2 Rload; J3 Q1 B-E; J4 Q2 B-E','note':'Single unit CAD audit. Separate panel isolation audit required; no physical performance measurement.'}
     (ROOT/'reports/board_audit.json').write_text(json.dumps(report,indent=2))
     parts=json.loads((ROOT/'components.json').read_text())
     for item in parts:

@@ -259,97 +259,52 @@
     "status": "package assumption - confirm physical part"
   },
   {
-    "reference": "TP1",
-    "value": "GND",
-    "symbol": "Connector:TestPoint",
-    "footprint": "Project:TP1_ETCH",
-    "stock_footprint_basis": "TestPoint:TestPoint_THTPad_D2.0mm_Drill1.0mm",
+    "reference": "J2",
+    "value": "RLOAD VOLTAGE",
+    "symbol": "Connector_Generic:Conn_01x02",
+    "footprint": "Project:J2_ETCH",
+    "stock_footprint_basis": "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical",
     "connections": {
-      "1": "GND"
-    },
-    "position_mm": [
-      75,
-      60,
-      0
-    ],
-    "status": "package assumption - confirm physical part"
-  },
-  {
-    "reference": "TP2",
-    "value": "VIN",
-    "symbol": "Connector:TestPoint",
-    "footprint": "Project:TP2_ETCH",
-    "stock_footprint_basis": "TestPoint:TestPoint_THTPad_D2.0mm_Drill1.0mm",
-    "connections": {
-      "1": "VIN"
-    },
-    "position_mm": [
-      8,
-      20,
-      0
-    ],
-    "status": "package assumption - confirm physical part"
-  },
-  {
-    "reference": "TP3",
-    "value": "VCC / LOAD+",
-    "symbol": "Connector:TestPoint",
-    "footprint": "Project:TP3_ETCH",
-    "stock_footprint_basis": "TestPoint:TestPoint_THTPad_D2.0mm_Drill1.0mm",
-    "connections": {
-      "1": "VCC"
-    },
-    "position_mm": [
-      53,
-      10,
-      0
-    ],
-    "status": "package assumption - confirm physical part"
-  },
-  {
-    "reference": "TP4",
-    "value": "VA",
-    "symbol": "Connector:TestPoint",
-    "footprint": "Project:TP4_ETCH",
-    "stock_footprint_basis": "TestPoint:TestPoint_THTPad_D2.0mm_Drill1.0mm",
-    "connections": {
-      "1": "VA"
-    },
-    "position_mm": [
-      20,
-      32,
-      0
-    ],
-    "status": "package assumption - confirm physical part"
-  },
-  {
-    "reference": "TP5",
-    "value": "BASE",
-    "symbol": "Connector:TestPoint",
-    "footprint": "Project:TP5_ETCH",
-    "stock_footprint_basis": "TestPoint:TestPoint_THTPad_D2.0mm_Drill1.0mm",
-    "connections": {
-      "1": "BASE"
+      "1": "VCC",
+      "2": "OUT"
     },
     "position_mm": [
       73,
-      49,
+      28,
       0
     ],
     "status": "package assumption - confirm physical part"
   },
   {
-    "reference": "TP6",
-    "value": "OUT / LOAD-",
-    "symbol": "Connector:TestPoint",
-    "footprint": "Project:TP6_ETCH",
-    "stock_footprint_basis": "TestPoint:TestPoint_THTPad_D2.0mm_Drill1.0mm",
+    "reference": "J3",
+    "value": "Q1 BASE-EMITTER",
+    "symbol": "Connector_Generic:Conn_01x02",
+    "footprint": "Project:J3_ETCH",
+    "stock_footprint_basis": "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical",
     "connections": {
-      "1": "OUT"
+      "1": "BASE",
+      "2": "E1"
+    },
+    "position_mm": [
+      40,
+      45,
+      0
+    ],
+    "status": "package assumption - confirm physical part"
+  },
+  {
+    "reference": "J4",
+    "value": "Q2 BASE-EMITTER",
+    "symbol": "Connector_Generic:Conn_01x02",
+    "footprint": "Project:J4_ETCH",
+    "stock_footprint_basis": "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical",
+    "connections": {
+      "1": "BASE",
+      "2": "E2"
     },
     "position_mm": [
       73,
-      38,
+      48,
       0
     ],
     "status": "package assumption - confirm physical part"

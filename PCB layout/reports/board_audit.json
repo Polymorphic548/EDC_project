@@ -1,22 +1,10 @@
 {
   "result": "PASS",
-  "revision": "P3",
+  "revision": "P4",
   "schematic_to_board_pad_nets": "exact match of native KiCad exported netlist",
   "nets": {
-    "/VCC": [
-      "C1.1",
-      "D4.1",
-      "R2.1",
-      "R6.1",
-      "TP3.1"
-    ],
-    "/VA": [
-      "D3.1",
-      "R2.2",
-      "R3.1",
-      "TP4.1"
-    ],
     "/E2": [
+      "J4.2",
       "Q2.1",
       "R5.1"
     ],
@@ -25,53 +13,65 @@
       "D2.1",
       "J1.2",
       "R4.2",
-      "R5.2",
-      "TP1.1"
+      "R5.2"
     ],
-    "/OUT": [
-      "Q2.3",
-      "R6.2",
-      "TP6.1"
-    ],
-    "/VIN": [
-      "J1.1",
-      "R1.1",
-      "TP2.1"
+    "/BASE": [
+      "J3.1",
+      "J4.1",
+      "Q1.2",
+      "Q1.3",
+      "Q2.2",
+      "R7.2"
     ],
     "/E1": [
+      "J3.2",
       "Q1.1",
       "R4.1"
-    ],
-    "/PROT_A": [
-      "D4.2",
-      "R1.2"
     ],
     "/D12": [
       "D1.1",
       "D2.2"
     ],
-    "/ZD_A": [
-      "D1.2",
-      "D3.2"
+    "/VIN": [
+      "J1.1",
+      "R1.1"
     ],
-    "/BASE": [
-      "Q1.2",
-      "Q1.3",
-      "Q2.2",
-      "R7.2",
-      "TP5.1"
+    "/VCC": [
+      "C1.1",
+      "D4.1",
+      "J2.1",
+      "R2.1",
+      "R6.1"
+    ],
+    "/OUT": [
+      "J2.2",
+      "Q2.3",
+      "R6.2"
+    ],
+    "/VA": [
+      "D3.1",
+      "R2.2",
+      "R3.1"
     ],
     "/TRIM_TOP": [
       "R3.2",
       "R7.1"
+    ],
+    "/ZD_A": [
+      "D1.2",
+      "D3.2"
+    ],
+    "/PROT_A": [
+      "D4.2",
+      "R1.2"
     ]
   },
-  "tracks": 163,
+  "tracks": 236,
   "routed_layers": [
     "B.Cu"
   ],
   "vias": 0,
-  "footprints": 21,
-  "values": "9.8V input; Rs=662 ohm; C1=1.33nF; R7 fixed 120 ohm nominal / 117.6 ohm measured",
-  "note": "CAD consistency only; no new simulation or physical performance measurement."
+  "footprints": 18,
+  "headers": "J1 power; J2 Rload; J3 Q1 B-E; J4 Q2 B-E",
+  "note": "Single unit CAD audit. Separate panel isolation audit required; no physical performance measurement."
 }

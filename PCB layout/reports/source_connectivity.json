@@ -1,6 +1,6 @@
 {
   "result": "PASS - TOPOLOGY WITH NOMINAL/MEASURED VALUE DISTINCTION",
-  "revision": "P3",
+  "revision": "P4",
   "source": "diode_comp_mirror_enhanced_v2.asc",
   "source_electrical_nets": 12,
   "nets": {
@@ -63,7 +63,7 @@
     "J1 replaces updated ideal 9.8V source V1.",
     "Rs=662 ohm and C1=1.33nF follow the updated LTspice source.",
     "Fixed R7 remains 120 ohm nominal; its 117.6 ohm measured value matches updated LT RV1=117.6 ohm.",
-    "User-supplied simulation files preserved; no new simulation or physical measurement run.",
-    "Test points add no circuit components."
+    "J2 across Rload, J3 across Q1 B-E, J4 across Q2 B-E; no shorting jumpers.",
+    "User-supplied simulation files preserved; no new simulation or physical measurement run."
   ]
 }

@@ -1,0 +1,93 @@
+{
+  "result": "PASS",
+  "revision": "P4",
+  "panel_size_mm": [
+    150,
+    100
+  ],
+  "unit_size_mm": [
+    67,
+    78
+  ],
+  "unit_rectangles_mm": {
+    "A": [
+      5.5,
+      11,
+      72.5,
+      89
+    ],
+    "B": [
+      77.5,
+      11,
+      144.5,
+      89
+    ]
+  },
+  "gap_mm": 5,
+  "side_margins_mm": 5.5,
+  "top_bottom_margins_mm": 11,
+  "isolated_net_groups": {
+    "A": 12,
+    "B": 12
+  },
+  "shared_nets": [],
+  "shared_ground": false,
+  "actual_copper_bounds_mm": {
+    "A": [
+      10.2,
+      15.45,
+      69.22,
+      85.0
+    ],
+    "B": [
+      82.2,
+      15.45,
+      141.22,
+      85.0
+    ]
+  },
+  "minimum_horizontal_copper_gap_mm": 12.980000000000004,
+  "footprints": 36,
+  "male_2pin_headers": 8,
+  "headers": {
+    "J1": {
+      "1": "/A_VIN",
+      "2": "/A_GND"
+    },
+    "J2": {
+      "1": "/A_VCC",
+      "2": "/A_OUT"
+    },
+    "J3": {
+      "1": "/A_BASE",
+      "2": "/A_E1"
+    },
+    "J4": {
+      "1": "/A_BASE",
+      "2": "/A_E2"
+    },
+    "J101": {
+      "1": "/B_VIN",
+      "2": "/B_GND"
+    },
+    "J102": {
+      "1": "/B_VCC",
+      "2": "/B_OUT"
+    },
+    "J103": {
+      "1": "/B_BASE",
+      "2": "/B_E1"
+    },
+    "J104": {
+      "1": "/B_BASE",
+      "2": "/B_E2"
+    }
+  },
+  "layers": [
+    "B.Cu"
+  ],
+  "vias": 0,
+  "jumpers": 0,
+  "unit_and_panel_erc_drc_parity": "zero reported violations and unconnected items",
+  "note": "PCB-only isolation; a shared external supply or grounded instrument may connect copies externally. No physical performance validation."
+}

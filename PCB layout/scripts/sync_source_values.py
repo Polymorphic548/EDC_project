@@ -15,6 +15,7 @@ def routing_geometry(tree):
     return {'copper':copper,'footprints':footprints,'outline':sorted(d.dump(x) for x in d.children(tree,'gr_line'))}
 
 def main():
+    raise SystemExit('Historical P3 helper retired. Current P4 uses header units and dual-panel generation; see README reproduction steps.')
     source=ROOT.parent/'schematics/diode_comp_mirror_enhanced_v2.asc'
     source_bytes=source.read_bytes(); text=source_bytes.decode('utf-8')
     source_parts={}; current={}
