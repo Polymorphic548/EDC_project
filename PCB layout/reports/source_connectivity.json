@@ -1,6 +1,6 @@
 {
-  "result": "PASS - TOPOLOGY WITH APPROVED VALUE SUBSTITUTION",
-  "revision": "P2",
+  "result": "PASS - TOPOLOGY WITH NOMINAL/MEASURED VALUE DISTINCTION",
+  "revision": "P3",
   "source": "diode_comp_mirror_enhanced_v2.asc",
   "source_electrical_nets": 12,
   "nets": {
@@ -60,9 +60,10 @@
     ]
   },
   "notes": [
-    "J1 replaces ideal 12V source V1.",
-    "User-authorized fixed R7=120 ohm replaces LT RV1=119.8 ohm; supplied resistor measured 117.6 ohm.",
-    "Original source/simulation files are unchanged; no new simulation or exact 5mA guarantee.",
+    "J1 replaces updated ideal 9.8V source V1.",
+    "Rs=662 ohm and C1=1.33nF follow the updated LTspice source.",
+    "Fixed R7 remains 120 ohm nominal; its 117.6 ohm measured value matches updated LT RV1=117.6 ohm.",
+    "User-supplied simulation files preserved; no new simulation or physical measurement run.",
     "Test points add no circuit components."
   ]
 }

@@ -1,14 +1,14 @@
 ﻿Reference,Value,Footprint,Status
-J1,12V INPUT,Project:J1_ETCH,package assumption - confirm physical part
+J1,9.8V INPUT,Project:J1_ETCH,package assumption - confirm physical part
 R1,1R (LT F1),Project:R1_ETCH,package assumption - confirm physical part
 D4,1N4007,Project:D4_ETCH,package assumption - confirm physical part
-C1,100n / >=25V,Project:C1_ETCH,package assumption - confirm physical part
-R2,620R (LT Rs),Project:R2_ETCH,package assumption - confirm physical part
+C1,1.33n / >=25V,Project:C1_ETCH,package assumption - confirm physical part
+R2,662R (LT Rs),Project:R2_ETCH,package assumption - confirm physical part
 D3,BZX55C5V1,Project:D3_ETCH,package assumption - confirm physical part
 D1,1N4148,Project:D1_ETCH,package assumption - confirm physical part
 D2,1N4148,Project:D2_ETCH,package assumption - confirm physical part
 R3,1k (LT R1a),Project:R3_ETCH,package assumption - confirm physical part
-R7,120R,Project:R7_ETCH,package assumption - confirm physical part
+R7,120R (117.6R measured),Project:R7_ETCH,package assumption - confirm physical part
 Q1,2N3904,Project:Q1_ETCH,package assumption - confirm physical part
 Q2,2N3904,Project:Q2_ETCH,package assumption - confirm physical part
 R4,22R (LT Re1),Project:R4_ETCH,package assumption - confirm physical part

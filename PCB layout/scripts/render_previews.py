@@ -11,8 +11,8 @@ for name in ('assembly_top','copper_review'):
     file=PRE/(name+'.pdf')
     doc=fitz.open(file); page=doc[0]
     # Outside board bounds, so geometry remains exactly at its native 1:1 scale.
-    page.insert_text((10,222),'P2 REVIEW - FIXED R7 120 OHM',fontsize=10,color=(.7,0,0))
-    page.insert_text((10,236),'No trimmer. User measured R7=117.6 ohm. Board: 78 x 67 mm.',fontsize=8,color=(.3,.3,.3))
+    page.insert_text((10,222),'P3 REVIEW - UPDATED SOURCE VALUES',fontsize=10,color=(.7,0,0))
+    page.insert_text((10,236),'9.8V; R2=662R; C1=1.33nF; R7=120R (117.6R measured).',fontsize=8,color=(.3,.3,.3))
     if name=='copper_review':
         page.insert_text((10,249),'Top-coordinate review only; mask orientation is unconfirmed.',fontsize=7,color=(.3,.3,.3))
     # Save atomically; no implicit scaling or mirroring.

@@ -1,8 +1,8 @@
 # EDC project: 5 mA analog current mirror PCB
 
-This repository contains the original LTspice circuit and its KiCad translation into a **single-sided, through-hole PCB** for college chemical etching. The circuit uses a 12 V supply and an on-board 1 kohm output load.
+This repository contains the original LTspice circuit and its KiCad translation into a **single-sided, through-hole PCB** for college chemical etching. The circuit uses a 9.8 V supply and an on-board 1 kohm output load.
 
-**Current revision: P2 - fixed 120 ohm resistor.** At the user's request, the trimmer is removed and replaced with **R7, one nominal 120 ohm resistor**, between TRIM_TOP and BASE. The user's physical resistor measured **117.6 ohm**. There is no trimmer or wiper assignment in the current circuit. Physical-part fit and the college's printing requirements still need checking before fabrication, targeted for Friday, 30 October 2026.
+**Current revision: P3 - updated schematic values.** At the user's request, the trimmer is removed and replaced with **R7, one nominal 120 ohm resistor**, between TRIM_TOP and BASE. The user's physical resistor measured **117.6 ohm**. There is no trimmer or wiper assignment in the current circuit. Physical-part fit and the college's printing requirements still need checking before fabrication, targeted for Friday, 30 October 2026.
 
 ## Open and view
 
@@ -21,21 +21,22 @@ Quick reviews: [assembly preview](PCB%20layout/previews/assembly_top.png), [copp
 | [PCB README](PCB%20layout/README.md) | Component mapping, fabrication assumptions and reproduction commands |
 | [BOM](PCB%20layout/BOM.csv) / [component data](PCB%20layout/components.json) | Parts, footprints, nets and R7's reported measured value |
 | [Project.pretty](PCB%20layout/Project.pretty/) | Local etching-oriented footprints, including R7_ETCH |
-| [P2 change record](PCB%20layout/reports/P2_fixed120_2026-10-29/README.md) | Fixed-resistor substitution and validation |
+| [P3 change record](PCB%20layout/reports/P3_source_sync_2026-10-30/README.md) | Latest source-value synchronization and layout preservation |
+| [P2 change record](PCB%20layout/reports/P2_fixed120_2026-10-29/README.md) | Historical fixed-resistor substitution |
 | [reports/](PCB%20layout/reports/) | Current ERC/DRC, source connectivity, routing and hashes; historical P0/P1 reviews |
 | [scripts/](PCB%20layout/scripts/) | Regeneration, routing, checking and preview export helpers |
 | [fabrication/](PCB%20layout/fabrication/) | Release status; no production copper mask is released |
 
-The P1 trimmer fit template, measured footprint and reports are retained only as historical records. They do not apply to P2. The original LTspice files are preserved, including their 119.8 ohm RV1 setting; the current KiCad circuit intentionally differs at R7.
+The P1 trimmer fit template, measured footprint and reports are retained only as historical records. They do not apply to P3. The user updated the LTspice files on 30 October: V1=9.8 V, Rs=662 ohm, C1=1.33 nF, and RV=117.6 ohm. The PCB retains the approved single nominal 120 ohm resistor R7 and records its measured 117.6 ohm value.
 
 ## Components and power
 
 | KiCad | LTspice | Component |
 |---|---|---|
-| J1 | V1 | External 12 V connection |
+| J1 | V1 | External 9.8 V connection |
 | R1 | F1 | 1 ohm, 1/4 W resistor; not a fuse |
 | D4 | D4 | 1N4007 series input diode |
-| R2 | Rs | 620 ohm, 1/4 W |
+| R2 | Rs | 662 ohm, 1/4 W |
 | D3 | Dz | 5.1 V Zener, intended part BZX55C5V1 |
 | D1, D2 | D1, D2 | 1N4148 |
 | R3 | R1a | 1 kohm, 1/4 W |
@@ -43,7 +44,7 @@ The P1 trimmer fit template, measured footprint and reports are retained only as
 | Q1, Q2 | Q1, Q2 | 2N3904 |
 | R4, R5 | Re1, Re2 | 22 ohm, 1/4 W, between each emitter and ground |
 | R6 | Rload | 1 kohm, 1/4 W output load |
-| C1 | C1 | 100 nF, rated at least 25 V |
+| C1 | C1 | 1.33 nF, rated at least 25 V |
 
 Connect supply positive to **J1 pin 1 / VIN** and negative to **J1 pin 2 / GND**. The input path is VIN -> R1 -> D4 -> VCC. D4 provides reverse-polarity blocking; no fuse or general short-circuit protection was added. R7 is not adjustable. Its resistance tolerance and other real-part differences may change the output current from the original simulation.
 
@@ -71,9 +72,9 @@ For output-current inference, use **DC voltage mode**, red probe TP3 and black p
 - No vias, jumpers or copper pours. Through-hole pads use KiCad's normal two-layer data model; fabricate bottom copper only.
 - R7 uses a 7.62 mm-spaced axial footprint with enlarged 2.2 mm pads and 0.8 mm drills.
 
-The current P2 ERC/DRC and netlist audit reports record CAD results; see [the P2 change record](PCB%20layout/reports/P2_fixed120_2026-10-29/README.md). Source comparison preserves all 12 circuit nets while explicitly accounting for replacing LTspice RV1=119.8 ohm with fixed R7=120 ohm. [Design hashes](PCB%20layout/reports/design_sha256.json) identify the saved files. Reports list standard ignored check categories; no new exclusions were added for this revision.
+The current P3 ERC/DRC and netlist audit reports record CAD results; see [the P3 change record](PCB%20layout/reports/P3_source_sync_2026-10-30/README.md). All 12 circuit nets, tracks, pads, footprints, placements and outline are preserved. Source RV=117.6 ohm matches the supplied R7 measured resistance; 120 ohm is retained as its nominal part value. No rerouting was needed. [Design hashes](PCB%20layout/reports/design_sha256.json) identify the saved files. Reports list standard ignored check categories; no new exclusions were added for this revision.
 
-No new SPICE simulation, physical PCB measurement or temperature validation has been performed for R7. The source log's approximately 4.99945 mA at 25 C and 5.00011 mA at 75 C apply to the **original simulated 119.8 ohm setting**, not the new 120 ohm nominal / 117.6 ohm measured part. For a physical temperature experiment, keep supply and circuit settings fixed, heat uniformly with a measured temperature, wait for stable readings, and record TP3-TP6 voltage. Stay within the verified ratings of every actual component.
+The user's updated LTspice log reports approximately **4.624594 mA at 25 C** and **4.667352 mA at 75 C** for the revised source. Those are supplied simulation results, not measured PCB performance. No new simulation or physical measurement was run during this CAD update. For a physical temperature experiment, keep supply and circuit settings fixed, heat uniformly with a measured temperature, wait for stable readings, and record TP3-TP6 voltage. Stay within the verified ratings of every actual component.
 
 ## Before fabrication
 
@@ -87,6 +88,6 @@ The current copper review includes an outline and review notices. Do not use it 
 
 ## Working on the files
 
-Use KiCad for normal editing. See [the PCB README](PCB%20layout/README.md#reproduce-p2) for regeneration commands. **The generator recreates P2 and can overwrite manual CAD edits**; preserve manual work and update definitions first. It preserves an existing project preference file. Local footprints must travel with the project.
+Use KiCad for normal editing. See [the PCB README](PCB%20layout/README.md#reproduce-p3) for regeneration commands. **The generator recreates P3 and can overwrite manual CAD edits**; preserve manual work and update definitions first. It preserves an existing project preference file. Local footprints must travel with the project.
 
-The old P1 trimmer-update helper is retired and refuses to overwrite P2. An earlier KiCad Python track-removal crash is avoided by stripping serialized tracks before routing. Opening the saved board or 3D viewer does not require a Python process to remain running.
+The old P1 trimmer-update helper is retired and refuses to restore the retired trimmer. An earlier KiCad Python track-removal crash is avoided by stripping serialized tracks before routing. Opening the saved board or 3D viewer does not require a Python process to remain running.

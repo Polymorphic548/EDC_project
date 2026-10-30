@@ -1,6 +1,6 @@
 {
   "status": "ROUTED - FIXED R7 120 OHM, NO TRIMMER",
-  "revision": "P2",
+  "revision": "P3",
   "layer": "B.Cu only",
   "track_width_mm": 0.6,
   "design_clearance_mm": 0.4,
@@ -9,5 +9,5 @@
   "pad_pair_routes": 26,
   "grid_mm": 0.25,
   "routing_attempt": 0,
-  "note": "KiCad DRC must be run separately; this report is not a fabrication release."
+  "note": "P3 value/label sync only; all original track/pad geometry preserved, no rerouting."
 }

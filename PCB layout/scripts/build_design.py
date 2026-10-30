@@ -19,16 +19,16 @@ QFP = 'Package_TO_SOT_THT:TO-92_Inline_Wide'
 TPFP = 'TestPoint:TestPoint_THTPad_D2.0mm_Drill1.0mm'
 # ref, value, symbol, footprint, pin-to-net map, board x/y/angle, schematic x/y
 PARTS = [
- ('J1','12V INPUT','Connector_Generic:Conn_01x02','Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical',{'1':'VIN','2':'GND'},(8,10,0),(25.4,40.64)),
+ ('J1','9.8V INPUT','Connector_Generic:Conn_01x02','Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical',{'1':'VIN','2':'GND'},(8,10,0),(25.4,40.64)),
  ('R1','1R (LT F1)','Device:R',RFP,{'1':'VIN','2':'PROT_A'},(16,10,0),(50.8,40.64)),
  ('D4','1N4007','Device:D','Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal',{'1':'VCC','2':'PROT_A'},(38,10,180),(76.2,40.64)),
- ('C1','100n / >=25V','Device:C','Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm',{'1':'VCC','2':'GND'},(70,13,0),(101.6,40.64)),
- ('R2','620R (LT Rs)','Device:R',RFP,{'1':'VCC','2':'VA'},(29,24,270),(25.4,76.2)),
+ ('C1','1.33n / >=25V','Device:C','Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm',{'1':'VCC','2':'GND'},(70,13,0),(101.6,40.64)),
+ ('R2','662R (LT Rs)','Device:R',RFP,{'1':'VCC','2':'VA'},(29,24,270),(25.4,76.2)),
  ('D3','BZX55C5V1','Device:D_Zener',DFP,{'1':'VA','2':'ZD_A'},(29,35,270),(50.8,76.2)),
  ('D1','1N4148','Device:D',DFP,{'1':'D12','2':'ZD_A'},(29,53,90),(76.2,76.2)),
  ('D2','1N4148','Device:D',DFP,{'1':'GND','2':'D12'},(29,64,90),(101.6,76.2)),
  ('R3','1k (LT R1a)','Device:R',RFP,{'1':'VA','2':'TRIM_TOP'},(43,20,270),(139.7,40.64)),
- ('R7','120R','Device:R',RFP,{'1':'TRIM_TOP','2':'BASE'},(45,38,0),(139.7,76.2)),
+ ('R7','120R (117.6R measured)','Device:R',RFP,{'1':'TRIM_TOP','2':'BASE'},(45,38,0),(139.7,76.2)),
  ('Q1','2N3904','Transistor_BJT:Q_NPN_EBC',QFP,{'1':'E1','2':'BASE','3':'BASE'},(45,50,0),(177.8,40.64)),
  ('Q2','2N3904','Transistor_BJT:Q_NPN_EBC',QFP,{'1':'E2','2':'BASE','3':'OUT'},(59,50,0),(215.9,40.64)),
  ('R4','22R (LT Re1)','Device:R',RFP,{'1':'E1','2':'GND'},(45,58,270),(177.8,76.2)),
@@ -75,7 +75,7 @@ def write_schematic():
     libs={p[2]:library_symbol(p[2]) for p in PARTS}
     rootid=uid('schematic')
     out=[f'(kicad_sch (version 20250114) (generator "pcb_layout_script") (uuid {rootid}) (paper "A4")',
-         '(title_block (title "5 mA diode-compensated current mirror") (rev "P2 - FIXED 120R") (comment 1 "LTspice topology; RV1 replaced by fixed R7=120R at user request"))',
+         '(title_block (title "Diode-compensated current mirror") (rev "P3 - SOURCE VALUES SYNC") (comment 1 "9.8V input; Rs=662R; C1=1.33nF; fixed R7=120R nominal, 117.6R measured"))',
          '(lib_symbols '+' '.join(dump(s) for s in libs.values())+')']
     for ref,value,lib,fp,nets,board,(x,y) in PARTS:
         sid=uid(ref)
@@ -95,8 +95,8 @@ def write_schematic():
             out.append(f'(wire (pts (xy {px} {py}) (xy {ex} {ey})) (stroke (width 0) (type default)) (uuid {uid(ref+"wire"+n)}))')
             out.append(f'(label {q(nets[n])} (at {ex} {ey} 0) (effects (font (size 1.0 1.0)) (justify left bottom)) (uuid {uid(ref+"label"+n)}))')
     notes=[(20,20,'SUPPLY: J1 -> R1 -> D4 -> VCC. R1 is a resistor, not a fuse.'),
-           (20,145,'R7=120 ohm fixed resistor replaces LT RV1 (119.8 ohm simulated setting). User measured 117.6 ohm.'),
-           (20,153,'P2: no trimmer. Verify physical part pinouts, lead fit and printing process before fabrication.'),
+           (20,145,'R7=120 ohm nominal fixed resistor; measured 117.6 ohm matches updated LT RV1 parameter.'),
+           (20,153,'P3: 9.8V input, Rs=662 ohm, C1=1.33nF. No trimmer; same routing and footprints.'),
            (20,161,'Measure V(TP3)-V(TP6) across R6: approximately 5 V means approximately 5 mA (nominal 1k load).'),
            (20,169,'LT names: R1=F1, R2=Rs, R3=R1a, R4=Re1, R5=Re2, R6=Rload, D3=Dz.'),
            (20,177,'All resistors 1/4 W. Labels with matching names are electrically connected.')]
@@ -132,9 +132,9 @@ def build_board():
             if ref.startswith('Q'): p.SetSize(pos(2.0,2.0))
     for a,c in [((3,3),(81,3)),((81,3),(81,70)),((81,70),(3,70)),((3,70),(3,3))]:
         s=pcb.PCB_SHAPE(); s.SetShape(pcb.SHAPE_T_SEGMENT); s.SetStart(pos(*a)); s.SetEnd(pos(*c)); s.SetLayer(pcb.Edge_Cuts); s.SetWidth(mm(.05)); b.Add(s)
-    text(b,'5 mA CURRENT MIRROR',43,5.7,1.2)
-    text(b,'P2 - FIXED R7 120R',42,68,1.1)
-    text(b,'+12V',8,7.5,.85); text(b,'GND',8,16,.85)
+    text(b,'CURRENT MIRROR',43,5.7,1.2)
+    text(b,'P3 - SOURCE VALUES SYNC',42,68,1.1)
+    text(b,'+9.8V',8,7.5,.85); text(b,'GND',8,16,.85)
     text(b,'GND',75,63,.85); text(b,'OUT',75,41,.85)
     text(b,'VCC',53,13,.85); text(b,'VA',20,35,.85); text(b,'BASE',73,52,.85)
     text(b,'BOTTOM COPPER ONLY',22,67,1,pcb.B_SilkS)
@@ -208,7 +208,7 @@ def verify_source():
     assert len({next(iter(s)) for s in expected.values()})==len(expected),'Unexpected source net split'
     assert next(iter(expected[find(terminal[('V1','1')])]))=='VIN'
     assert next(iter(expected[find(terminal[('V1','2')])]))=='GND'
-    report={'result':'PASS - TOPOLOGY WITH APPROVED VALUE SUBSTITUTION','revision':'P2','source':src.name,'source_electrical_nets':len(groups),'nets':{next(iter(expected[r])):sorted(pins) for r,pins in groups.items()},'notes':['J1 replaces ideal 12V source V1.','User-authorized fixed R7=120 ohm replaces LT RV1=119.8 ohm; supplied resistor measured 117.6 ohm.','Original source/simulation files are unchanged; no new simulation or exact 5mA guarantee.','Test points add no circuit components.']}
+    report={'result':'PASS - TOPOLOGY WITH NOMINAL/MEASURED VALUE DISTINCTION','revision':'P3','source':src.name,'source_electrical_nets':len(groups),'nets':{next(iter(expected[r])):sorted(pins) for r,pins in groups.items()},'notes':['J1 replaces updated ideal 9.8V source V1.','Rs=662 ohm and C1=1.33nF follow the updated LTspice source.','Fixed R7 remains 120 ohm nominal; its 117.6 ohm measured value matches updated LT RV1=117.6 ohm.','User-supplied simulation files preserved; no new simulation or physical measurement run.','Test points add no circuit components.']}
     (ROOT/'reports/source_connectivity.json').write_text(json.dumps(report,indent=2))
     print('Independent LTspice connectivity check: PASS',flush=True)
 
@@ -216,7 +216,7 @@ def write_project():
     pro={'meta':{'filename':NAME+'.kicad_pro','version':3},'board':{'design_settings':{'rules':{'min_clearance':.4,'min_track_width':.6,'min_through_hole_diameter':.7,'min_hole_clearance':.25,'min_copper_edge_clearance':.5}}},'net_settings':{'classes':[{'name':'Default','clearance':.4,'track_width':.6,'via_diameter':1.6,'via_drill':.8,'microvia_diameter':.3,'microvia_drill':.1,'diff_pair_width':.6,'diff_pair_gap':.4,'diff_pair_via_gap':.4,'wire_width':6,'bus_width':12,'line_style':0,'schematic_color':'rgba(0, 0, 0, 0.000)','pcb_color':'rgba(0, 0, 0, 0.000)'}],'meta':{'version':4}}}
     if not (ROOT/f'{NAME}.kicad_pro').exists():
         (ROOT/f'{NAME}.kicad_pro').write_text(json.dumps(pro,indent=2))
-    (ROOT/'fp-lib-table').write_text('(fp_lib_table (version 7) (lib (name "Project") (type "KiCad") (uri "${KIPRJMOD}/Project.pretty") (options "") (descr "Local etching footprints; P2 fixed R7=120 ohm")))\n')
+    (ROOT/'fp-lib-table').write_text('(fp_lib_table (version 7) (lib (name "Project") (type "KiCad") (uri "${KIPRJMOD}/Project.pretty") (options "") (descr "Local etching footprints; P3 source values synced, fixed R7 retained")))\n')
     manifest=[{'reference':r,'value':v,'symbol':lib,'footprint':fp,'stock_footprint_basis':STOCK_FOOTPRINTS[r],'connections':nets,'position_mm':list(bp),'status':'package assumption - confirm physical part',**({'measured_resistance_ohm':117.6,'replaces':'LT RV1; fixed nominal 120 ohm approved by user'} if r=='R7' else {})} for r,v,lib,fp,nets,bp,sp in PARTS]
     (ROOT/'components.json').write_text(json.dumps(manifest,indent=2))
 

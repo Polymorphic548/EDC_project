@@ -104,7 +104,7 @@
 				)
 			)
 		)
-		(property "Value" "620R (LT Rs)"
+		(property "Value" "662R (LT Rs)"
 			(at 3.81 2.37 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -836,7 +836,7 @@
 				)
 			)
 		)
-		(property "Value" "12V INPUT"
+		(property "Value" "9.8V INPUT"
 			(at 0 4.92 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -2770,7 +2770,7 @@
 				)
 			)
 		)
-		(property "Value" "120R"
+		(property "Value" "120R (117.6R measured)"
 			(at 3.81 2.37 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -3839,7 +3839,7 @@
 				)
 			)
 		)
-		(property "Value" "100n / >=25V"
+		(property "Value" "1.33n / >=25V"
 			(at 2.5 2.5 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -4154,7 +4154,7 @@
 		(layer "Edge.Cuts")
 		(uuid "d95eca39-dfad-488d-8f0e-d78011b375e8")
 	)
-	(gr_text "+12V"
+	(gr_text "+9.8V"
 		(at 8 7.5 0)
 		(layer "F.SilkS")
 		(uuid "d6b1c82e-1c9a-419c-bead-caa2e3bef473")
@@ -4231,7 +4231,7 @@
 			)
 		)
 	)
-	(gr_text "P2 - FIXED R7 120R"
+	(gr_text "P3 - SOURCE VALUES SYNC"
 		(at 42 68 0)
 		(layer "F.SilkS")
 		(uuid "44a8be07-daaf-4344-a1bc-888ec842a7b5")
@@ -4242,7 +4242,7 @@
 			)
 		)
 	)
-	(gr_text "5 mA CURRENT MIRROR"
+	(gr_text "CURRENT MIRROR"
 		(at 43 5.7 0)
 		(layer "F.SilkS")
 		(uuid "47533123-6104-4ab9-b602-db6d33eaa6f4")

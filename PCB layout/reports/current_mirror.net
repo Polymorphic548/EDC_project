@@ -2,21 +2,21 @@
 	(version "E")
 	(design
 		(source "C:\\Users\\swastik\\Desktop\\EDC_project\\PCB layout\\current_mirror.kicad_sch")
-		(date "2026-10-29T13:29:24")
+		(date "2026-10-30T15:18:02")
 		(tool "Eeschema 10.0.7")
 		(sheet
 			(number "1")
 			(name "/")
 			(tstamps "/")
 			(title_block
-				(title "5 mA diode-compensated current mirror")
+				(title "Diode-compensated current mirror")
 				(company)
-				(rev "P2 - FIXED 120R")
+				(rev "P3 - SOURCE VALUES SYNC")
 				(date)
 				(source "current_mirror.kicad_sch")
 				(comment
 					(number "1")
-					(value "LTspice topology; RV1 replaced by fixed R7=120R at user request")
+					(value "9.8V input; Rs=662R; C1=1.33nF; fixed R7=120R nominal, 117.6R measured")
 				)
 				(comment
 					(number "2")
@@ -56,7 +56,7 @@
 	(components
 		(comp
 			(ref "C1")
-			(value "100n / >=25V")
+			(value "1.33n / >=25V")
 			(footprint "Project:C1_ETCH")
 			(fields
 				(field
@@ -326,7 +326,7 @@
 		)
 		(comp
 			(ref "J1")
-			(value "12V INPUT")
+			(value "9.8V INPUT")
 			(footprint "Project:J1_ETCH")
 			(fields
 				(field
@@ -540,7 +540,7 @@
 		)
 		(comp
 			(ref "R2")
-			(value "620R (LT Rs)")
+			(value "662R (LT Rs)")
 			(footprint "Project:R2_ETCH")
 			(fields
 				(field
@@ -810,7 +810,7 @@
 		)
 		(comp
 			(ref "R7")
-			(value "120R")
+			(value "120R (117.6R measured)")
 			(footprint "Project:R7_ETCH")
 			(fields
 				(field

@@ -1,7 +1,7 @@
 [
   {
     "reference": "J1",
-    "value": "12V INPUT",
+    "value": "9.8V INPUT",
     "symbol": "Connector_Generic:Conn_01x02",
     "footprint": "Project:J1_ETCH",
     "stock_footprint_basis": "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical",
@@ -52,7 +52,7 @@
   },
   {
     "reference": "C1",
-    "value": "100n / >=25V",
+    "value": "1.33n / >=25V",
     "symbol": "Device:C",
     "footprint": "Project:C1_ETCH",
     "stock_footprint_basis": "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm",
@@ -69,7 +69,7 @@
   },
   {
     "reference": "R2",
-    "value": "620R (LT Rs)",
+    "value": "662R (LT Rs)",
     "symbol": "Device:R",
     "footprint": "Project:R2_ETCH",
     "stock_footprint_basis": "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal",
@@ -154,7 +154,7 @@
   },
   {
     "reference": "R7",
-    "value": "120R",
+    "value": "120R (117.6R measured)",
     "symbol": "Device:R",
     "footprint": "Project:R7_ETCH",
     "stock_footprint_basis": "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal",

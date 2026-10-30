@@ -46,10 +46,12 @@ def audit():
     assert min(p.ToMM(t.GetWidth()) for t in b.GetTracks())>=.6
     assert not any(f.GetReference()=='RV1' for f in b.GetFootprints())
     resistor=next(f for f in b.GetFootprints() if f.GetReference()=='R7')
-    assert resistor.GetValue()=='120R'
+    assert resistor.GetValue()=='120R (117.6R measured)'
+    for f in b.GetFootprints():
+        assert f.GetValue()==next(part[1] for part in d.PARTS if part[0]==f.GetReference()),f.GetReference()
     assert {pad.GetNumber():pad.GetNetname() for pad in resistor.Pads()}=={'1':'/TRIM_TOP','2':'/BASE'}
     assert len(list(resistor.Pads()))==2
-    report={'result':'PASS','revision':'P2','schematic_to_board_pad_nets':'exact match of native KiCad exported netlist','nets':actual,'tracks':len(list(b.GetTracks())),'routed_layers':['B.Cu'],'vias':0,'footprints':len(list(b.GetFootprints())),'replacement':'R7 fixed 120 ohm; user measured 117.6 ohm; no RV1','note':'CAD consistency only; no new simulation or physical performance measurement.'}
+    report={'result':'PASS','revision':'P3','schematic_to_board_pad_nets':'exact match of native KiCad exported netlist','nets':actual,'tracks':len(list(b.GetTracks())),'routed_layers':['B.Cu'],'vias':0,'footprints':len(list(b.GetFootprints())),'values':'9.8V input; Rs=662 ohm; C1=1.33nF; R7 fixed 120 ohm nominal / 117.6 ohm measured','note':'CAD consistency only; no new simulation or physical performance measurement.'}
     (ROOT/'reports/board_audit.json').write_text(json.dumps(report,indent=2))
     parts=json.loads((ROOT/'components.json').read_text())
     for item in parts:

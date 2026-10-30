@@ -1,0 +1,20 @@
+{
+  "result": "PASS",
+  "revision": "P3",
+  "track_pad_net_placement_footprint_outline_geometry_unchanged": true,
+  "reference_designators_unchanged": true,
+  "source_wire_flags_symbols_unchanged": true,
+  "changed_value_fields": {
+    "R2": "662R (LT Rs)",
+    "J1": "9.8V INPUT",
+    "R7": "120R (117.6R measured)",
+    "C1": "1.33n / >=25V"
+  },
+  "erc_violations": 0,
+  "drc_violations": 0,
+  "unconnected_items": 0,
+  "schematic_parity_issues": 0,
+  "design_hashes_match": true,
+  "source_files_not_edited": true,
+  "new_simulation_run": false
+}
