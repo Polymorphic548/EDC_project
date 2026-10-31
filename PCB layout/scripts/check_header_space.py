@@ -47,7 +47,7 @@ def main():
     assert setup['user_reported_cutter_diameter_mm']==.8
     assert setup['user_reported_maximum_depth_per_pass_mm']==.4
     assert setup['nominal_depths_below_top_surface_to_board_bottom_mm']==[.4,.8,1.2,1.6,1.7]
-    report={'result':'PASS','revision':'P6-restored','headers':headers,'physical_board_thickness_mm':1.7,
+    report={'result':'PASS','revision':'P8-rectangles','headers':headers,'physical_board_thickness_mm':1.7,
         'centre_cut_setup':'User-reported dimensions recorded; machine program pending missing operator settings.'}
     (ROOT/'reports/header_space.json').write_text(json.dumps(report,indent=2))
     print(json.dumps(report,indent=2))

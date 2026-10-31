@@ -1,4 +1,4 @@
-# PCB milling + automated drill + optional centre cut: restored P6 panel; retained cutting setup
+# PCB milling + automated drill + optional centre cut: P8 rectangle pad trial; P6 routes and retained cutting setup
 
 This job is for a **150 x 100 mm, single-copper-sided board**, carrying **two electrically independent current mirrors**.
 
@@ -14,11 +14,11 @@ This job is for a **150 x 100 mm, single-copper-sided board**, carrying **two el
 
 `dual_current_mirror-drl_map.pdf` and `drill_report.rpt` are reference documents for checking drill tools and locations; they are not machine drill programs. `verification.json` records the export-to-PCB checks and `SHA256.json` identifies the files.
 
-## Restored P6 placement, emitter lands and routing
+## P8 rectangle pads with retained P6 placement/routing
 
 The 5 mm header movement has been undone. J2/J4 and J102/J104 are at their saved P6 positions, with the exact saved P6 routes and labels restored. Connector pitch and hole diameters are preserved. Cutting setup data is retained.
 
-Tracks are 0.6 mm wide. Minimum clearance between different nets is 0.8 mm. Header/transistor lands have 0.84 mm between adjacent pads at unchanged 2.54 mm pitch. Their pad dimensions are 1.7 mm along the pin row and 2.4 mm perpendicular to it. All transistor lands, including all four emitters, are oval; only header pin 1 remains rectangular. All copper tracks are straight horizontal/vertical/45-degree sections (100 segments total), with no track arcs or tiny staircase routes. Inspect emitter lands and the generated isolation paths in CAM. Hole diameters remain 0.8, 1.0 and 1.1 mm (56, 16 and 4 holes respectively).
+Tracks are 0.6 mm wide. Minimum clearance between different nets is 0.8 mm. Header/transistor lands have 0.84 mm between adjacent pads at unchanged 2.54 mm pitch. Their pad dimensions are 1.7 mm along the pin row and 2.4 mm perpendicular to it. All transistor and header lands are rectangular; the eight former rounded-rectangle diode lands are also plain rectangles. Other circular lands stay circular. Pin 1 is identified by numbering and assembly labels, not by a unique pad shape. All copper tracks are straight horizontal/vertical/45-degree sections (100 segments total), with no track arcs or tiny staircase routes. Inspect emitter lands and the generated isolation paths in CAM. Hole diameters remain 0.8, 1.0 and 1.1 mm (56, 16 and 4 holes respectively).
 
 For the college milling machine, generate isolation toolpaths around the copper features to retain. These Gerbers are geometry inputs, not G-code. The operator selects tools, depth, feeds, fixture and copper-side transformation, and checks tool clearance in CAM. The optional outline is a separate board-cutting operation; do not mill it as a copper-isolation feature. The separate centre-cut geometry is included; depth, passes, holding and machine code are not included. Milling leaves unused copper outside isolation channels unless the operator requests area clearing.
 
@@ -53,3 +53,9 @@ The earlier alignment issue was resolved by the user using CopperCAM layers 1 an
 ## Recorded centre-cut setup
 
 `centre_cut_setup.json` is setup data only, not machine code. The nominal depths to board bottom are 0.4, 0.8, 1.2, 1.6 and 1.7 mm below the top surface. An operator-confirmed breakthrough allowance may be required for full separation. With the supplied 0.8 mm cutter, the two untrimmed halves would each be about 74.6 x 100 mm after a centred kerf. No SRM-20 RML/G-code program has been issued.
+
+## CopperCAM import trial
+
+This package uses only standard Gerber **C and R apertures** for the copper pads: 36 rectangular, 40 circular. No O apertures, aperture macros or G36/G37 filled pad regions remain. All 12 transistor lands are explicit R flashes; their positions, dimensions, drills and the P6 routes are unchanged.
+
+Use a fresh extraction and a fresh CopperCAM circuit, loading B_Cu.gbr as the circuit copper. Check all 12 transistor lands and the header/diode lands immediately on import, before calculating contours. CopperCAM confirmation is still pending; file checks do not prove compatibility with the lab installation. The standard and clearly named rectangle-trial ZIPs contain the same manufacturing files. Retain the established layer-1/layer-5 drill alignment workflow.

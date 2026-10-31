@@ -11,7 +11,7 @@ for name in ('assembly_top','copper_review'):
     file=PRE/(name+'.pdf')
     doc=fitz.open(file); page=doc[0]
     # Outside board bounds, so geometry remains exactly at its native 1:1 scale.
-    page.insert_text((10,222),'P6 RESTORED - SINGLE COPY',fontsize=10,color=(.7,0,0))
+    page.insert_text((10,222),'P8 RECTANGLE PADS - SINGLE COPY',fontsize=10,color=(.7,0,0))
     page.insert_text((10,236),'J1 power; J2 Rload; J3 Q1 Vbe; J4 Q2 Vbe. Pin1 + / pin2 -.',fontsize=7,color=(.3,.3,.3))
     if name=='copper_review':
         page.insert_text((10,249),'Top-coordinate review only; mask orientation is unconfirmed.',fontsize=7,color=(.3,.3,.3))

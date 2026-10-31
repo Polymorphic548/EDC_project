@@ -1,24 +1,38 @@
 # EDC project: two isolated current mirrors on one PCB
 
-**Current PCB appearance: restored P6; cutting setup retained.** Two independent copies of the analog current-mirror circuit fit on a **150 x 100 mm (15 x 10 cm)** single-sided copper board. Each copy has male pin headers for power and exactly three voltage measurements: **Rload, Q1 base-emitter and Q2 base-emitter**. The earlier loose test pads are removed from the current designs.
+**Current PCB: P8 rectangle-pad trial, retaining P6 positions and routing.** Two independent copies of the analog current-mirror circuit fit on a **150 x 100 mm (15 x 10 cm)** single-sided copper board. Each copy has male pin headers for power and exactly three voltage measurements: **Rload, Q1 base-emitter and Q2 base-emitter**. The earlier loose test pads are removed from the current designs.
 
 
 
 
-## P6 appearance restored; cutting setup retained
 
-The recent header-spacing trial has been undone. The saved P6 component positions, labels and exact routing were restored directly, not rerouted: J2/J4 and J102/J104 are back at their original positions, with 50 track segments in the unit and 100 in the panel. The earlier emitter-pad improvements, straight/45-degree routes and centre-cut line remain. Current project preferences, the 1.7 mm CAD thickness, supplied cutting parameters and replacement screenshot are retained. See `PCB layout/reports/layout_restore.json` for the exact-layout comparison.
+## P8: plain rectangle pad trial for CopperCAM
+
+**Only pad outlines change; P6 component positions, labels, routes, hole centres, hole diameters and electrical connections are preserved.** The 20 oval pads (all 12 transistor pins plus 8 header pin-2 lands) and 8 rounded-rectangle diode lands are now plain rectangles with the same overall dimensions. The panel now has **36 rectangular and 40 circular pads**, with no oval pads, rounded-rectangle pads, aperture macros or filled pad regions in the copper Gerber. All 76 pads are standard aperture flashes. Existing circular pads remain circular.
+
+Transistor lands remain 1.7 x 2.4 mm with 0.8 mm holes and 2.54 mm pitch. Header lands remain 2.4 x 1.7 mm with 1 mm holes and 2.54 mm pitch. Adjacent-land spacing remains 0.84 mm. **All transistor pins and both pins of each header are rectangular now: pad shape no longer identifies pin 1.** Use the numbered pins, transistor body orientation and assembly +/B/E/GND labels. Transistor numbering remains 1=emitter, 2=base, 3=collector.
+
+This follows [Aalto Fablab's CopperCAM guidance](https://wiki.aalto.fi/spaces/AF/pages/362916083/Creating%2BTool%2BPaths%2Bwith%2BCopperCAM%2B-%2Bfor%2BBungard%2BCCD%2BMilling%2BMachine), which recommends circle/rectangle pads and reports recognition problems with oval and rounded-rectangle shapes. The previous oval-pad export was valid Gerber but was not confirmed compatible with the lab's CopperCAM. This trial is **not yet confirmed in that installation**. KiCad checks and export comparisons cannot substitute for that import test.
+
+For the lab test, extract **`PCB layout/fabrication/dual_panel_coppercam_rectangles.zip` into a fresh folder** and start a fresh CopperCAM circuit from its `dual_current_mirror-B_Cu.gbr`. This avoids confusing the new file with an old extraction or cached job. Before calculating contours, check that all 12 transistor lands are visible, along with the header and diode lands. Then import the original-format drill file and verify registration using the known layer-1/layer-5 workflow. Do not assume the issue is fixed until this actual import is checked.
+
+The standard manufacturing ZIP is also refreshed with identical contents. The 1.7 mm thickness and existing centre-cut setup are retained. Setup JSON still is not executable machine code. Generated previews show the new rectangles; the supplied screenshot preserves the P6 placement/routing view but predates the rectangle-pad trial. See `PCB layout/reports/coppercam_pads.json` and `PCB layout/reports/layout_restore.json` for the exported-pad and retained-layout checks.
+
+
+## Retained P6 placement/routing and cutting setup
+
+The recent header-spacing trial has been undone. The saved P6 component positions, labels and exact routing remain restored directly, not rerouted: J2/J4 and J102/J104 are back at their original positions, with 50 track segments in the unit and 100 in the panel. The straight/45-degree routes and centre-cut line remain; P8 changes pad outlines to rectangles as described above. Current project preferences, the 1.7 mm CAD thickness, supplied cutting parameters and replacement screenshot are retained. See `PCB layout/reports/layout_restore.json` for the exact-layout comparison.
 
 The CAD board thickness is now **1.7 mm**, matching the user's reported blank. Centre-cut setup data records **Roland monoFab SRM-20**, **0.8 mm cutting diameter** and **0.4 mm maximum depth per pass**. Nominal planning depths below the top surface are **0.4, 0.8, 1.2, 1.6 and 1.7 mm**, ending at nominal board bottom. A full cut may require a confirmed breakthrough allowance into a sacrificial board. This is not an executable machine program: feed/plunge rates, spindle speed, Z-zero, safe clearance, cutter type/flute length, holding, breakthrough and output format still require operator confirmation.
 
-The centre-cut line remains at x=75 mm. With a centred 0.8 mm kerf and no outer trimming, each separated half is nominally **74.6 x 100 mm**. Setup data is in `PCB layout/centre_cut_setup.json` and copied into the regenerated manufacturing ZIP. Read `PCB layout/reports/header_space.json` for geometry checks. The supplied P6 screenshot below now matches the restored placement and routing; generated previews have been refreshed.
+The centre-cut line remains at x=75 mm. With a centred 0.8 mm kerf and no outer trimming, each separated half is nominally **74.6 x 100 mm**. Setup data is in `PCB layout/centre_cut_setup.json` and copied into the regenerated manufacturing ZIP. Read `PCB layout/reports/header_space.json` for geometry checks. The supplied P6 screenshot below matches placement and routing; generated previews show the P8 pad outlines.
 
 
 ## P6: straight routes, emitter pads and centre separation
 
 The restored P6 layout uses horizontal, vertical and 45-degree track sections: **100 panel segments instead of 542**, with no track arcs or tiny staircase routes. Tracks remain **0.6 mm** wide with **0.8 mm minimum different-net clearance**. Standard rounded pad boundaries and tool-radius compensation may still produce arcs in CAM; these are different from jagged copper routing.
 
-The emitter lands of **Q1, Q2, Q101 and Q102** are now **oval**, matching their base/collector lands. Pin 1 remains the emitter. Land dimensions (1.7 mm along the pin row, 2.4 mm across it), 0.8 mm drills, 2.54 mm pin pitch and at least 0.45 mm annular copper are retained. All four emitter lands were present as rectangles in the previous PCB and Gerber; the reported disappearance was not reproduced in the source files. Their new oval flashes are explicitly checked in `PCB layout/reports/emitter_routes.json`. Confirm all four lands remain visible and intact in CopperCAM's generated isolation toolpaths before machining.
+P6 used oval emitter lands on **Q1, Q2, Q101 and Q102**; P8 replaces all transistor lands with rectangles. Pin 1 remains the emitter. Land dimensions (1.7 mm along the pin row, 2.4 mm across it), 0.8 mm drills, 2.54 mm pin pitch and at least 0.45 mm annular copper are retained. All four emitter lands were present as rectangles in the previous PCB and Gerber; the reported disappearance was not reproduced in the source files. Their current rectangular flashes are explicitly checked in `PCB layout/reports/emitter_routes.json`. Confirm all four lands remain visible and intact in CopperCAM's generated isolation toolpaths before machining.
 
 A separate **`dual_current_mirror-Centre_Cut.gbr`** contains one straight centreline at **x=75 mm, from y=0 to 100 mm**. It is exported from User.1, not copper or Edge.Cuts. This allows the 150 x 100 mm panel to be separated into two nominal 75 x 100 mm boards; the cutter removes a kerf, so finished widths will be slightly smaller. With a centred 1 mm kerf and no additional trimming, each width would be 74.5 mm. The cut centreline has at least 5.4 mm conservative clearance from circuit copper.
 
@@ -44,7 +58,7 @@ The complete panel remains **150 x 100 mm**, with two isolated circuits. Electri
 
 [Panel assembly preview](PCB%20layout/previews/dual_panel_assembly.png) | [Panel copper review](PCB%20layout/previews/dual_panel_copper_review.png) | [Panel schematic PDF](PCB%20layout/previews/dual_panel_schematic.pdf)
 
-Supplied KiCad screenshot showing the P6 placement and routing, now restored; generated previews linked above reflect the retained cutting setup:
+Supplied KiCad screenshot showing the retained P6 placement and routing; pad shapes predate P8. Generated previews linked above show the current rectangle pads:
 
 ![Supplied KiCad screenshot with two isolated current-mirror circuits](PCB%20layout/Screenshot%202026-10-31%20121807.png)
 
@@ -70,7 +84,7 @@ Copy A uses the original references (Q1/Q2, R1..R7, J1..J4). Copy B uses referen
 
 Use **1x2 straight male headers, 2.54 mm pitch**, soldered from the copper side, and suitable female jumper-wire connectors. There are **four headers per copy, eight total / sixteen pins**. Each header has 1 mm drill holes and elongated 2.4 x 1.7 mm copper pads. Copper pads/holes remain necessary for soldering the pins.
 
-| Purpose | Copy A | Copy B | Pin 1 (rectangular pad) | Pin 2 |
+| Purpose | Copy A | Copy B | Pin 1 (use numbering/labels) | Pin 2 |
 |---|---|---|---|---|
 | Power input | J1 | J101 | +9.8 V / VIN | GND |
 | Load voltage | J2 | J102 | VCC, top of load resistor | OUT, bottom of load / Q2-role collector |
@@ -111,6 +125,7 @@ The 117.6 ohm measurement was reported for the **original supplied 120 ohm resis
 - [PCB README](PCB%20layout/README.md): detailed handoff and reproduction commands.
 - [Panel component list](PCB%20layout/panel_BOM.csv) and [panel component data](PCB%20layout/panel_components.json): both copies and all header nets.
 - [Panel audit](PCB%20layout/reports/panel_audit.json): fit, isolation, node mapping and CAD validation.
+- [P8 pad compatibility trial](PCB%20layout/reports/P8_rectangles_2026-10-31/README.md).
 - [P6 restoration record](PCB%20layout/reports/P6_restored_2026-10-31/README.md).
 - [Reverted P7 trial record](PCB%20layout/reports/P7_header_space_2026-10-31/README.md).
 - [P6 change record](PCB%20layout/reports/P6_cam_routes_2026-10-31/README.md).

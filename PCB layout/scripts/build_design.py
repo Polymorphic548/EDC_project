@@ -133,12 +133,14 @@ def build_board():
             # between neighbouring lands and useful soldering area outside it.
             if ref.startswith('Q'):
                 p.SetSize(pos(1.7,2.4))
-                # P6: emitter uses the same oval aperture as base/collector.
-                # Pin 1 is still E; no lead positions or electrical nets change.
-                p.SetShape(pcb.PAD_SHAPE_OVAL)
+                # P8: basic rectangles for CopperCAM import compatibility.
+                # Preserve all lead centres, dimensions, drills and pin nets.
+                p.SetShape(pcb.PAD_SHAPE_RECT)
             if ref.startswith('J'):
                 p.SetSize(pos(2.4,1.7))
-                p.SetShape(pcb.PAD_SHAPE_RECT if p.GetNumber()=='1' else pcb.PAD_SHAPE_OVAL)
+                p.SetShape(pcb.PAD_SHAPE_RECT)
+            if p.GetShape()==pcb.PAD_SHAPE_ROUNDRECT:
+                p.SetShape(pcb.PAD_SHAPE_RECT)
     for a,c in [((3,3),(81,3)),((81,3),(81,70)),((81,70),(3,70)),((3,70),(3,3))]:
         s=pcb.PCB_SHAPE(); s.SetShape(pcb.SHAPE_T_SEGMENT); s.SetStart(pos(*a)); s.SetEnd(pos(*c)); s.SetLayer(pcb.Edge_Cuts); s.SetWidth(mm(.05)); b.Add(s)
     text(b,'CURRENT MIRROR',43,5.7,1.2)
@@ -219,7 +221,7 @@ def verify_source():
     assert len({next(iter(s)) for s in expected.values()})==len(expected),'Unexpected source net split'
     assert next(iter(expected[find(terminal[('V1','1')])]))=='VIN'
     assert next(iter(expected[find(terminal[('V1','2')])]))=='GND'
-    report={'result':'PASS - TOPOLOGY WITH NOMINAL/MEASURED VALUE DISTINCTION','revision':'P6-restored','source':src.name,'source_electrical_nets':len(groups),'nets':{next(iter(expected[r])):sorted(pins) for r,pins in groups.items()},'notes':['J1 replaces updated ideal 9.8V source V1.','Rs=662 ohm and C1=1.33nF follow the updated LTspice source.','Fixed R7 remains 120 ohm nominal; its 117.6 ohm measured value matches updated LT RV1=117.6 ohm.','J2 across Rload, J3 across Q1 B-E, J4 across Q2 B-E; no shorting jumpers.','User-supplied simulation files preserved; no new simulation or physical measurement run.']}
+    report={'result':'PASS - TOPOLOGY WITH NOMINAL/MEASURED VALUE DISTINCTION','revision':'P8-rectangles','source':src.name,'source_electrical_nets':len(groups),'nets':{next(iter(expected[r])):sorted(pins) for r,pins in groups.items()},'notes':['J1 replaces updated ideal 9.8V source V1.','Rs=662 ohm and C1=1.33nF follow the updated LTspice source.','Fixed R7 remains 120 ohm nominal; its 117.6 ohm measured value matches updated LT RV1=117.6 ohm.','J2 across Rload, J3 across Q1 B-E, J4 across Q2 B-E; no shorting jumpers.','User-supplied simulation files preserved; no new simulation or physical measurement run.']}
     (ROOT/'reports/source_connectivity.json').write_text(json.dumps(report,indent=2))
     print('Independent LTspice connectivity check: PASS',flush=True)
 

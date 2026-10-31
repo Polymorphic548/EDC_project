@@ -1,4 +1,4 @@
-# Restored P6: choose the correct 1:1 copper artwork
+# P8 rectangle pads with P6 routing: choose the correct 1:1 copper artwork
 
 ## College PCB milling / automated drill workflow
 
@@ -20,3 +20,5 @@ Use the assembly preview separately to identify headers/components. White labels
 Before etching/drilling, confirm actual component lead fit and transistor pinout. The two circuits have no common copper/ground, but wiring them to a shared supply or common-ground instrument may connect them externally. The optional Centre_Cut.gbr provides the full-length centre separation path. It is excluded from these copper-only PDFs; the operator must configure a separate cut-through centreline job.
 
 For optional centre separation, see `machine_files/README.md`. The new centre-cut Gerber is not a copper layer and must not be included in a copper mask. It contains no depths or machine program.
+
+P8 converts oval and rounded-rectangle pad outlines to plain rectangles for a CopperCAM import trial. Current copper PDFs and Gerbers reflect that change; component positions, P6 routes and cutting setup are retained. Actual lab import confirmation is pending.

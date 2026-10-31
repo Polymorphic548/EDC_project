@@ -1,10 +1,10 @@
 {
-  "dual_current_mirror.kicad_pcb": "1b31bd7c01b3832b4a21d860700211932740929a601f49a4f321c9710b968049",
+  "dual_current_mirror.kicad_pcb": "37aa682d3903ba8fd99851c661a6c7bbede7623c61dde18de936a6f2d9b00116",
   "dual_current_mirror.kicad_sch": "6d6cc3e41bfd8a80e7330ba5c970933ebc3b5f6114e876c9b222fdc88c264d47",
   "dual_current_mirror.kicad_pro": "1a61afbb5c39e5c14344132e391e9a79a6b9f1212cdf6afd055abf5661398a23",
-  "current_mirror.kicad_pcb": "37c4101e1b036f35ee91864d2ffc0b99d9679bc5f5d617ac194b2826835c4b9f",
+  "current_mirror.kicad_pcb": "e38a993a29f7b1afa74db3bc464077eb6745d88195c70520aad2dab555bafc34",
   "current_mirror.kicad_sch": "6be5d2cabe2a404e4fe40b6f31dc51d9c09c45877129e960247f93bc7e057016",
   "current_mirror.kicad_pro": "2f8461d1533308d0087a375d4bde0d33646ff35f7e92159ea21a8ff6707e73ec",
-  "fabrication/dual_panel_BCu_unmirrored_1to1.pdf": "de52b69b6ff7fddd95f53cd2ab81d0dfea6cff2265a12c92cebecdd8a94b6974",
-  "fabrication/dual_panel_BCu_mirrored_1to1.pdf": "f534cc87296647097e963ca64c7845cc1c53ad93f22e52e47504b4f014b81ada"
+  "fabrication/dual_panel_BCu_unmirrored_1to1.pdf": "652cd463d2eb583005663559c367ad4a828210532a7c1352d2da72e16b1454aa",
+  "fabrication/dual_panel_BCu_mirrored_1to1.pdf": "bf34ee04f3848ae33333f59b28c57da5eb9873e2cedc04eece354ec18c0907b8"
 }

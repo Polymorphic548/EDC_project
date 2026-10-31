@@ -78,7 +78,7 @@ def audit():
         for x in node:
             if isinstance(x,list):visit(x)
     visit(tree);assert len(uuids)==len(set(uuids))
-    report={'result':'PASS','revision':'P6-restored','panel_size_mm':[150,100],'unit_size_mm':[67,78],
+    report={'result':'PASS','revision':'P8-rectangles','panel_size_mm':[150,100],'unit_size_mm':[67,78],
             'unit_rectangles_mm':{'A':[5.5,11,72.5,89],'B':[77.5,11,144.5,89]},
             'gap_mm':5,'side_margins_mm':5.5,'top_bottom_margins_mm':11,
             'isolated_net_groups':{'A':12,'B':12},'shared_nets':[], 'shared_ground':False,

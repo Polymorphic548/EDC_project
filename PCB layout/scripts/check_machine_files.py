@@ -76,6 +76,8 @@ def main():
     assert not children(tree,'via') and not children(tree,'zone')
     copper=OUT/'dual_current_mirror-B_Cu.gbr'
     flashes,tracks,regions=gerber(copper)
+    assert all(flash[2] in ('C','R') for flash in flashes) and not regions,'P8 requires basic circle/rectangle apertures only'
+    assert '%AM' not in copper.read_text(),'Aperture macros are not allowed in the CopperCAM pad trial'
     assert keyed(flashes)==keyed(expected_flashes),'Copper pad flashes differ from PCB'
     assert keyed(regions)==keyed(expected_regions),'Rounded rectangle pad regions differ from PCB'
     # Gerber may reverse segment start/end; compare unordered endpoint pairs.

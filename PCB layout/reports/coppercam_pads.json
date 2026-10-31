@@ -1,0 +1,184 @@
+{
+  "result": "PASS - FILE GEOMETRY ONLY",
+  "revision": "P8-rectangles",
+  "pad_shapes": {
+    "rect": 36,
+    "circle": 40
+  },
+  "converted_oval_pads": 20,
+  "converted_rounded_rectangle_pads": 8,
+  "gerber_standard_aperture_shapes": [
+    "C",
+    "R"
+  ],
+  "gerber_pad_flashes": 76,
+  "gerber_regions": 0,
+  "gerber_aperture_macros": 0,
+  "transistor_pads": {
+    "Q2.1": {
+      "gerber_xy_mm": [
+        52.5,
+        -33.0
+      ],
+      "shape": "R",
+      "size_mm": [
+        2.4,
+        1.7
+      ],
+      "drill_mm": 0.8,
+      "net": "/A_E2"
+    },
+    "Q2.2": {
+      "gerber_xy_mm": [
+        52.5,
+        -30.46
+      ],
+      "shape": "R",
+      "size_mm": [
+        2.4,
+        1.7
+      ],
+      "drill_mm": 0.8,
+      "net": "/A_BASE"
+    },
+    "Q2.3": {
+      "gerber_xy_mm": [
+        52.5,
+        -27.92
+      ],
+      "shape": "R",
+      "size_mm": [
+        2.4,
+        1.7
+      ],
+      "drill_mm": 0.8,
+      "net": "/A_OUT"
+    },
+    "Q102.1": {
+      "gerber_xy_mm": [
+        124.5,
+        -33.0
+      ],
+      "shape": "R",
+      "size_mm": [
+        2.4,
+        1.7
+      ],
+      "drill_mm": 0.8,
+      "net": "/B_E2"
+    },
+    "Q102.2": {
+      "gerber_xy_mm": [
+        124.5,
+        -30.46
+      ],
+      "shape": "R",
+      "size_mm": [
+        2.4,
+        1.7
+      ],
+      "drill_mm": 0.8,
+      "net": "/B_BASE"
+    },
+    "Q102.3": {
+      "gerber_xy_mm": [
+        124.5,
+        -27.92
+      ],
+      "shape": "R",
+      "size_mm": [
+        2.4,
+        1.7
+      ],
+      "drill_mm": 0.8,
+      "net": "/B_OUT"
+    },
+    "Q1.1": {
+      "gerber_xy_mm": [
+        52.5,
+        -47.0
+      ],
+      "shape": "R",
+      "size_mm": [
+        2.4,
+        1.7
+      ],
+      "drill_mm": 0.8,
+      "net": "/A_E1"
+    },
+    "Q1.2": {
+      "gerber_xy_mm": [
+        52.5,
+        -44.46
+      ],
+      "shape": "R",
+      "size_mm": [
+        2.4,
+        1.7
+      ],
+      "drill_mm": 0.8,
+      "net": "/A_BASE"
+    },
+    "Q1.3": {
+      "gerber_xy_mm": [
+        52.5,
+        -41.92
+      ],
+      "shape": "R",
+      "size_mm": [
+        2.4,
+        1.7
+      ],
+      "drill_mm": 0.8,
+      "net": "/A_BASE"
+    },
+    "Q101.1": {
+      "gerber_xy_mm": [
+        124.5,
+        -47.0
+      ],
+      "shape": "R",
+      "size_mm": [
+        2.4,
+        1.7
+      ],
+      "drill_mm": 0.8,
+      "net": "/B_E1"
+    },
+    "Q101.2": {
+      "gerber_xy_mm": [
+        124.5,
+        -44.46
+      ],
+      "shape": "R",
+      "size_mm": [
+        2.4,
+        1.7
+      ],
+      "drill_mm": 0.8,
+      "net": "/B_BASE"
+    },
+    "Q101.3": {
+      "gerber_xy_mm": [
+        124.5,
+        -41.92
+      ],
+      "shape": "R",
+      "size_mm": [
+        2.4,
+        1.7
+      ],
+      "drill_mm": 0.8,
+      "net": "/B_BASE"
+    }
+  },
+  "retained_settings_sha256": {
+    "centre_cut_setup.json": "61b992294d537144b448b6905f0a060c0cb9d9dfdabf0ea1386aeef2dea7f337",
+    "current_mirror.kicad_pro": "2f8461d1533308d0087a375d4bde0d33646ff35f7e92159ea21a8ff6707e73ec",
+    "dual_current_mirror.kicad_pro": "1a61afbb5c39e5c14344132e391e9a79a6b9f1212cdf6afd055abf5661398a23",
+    "current_mirror.kicad_sch": "6be5d2cabe2a404e4fe40b6f31dc51d9c09c45877129e960247f93bc7e057016",
+    "dual_current_mirror.kicad_sch": "6d6cc3e41bfd8a80e7330ba5c970933ebc3b5f6114e876c9b222fdc88c264d47"
+  },
+  "CopperCAM_import_confirmation": "PENDING LAB TEST - not reproduced locally",
+  "note": "Only pad outline shape changes. P6 placement, routes, dimensions, drills, electrical nets and cutting setup are retained and separately checked."
+}

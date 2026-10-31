@@ -2,7 +2,7 @@
 	(version "E")
 	(design
 		(source "C:\\Users\\swastik\\Desktop\\EDC_project\\PCB layout\\current_mirror.kicad_sch")
-		(date "2026-10-31T12:38:40")
+		(date "2026-10-31T13:21:07")
 		(tool "Eeschema 10.0.7")
 		(sheet
 			(number "1")

@@ -1,6 +1,6 @@
 {
   "result": "PASS",
-  "revision": "P6-restored",
+  "revision": "P8-rectangles",
   "emitters": {
     "Q2": {
       "pin": "1",
@@ -9,7 +9,7 @@
         52.5,
         -33.0
       ],
-      "gerber_pad": "O 2.4 x 1.7 mm",
+      "gerber_pad": "R 2.4 x 1.7 mm",
       "drill_mm": 0.8,
       "minimum_annular_copper_mm": 0.45,
       "present_in_new_copper_gerber": true,
@@ -22,7 +22,7 @@
         124.5,
         -33.0
       ],
-      "gerber_pad": "O 2.4 x 1.7 mm",
+      "gerber_pad": "R 2.4 x 1.7 mm",
       "drill_mm": 0.8,
       "minimum_annular_copper_mm": 0.45,
       "present_in_new_copper_gerber": true,
@@ -35,7 +35,7 @@
         52.5,
         -47.0
       ],
-      "gerber_pad": "O 2.4 x 1.7 mm",
+      "gerber_pad": "R 2.4 x 1.7 mm",
       "drill_mm": 0.8,
       "minimum_annular_copper_mm": 0.45,
       "present_in_new_copper_gerber": true,
@@ -48,7 +48,7 @@
         124.5,
         -47.0
       ],
-      "gerber_pad": "O 2.4 x 1.7 mm",
+      "gerber_pad": "R 2.4 x 1.7 mm",
       "drill_mm": 0.8,
       "minimum_annular_copper_mm": 0.45,
       "present_in_new_copper_gerber": true,
@@ -77,5 +77,5 @@
     "file": "dual_current_mirror-Centre_Cut.gbr",
     "machine_depth_feed_speed_and_holding": "operator inputs pending; no machine program generated"
   },
-  "note": "All four emitter pads already existed in P5. P6 exports them as oval apertures. CopperCAM import and cutting toolpaths still require inspection; the original missing-pad symptom is not reproduced here."
+  "note": "P8 exports all transistor pads as standard rectangular apertures. Existing pad centres, dimensions, holes and P6 routes are preserved. Confirmation in the lab CopperCAM import is still required."
 }

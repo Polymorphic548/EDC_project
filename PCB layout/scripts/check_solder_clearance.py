@@ -29,8 +29,7 @@ def main():
                                      (p.ToMM(c.GetPosition().x),p.ToMM(c.GetPosition().y)))
                            for a,c in zip(pads,pads[1:])]
                 assert all(abs(distance-2.54)<1e-5 for distance in distances),ref
-                assert pads[0].GetShape()==(p.PAD_SHAPE_RECT if prefix=='J' else p.PAD_SHAPE_OVAL)
-                assert all(pad.GetShape()==p.PAD_SHAPE_OVAL for pad in pads[1:])
+                assert all(pad.GetShape()==p.PAD_SHAPE_RECT for pad in pads)
                 lands[ref]={'pin_pitch_mm':2.54,'land_size_local_mm':list(expected),
                             'adjacent_land_gap_mm':.84,'drill_mm':drill,
                             'minimum_annular_copper_mm':round((1.7-drill)/2,3)}
@@ -51,7 +50,7 @@ def main():
         pro=json.loads((ROOT/(name+'.kicad_pro')).read_text())
         assert pro['board']['design_settings']['rules']['min_clearance']==.8
         assert all(cls['clearance']>=.8 for cls in pro['net_settings']['classes'])
-    report={'result':'PASS','revision':'P6-restored','minimum_configured_copper_clearance_mm':.8,
+    report={'result':'PASS','revision':'P8-rectangles','minimum_configured_copper_clearance_mm':.8,
             'track_width_mm':.6,'copies':result,
             'note':'Pin spacing and drills preserved; pad lands elongated perpendicular to pin row. No solder mask. Careful soldering still required.'}
     (ROOT/'reports/solder_clearance.json').write_text(json.dumps(report,indent=2))

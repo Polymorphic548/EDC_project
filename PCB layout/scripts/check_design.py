@@ -23,11 +23,13 @@ def sync_placeholder():
         if f.GetReference().startswith('J'):
             for pad in f.Pads():
                 pad.SetSize(d.pos(2.4,1.7))
-                pad.SetShape(p.PAD_SHAPE_RECT if pad.GetNumber()=='1' else p.PAD_SHAPE_OVAL)
+                pad.SetShape(p.PAD_SHAPE_RECT)
         if f.GetReference().startswith('Q'):
             for pad in f.Pads():
                 pad.SetSize(d.pos(1.7,2.4))
-                pad.SetShape(p.PAD_SHAPE_OVAL)
+                pad.SetShape(p.PAD_SHAPE_RECT)
+        for pad in f.Pads():
+            if pad.GetShape()==p.PAD_SHAPE_ROUNDRECT:pad.SetShape(p.PAD_SHAPE_RECT)
     for t in b.GetDrawings():
         if isinstance(t,p.PCB_TEXT) and t.GetText()=='BOTTOM COPPER ONLY': t.SetLayer(p.B_SilkS); t.SetMirrored(True)
         if isinstance(t,p.PCB_TEXT) and t.GetText()=='BASE': t.SetPosition(d.pos(73,52))
@@ -59,7 +61,7 @@ def audit():
     for ref,nets in {'J1':{'1':'/VIN','2':'/GND'},'J2':{'1':'/VCC','2':'/OUT'},'J3':{'1':'/BASE','2':'/E1'},'J4':{'1':'/BASE','2':'/E2'}}.items():
         f=next(f for f in b.GetFootprints() if f.GetReference()==ref)
         assert {pad.GetNumber():pad.GetNetname() for pad in f.Pads()}==nets
-    report={'result':'PASS','revision':'P6-restored','schematic_to_board_pad_nets':'exact match of native KiCad exported netlist','nets':actual,'tracks':len(list(b.GetTracks())),'routed_layers':['B.Cu'],'vias':0,'footprints':len(list(b.GetFootprints())),'headers':'J1 power; J2 Rload; J3 Q1 B-E; J4 Q2 B-E','note':'Single unit CAD audit. Separate panel isolation audit required; no physical performance measurement.'}
+    report={'result':'PASS','revision':'P8-rectangles','schematic_to_board_pad_nets':'exact match of native KiCad exported netlist','nets':actual,'tracks':len(list(b.GetTracks())),'routed_layers':['B.Cu'],'vias':0,'footprints':len(list(b.GetFootprints())),'headers':'J1 power; J2 Rload; J3 Q1 B-E; J4 Q2 B-E','note':'Single unit CAD audit. Separate panel isolation audit required; no physical performance measurement.'}
     (ROOT/'reports/board_audit.json').write_text(json.dumps(report,indent=2))
     parts=json.loads((ROOT/'components.json').read_text())
     for item in parts:

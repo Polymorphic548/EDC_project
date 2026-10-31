@@ -15,8 +15,14 @@ def normalized(node):
         return ['number',str(Decimal(node).normalize())]
     return node
 
-def fingerprint(path):
+def fingerprint(path,rectangle_pads=False):
     tree=m.parse(path.read_text(encoding='utf-8'))
+    if rectangle_pads:
+        for fp in m.children(tree,'footprint'):
+            for pad in m.children(fp,'pad'):
+                if pad[3] in ('oval','roundrect'):
+                    pad[3]='rect'
+                    pad[:]=[item for item in pad if not (isinstance(item,list) and item and item[0]=='roundrect_rratio')]
     items=sorted(json.dumps(normalized(item),separators=(',',':'))
         for item in tree if isinstance(item,list) and item and item[0] in GEOMETRY)
     return hashlib.sha256('\n'.join(items).encode()).hexdigest()
@@ -28,16 +34,16 @@ def main():
     hashes={}
     for name in ('current_mirror','dual_current_mirror'):
         file=name+'.kicad_pcb';actual=fingerprint(ROOT/file)
-        expected=fingerprint(baseline/file) if (baseline/file).exists() else old_report['p6_geometry_sha256'][file]
+        expected=fingerprint(baseline/file,rectangle_pads=True) if (baseline/file).exists() else old_report['p6_rectangle_geometry_sha256'][file]
         assert actual==expected,('Saved P6 geometry differs',file)
         hashes[file]=expected
     retained=ROOT/'current_mirror-backups/before_restore_P6_2026-10-31/retained_settings_sha256.json'
     wanted=json.loads(retained.read_text()) if retained.exists() else old_report['retained_settings_sha256']
     for name,expected in wanted.items():assert hashlib.sha256((ROOT/name).read_bytes()).hexdigest()==expected,name
-    report={'result':'PASS','revision':'P6-restored','p6_geometry_sha256':hashes,
+    report={'result':'PASS','revision':'P8-rectangles','p6_rectangle_geometry_sha256':hashes,
         'compared':'All footprints including labels/models/UUIDs, every track, pad, board drawing and centre-cut line',
         'retained_settings_sha256':wanted,'unit_track_segments':50,'panel_track_segments':100,
-        'note':'Exact saved P6 appearance, not a reroute. Physical thickness remains 1.7 mm; retained cutting JSON and project preferences are byte-identical.'}
+        'note':'P6 placement, routing, labels, pad centres/dimensions, holes and all other layout data retained. Only oval/roundrect pad outlines become rectangles. Physical thickness remains 1.7 mm; cutting JSON and project preferences are byte-identical.'}
     report_path.write_text(json.dumps(report,indent=2))
     print(json.dumps(report,indent=2))
 
