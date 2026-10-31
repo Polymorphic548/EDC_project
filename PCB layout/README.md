@@ -33,6 +33,10 @@ The panel has **36 components, including 8 headers / 16 header pins**, and **24 
 
 Tracks are 0.6 mm on B.Cu, minimum configured clearance 0.8 mm, no vias/jumpers/pours. Only the outer 150 x 100 mm boundary is Edge.Cuts. Through-hole pads appear on both layers in the data model; no front tracks are fabricated.
 
+Current KiCad view of the complete P5 panel, with isolated copies A and B:
+
+![KiCad P5 dual current-mirror PCB layout](Screenshot%202026-10-31%20084257.png)
+
 ## Electrical values and footprints
 
 Per copy: input 9.8 V; Rs/R2=662 ohm; R3 and load R6=1 kohm; R1=1 ohm; emitter R4/R5=22 ohm; fixed R7=120 ohm nominal; C1=1.33 nF; 2N3904 pair; 1N4007 input diode; BZX55C5V1 Zener; two 1N4148 diodes. Resistors use quarter-watt axial footprints at 7.62 mm pitch; C1 uses 5 mm pitch. Transistors use the wide TO-92 footprint with 1=E, 2=B, 3=C. Verify physical parts before assembly.

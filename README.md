@@ -20,6 +20,10 @@ The complete panel remains **150 x 100 mm**, with two isolated circuits. Electri
 
 [Panel assembly preview](PCB%20layout/previews/dual_panel_assembly.png) | [Panel copper review](PCB%20layout/previews/dual_panel_copper_review.png) | [Panel schematic PDF](PCB%20layout/previews/dual_panel_schematic.pdf)
 
+Current KiCad PCB layout, showing isolated copies A and B:
+
+![KiCad P5 PCB layout with two isolated current-mirror circuits](PCB%20layout/Screenshot%202026-10-31%20084257.png)
+
 The reusable **single-copy** project is still [current_mirror.kicad_pro](PCB%20layout/current_mirror.kicad_pro). Its board is 78 x 67 mm; it is not the full 15 x 10 cm panel. Reopen files from disk after external changes rather than saving an old in-memory layout over the new files.
 
 ## Layout and isolation
@@ -56,6 +60,10 @@ For voltage measurements, use **DC volts**, red lead on pin 1 and black lead on 
 Across the nominal 1 kohm load, `Iout = Vload / 1000`; 5.00 V corresponds to 5.00 mA. Copy A's load is R6; copy B's is R106. The latest supplied simulation predicts about 4.625-4.667 mA over 25-75 C, not exactly 5 mA.
 
 ## Components per copy
+
+The LTspice source schematic is shown below. Its parameterized resistor RV1 is implemented on the PCB as fixed R7/R107, nominal 120 ohm; the original resistor measured 117.6 ohm.
+
+![LTspice diode-compensated current-mirror schematic with 9.8 V supply](schematics/Screenshot%202026-10-31%20084318.png)
 
 | Copy A / B | Value / component |
 |---|---|
