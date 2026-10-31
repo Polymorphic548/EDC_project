@@ -1,13 +1,13 @@
 {
   "status": "ROUTED - HEADER UNIT",
-  "revision": "P4",
+  "revision": "P5",
   "layer": "B.Cu only",
   "track_width_mm": 0.6,
-  "design_clearance_mm": 0.4,
+  "design_clearance_mm": 0.8,
   "vias": 0,
   "wire_jumpers": 0,
   "pad_pair_routes": 26,
   "grid_mm": 0.25,
   "routing_attempt": 3,
-  "note": "Rerouted for J2/J3/J4 measurement headers; validate with KiCad DRC."
+  "note": "Rerouted with 0.8 mm copper clearance for hand soldering; validate with KiCad DRC."
 }

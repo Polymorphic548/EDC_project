@@ -13,7 +13,7 @@ ROOT=Path(__file__).resolve().parents[1]
 FILE=ROOT/'current_mirror.kicad_pcb'
 STEP=.25
 WIDTH=.6
-CLEAR=.4
+CLEAR=.8
 NX,NY=337,289
 
 def xy(p): return (pcb.ToMM(p.x),pcb.ToMM(p.y))
@@ -94,7 +94,7 @@ def main():
         edges[net]=es
     seedorder=['/'+n for n in ['PROT_A','ZD_A','D12','TRIM_TOP','E1','E2','BASE','VA','OUT','VIN','VCC','GND']]
     bestcount=-1; best=None
-    for attempt in range(50):
+    for attempt in range(180):
         order=seedorder.copy()
         if attempt:
             rng=random.Random(97+attempt)
@@ -122,7 +122,7 @@ def main():
             if math.dist(u,v)<.0001:continue
             t=pcb.PCB_TRACK(b); t.SetStart(pcb.VECTOR2I(pcb.FromMM(u[0]),pcb.FromMM(u[1]))); t.SetEnd(pcb.VECTOR2I(pcb.FromMM(v[0]),pcb.FromMM(v[1]))); t.SetWidth(pcb.FromMM(WIDTH)); t.SetLayer(pcb.B_Cu); t.SetNetCode(b.FindNet(net).GetNetCode()); b.Add(t)
     pcb.SaveBoard(str(FILE),b)
-    report={'status':'ROUTED - HEADER UNIT','revision':'P4','layer':'B.Cu only','track_width_mm':WIDTH,'design_clearance_mm':CLEAR,'vias':0,'wire_jumpers':0,'pad_pair_routes':len(routed),'grid_mm':STEP,'routing_attempt':attempt,'note':'Rerouted for J2/J3/J4 measurement headers; validate with KiCad DRC.'}
+    report={'status':'ROUTED - HEADER UNIT','revision':'P5','layer':'B.Cu only','track_width_mm':WIDTH,'design_clearance_mm':CLEAR,'vias':0,'wire_jumpers':0,'pad_pair_routes':len(routed),'grid_mm':STEP,'routing_attempt':attempt,'note':'Rerouted with 0.8 mm copper clearance for hand soldering; validate with KiCad DRC.'}
     (ROOT/'reports/routing.json').write_text(json.dumps(report,indent=2))
     print(json.dumps(report),flush=True)
 

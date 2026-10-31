@@ -18,7 +18,7 @@
   "copper_pad_features": 76,
   "copper_pad_flashes": 68,
   "rounded_pad_regions": 8,
-  "copper_track_segments": 472,
+  "copper_track_segments": 542,
   "all_drill_positions_sizes_and_copper_geometry_match_saved_pcb": true,
   "outline": "150 x 100 mm, separate optional file; not copper artwork",
   "source_cad_and_existing_print_artifacts_unchanged": true

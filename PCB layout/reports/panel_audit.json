@@ -1,6 +1,6 @@
 {
   "result": "PASS",
-  "revision": "P4",
+  "revision": "P5",
   "panel_size_mm": [
     150,
     100
@@ -34,19 +34,19 @@
   "shared_ground": false,
   "actual_copper_bounds_mm": {
     "A": [
-      10.2,
-      15.45,
-      69.22,
-      85.0
+      9.7,
+      14.45,
+      69.6,
+      85.2
     ],
     "B": [
-      82.2,
-      15.45,
-      141.22,
-      85.0
+      81.7,
+      14.45,
+      141.6,
+      85.2
     ]
   },
-  "minimum_horizontal_copper_gap_mm": 12.980000000000004,
+  "minimum_horizontal_copper_gap_mm": 12.100000000000009,
   "footprints": 36,
   "male_2pin_headers": 8,
   "headers": {

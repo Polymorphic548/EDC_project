@@ -2,7 +2,7 @@
 	(version "E")
 	(design
 		(source "C:\\Users\\swastik\\Desktop\\EDC_project\\PCB layout\\dual_current_mirror.kicad_sch")
-		(date "2026-10-30T15:52:05")
+		(date "2026-10-31T08:03:09")
 		(tool "Eeschema 10.0.7")
 		(sheet
 			(number "1")
@@ -11,7 +11,7 @@
 			(title_block
 				(title "Two isolated current mirrors - 150 x 100 mm panel")
 				(company)
-				(rev "P4 - 2x ISOLATED HEADERS")
+				(rev "P5 - SOLDER CLEARANCE")
 				(date)
 				(source "dual_current_mirror.kicad_sch")
 				(comment

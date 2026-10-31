@@ -25,8 +25,8 @@ PARTS = [
  ('C1','1.33n / >=25V','Device:C','Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm',{'1':'VCC','2':'GND'},(70,13,0),(101.6,40.64)),
  ('R2','662R (LT Rs)','Device:R',RFP,{'1':'VCC','2':'VA'},(29,24,270),(25.4,76.2)),
  ('D3','BZX55C5V1','Device:D_Zener',DFP,{'1':'VA','2':'ZD_A'},(29,35,270),(50.8,76.2)),
- ('D1','1N4148','Device:D',DFP,{'1':'D12','2':'ZD_A'},(29,53,90),(76.2,76.2)),
- ('D2','1N4148','Device:D',DFP,{'1':'GND','2':'D12'},(29,64,90),(101.6,76.2)),
+ ('D1','1N4148','Device:D',DFP,{'1':'D12','2':'ZD_A'},(29,54,90),(76.2,76.2)),
+ ('D2','1N4148','Device:D',DFP,{'1':'GND','2':'D12'},(29,66,90),(101.6,76.2)),
  ('R3','1k (LT R1a)','Device:R',RFP,{'1':'VA','2':'TRIM_TOP'},(43,20,270),(139.7,40.64)),
  ('R7','120R (117.6R measured)','Device:R',RFP,{'1':'TRIM_TOP','2':'BASE'},(45,38,0),(139.7,76.2)),
  ('Q1','2N3904','Transistor_BJT:Q_NPN_EBC',QFP,{'1':'E1','2':'BASE','3':'BASE'},(45,50,0),(177.8,40.64)),
@@ -72,7 +72,7 @@ def write_schematic():
     libs={p[2]:library_symbol(p[2]) for p in PARTS}
     rootid=uid('schematic')
     out=[f'(kicad_sch (version 20250114) (generator "pcb_layout_script") (uuid {rootid}) (paper "A4")',
-         '(title_block (title "Diode-compensated current mirror - header unit") (rev "P4 - MEASUREMENT HEADERS") (comment 1 "J1 power; J2 load voltage; J3 Q1 Vbe; J4 Q2 Vbe. Pin 1 positive, pin 2 negative."))',
+         '(title_block (title "Diode-compensated current mirror - header unit") (rev "P5 - SOLDER CLEARANCE") (comment 1 "J1 power; J2 load voltage; J3 Q1 Vbe; J4 Q2 Vbe. Pin 1 positive, pin 2 negative."))',
          '(lib_symbols '+' '.join(dump(s) for s in libs.values())+')']
     for ref,value,lib,fp,nets,board,(x,y) in PARTS:
         sid=uid(ref)
@@ -116,7 +116,7 @@ def build_board():
         f.Reference().SetTextSize(pos(1,1)); f.Reference().SetTextThickness(mm(.15)); f.Value().SetVisible(False)
         if ref.startswith('TP'): f.SetAttributes(f.GetAttributes() & ~pcb.FP_EXCLUDE_FROM_BOM)
         if ref=='J1': f.Reference().SetPosition(pos(12,17))
-        if ref in ('D1','D2','D3','C1'):
+        if ref in ('D1','D2','D3','C1','Q1','Q2'):
             for graphic in f.GraphicalItems():
                 if graphic.GetLayer()==pcb.F_SilkS: graphic.SetLayer(pcb.F_Fab)
         for p in f.Pads():
@@ -127,17 +127,25 @@ def build_board():
                 # Preserve square pin 1 for polarity/numbering.
             if ref.startswith('TP'): p.SetSize(pos(2.8,2.8)); p.SetDrillSize(pos(1,1))
             if ref.startswith('J'): p.SetSize(pos(2.0,2.0)); p.SetDrillSize(pos(1,1))
-            if ref.startswith('Q'): p.SetSize(pos(2.0,2.0))
+            # P5: retain standard 2.54 mm lead pitch and all drill diameters.
+            # Extend lands perpendicular to the pin row, leaving 0.84 mm
+            # between neighbouring lands and useful soldering area outside it.
+            if ref.startswith('Q'):
+                p.SetSize(pos(1.7,2.4))
+                p.SetShape(pcb.PAD_SHAPE_RECT if p.GetNumber()=='1' else pcb.PAD_SHAPE_OVAL)
+            if ref.startswith('J'):
+                p.SetSize(pos(2.4,1.7))
+                p.SetShape(pcb.PAD_SHAPE_RECT if p.GetNumber()=='1' else pcb.PAD_SHAPE_OVAL)
     for a,c in [((3,3),(81,3)),((81,3),(81,70)),((81,70),(3,70)),((3,70),(3,3))]:
         s=pcb.PCB_SHAPE(); s.SetShape(pcb.SHAPE_T_SEGMENT); s.SetStart(pos(*a)); s.SetEnd(pos(*c)); s.SetLayer(pcb.Edge_Cuts); s.SetWidth(mm(.05)); b.Add(s)
     text(b,'CURRENT MIRROR',43,5.7,1.2)
-    text(b,'P4 - MEASUREMENT HEADERS',42,68,1.0)
+    text(b,'P5 - SOLDER CLEARANCE',42,68,1.0)
     text(b,'+9.8V',8,7.5,.85); text(b,'GND',8,16,.85)
     text(b,'RLOAD',73,22.7,.8)
     text(b,'+',76,28,.8); text(b,'-',76,30.54,.8)
     text(b,'Q1 VBE',39,40.5,.8); text(b,'B',37,45,.8); text(b,'E',37,47.54,.8)
     text(b,'Q2 VBE',73,42.7,.8); text(b,'B',76,48,.8); text(b,'E',76,50.54,.8)
-    text(b,'BOTTOM COPPER ONLY',22,67,1,pcb.B_SilkS)
+    text(b,'BOTTOM COPPER ONLY',22,69,1,pcb.B_SilkS)
     for graphic in b.GetDrawings():
         if isinstance(graphic,pcb.PCB_TEXT) and graphic.GetLayer()==pcb.B_SilkS: graphic.SetMirrored(True)
     pcb.SaveBoard(str(ROOT/f'{NAME}.kicad_pcb'),b)
@@ -208,15 +216,18 @@ def verify_source():
     assert len({next(iter(s)) for s in expected.values()})==len(expected),'Unexpected source net split'
     assert next(iter(expected[find(terminal[('V1','1')])]))=='VIN'
     assert next(iter(expected[find(terminal[('V1','2')])]))=='GND'
-    report={'result':'PASS - TOPOLOGY WITH NOMINAL/MEASURED VALUE DISTINCTION','revision':'P4','source':src.name,'source_electrical_nets':len(groups),'nets':{next(iter(expected[r])):sorted(pins) for r,pins in groups.items()},'notes':['J1 replaces updated ideal 9.8V source V1.','Rs=662 ohm and C1=1.33nF follow the updated LTspice source.','Fixed R7 remains 120 ohm nominal; its 117.6 ohm measured value matches updated LT RV1=117.6 ohm.','J2 across Rload, J3 across Q1 B-E, J4 across Q2 B-E; no shorting jumpers.','User-supplied simulation files preserved; no new simulation or physical measurement run.']}
+    report={'result':'PASS - TOPOLOGY WITH NOMINAL/MEASURED VALUE DISTINCTION','revision':'P5','source':src.name,'source_electrical_nets':len(groups),'nets':{next(iter(expected[r])):sorted(pins) for r,pins in groups.items()},'notes':['J1 replaces updated ideal 9.8V source V1.','Rs=662 ohm and C1=1.33nF follow the updated LTspice source.','Fixed R7 remains 120 ohm nominal; its 117.6 ohm measured value matches updated LT RV1=117.6 ohm.','J2 across Rload, J3 across Q1 B-E, J4 across Q2 B-E; no shorting jumpers.','User-supplied simulation files preserved; no new simulation or physical measurement run.']}
     (ROOT/'reports/source_connectivity.json').write_text(json.dumps(report,indent=2))
     print('Independent LTspice connectivity check: PASS',flush=True)
 
 def write_project():
     pro={'meta':{'filename':NAME+'.kicad_pro','version':3},'board':{'design_settings':{'rules':{'min_clearance':.4,'min_track_width':.6,'min_through_hole_diameter':.7,'min_hole_clearance':.25,'min_copper_edge_clearance':.5}}},'net_settings':{'classes':[{'name':'Default','clearance':.4,'track_width':.6,'via_diameter':1.6,'via_drill':.8,'microvia_diameter':.3,'microvia_drill':.1,'diff_pair_width':.6,'diff_pair_gap':.4,'diff_pair_via_gap':.4,'wire_width':6,'bus_width':12,'line_style':0,'schematic_color':'rgba(0, 0, 0, 0.000)','pcb_color':'rgba(0, 0, 0, 0.000)'}],'meta':{'version':4}}}
-    if not (ROOT/f'{NAME}.kicad_pro').exists():
-        (ROOT/f'{NAME}.kicad_pro').write_text(json.dumps(pro,indent=2))
-    (ROOT/'fp-lib-table').write_text('(fp_lib_table (version 7) (lib (name "Project") (type "KiCad") (uri "${KIPRJMOD}/Project.pretty") (options "") (descr "P4 header-unit footprints shared by both isolated panel copies")))\n')
+    project_path=ROOT/f'{NAME}.kicad_pro'
+    if project_path.exists():pro=json.loads(project_path.read_text(encoding='utf-8'))
+    pro['board']['design_settings']['rules']['min_clearance']=.8
+    for cls in pro['net_settings']['classes']:cls['clearance']=max(.8,cls.get('clearance',0))
+    project_path.write_text(json.dumps(pro,indent=2),encoding='utf-8')
+    (ROOT/'fp-lib-table').write_text('(fp_lib_table (version 7) (lib (name "Project") (type "KiCad") (uri "${KIPRJMOD}/Project.pretty") (options "") (descr "P5 hand-soldering footprints shared by both isolated panel copies")))\n')
     manifest=[{'reference':r,'value':v,'symbol':lib,'footprint':fp,'stock_footprint_basis':STOCK_FOOTPRINTS[r],'connections':nets,'position_mm':list(bp),'status':'package assumption - confirm physical part',**({'measured_resistance_ohm':117.6,'replaces':'LT RV1; fixed nominal 120 ohm approved by user'} if r=='R7' else {})} for r,v,lib,fp,nets,bp,sp in PARTS]
     (ROOT/'components.json').write_text(json.dumps(manifest,indent=2))
 

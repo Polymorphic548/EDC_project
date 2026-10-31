@@ -28,7 +28,7 @@ def mm_pt(pt):return (p.ToMM(pt.x),p.ToMM(pt.y))
 def schematic():
     tree=d.parse((ROOT/'current_mirror.kicad_sch').read_text(encoding='utf-8'))
     out=['kicad_sch',['version','20250114'],['generator',d.q('pcb_layout_script')],['uuid',ROOT_ID],['paper',d.q('A2')],
-         ['title_block',['title',d.q('Two isolated current mirrors - 150 x 100 mm panel')],['rev',d.q('P4 - 2x ISOLATED HEADERS')]],copy.deepcopy(d.child(tree,'lib_symbols'))]
+         ['title_block',['title',d.q('Two isolated current mirrors - 150 x 100 mm panel')],['rev',d.q('P5 - SOLDER CLEARANCE')]],copy.deepcopy(d.child(tree,'lib_symbols'))]
     def walk(node,unit,dx,dy):
         if not isinstance(node,list) or not node:return
         if node[0] in ('at','xy') and len(node)>=3:
@@ -110,7 +110,10 @@ def board():
     for index,item in enumerate(tree):
         if isinstance(item,list) and item[0]!='footprint':identity(item,'root-'+str(index))
     (ROOT/(NAME+'.kicad_pcb')).write_text(d.dump(tree),encoding='utf-8')
-    pro=json.loads((ROOT/'current_mirror.kicad_pro').read_text())
+    project_path=ROOT/(NAME+'.kicad_pro')
+    pro=json.loads((project_path if project_path.exists() else ROOT/'current_mirror.kicad_pro').read_text())
+    pro['board']['design_settings']['rules']['min_clearance']=.8
+    for cls in pro['net_settings']['classes']:cls['clearance']=max(.8,cls.get('clearance',0))
     pro.setdefault('meta',{})['filename']=NAME+'.kicad_pro'
     pro['sheets']=[];pro.setdefault('schematic',{})['top_level_sheets']=[]
     (ROOT/(NAME+'.kicad_pro')).write_text(json.dumps(pro,indent=2),encoding='utf-8')

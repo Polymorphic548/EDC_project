@@ -1,175 +1,6 @@
 [
   {
     "unit": "A",
-    "reference": "R5",
-    "unit_reference": "R5",
-    "value": "22R (LT Re2)",
-    "position_mm": [
-      60.5,
-      33.0
-    ],
-    "nets": {
-      "1": "/A_E2",
-      "2": "/A_GND"
-    }
-  },
-  {
-    "unit": "A",
-    "reference": "J3",
-    "unit_reference": "J3",
-    "value": "Q1 BASE-EMITTER",
-    "position_mm": [
-      47.5,
-      52.0
-    ],
-    "nets": {
-      "1": "/A_BASE",
-      "2": "/A_E1"
-    }
-  },
-  {
-    "unit": "A",
-    "reference": "D2",
-    "unit_reference": "D2",
-    "value": "1N4148",
-    "position_mm": [
-      66.5,
-      63.0
-    ],
-    "nets": {
-      "1": "/A_GND",
-      "2": "/A_D12"
-    }
-  },
-  {
-    "unit": "A",
-    "reference": "R4",
-    "unit_reference": "R4",
-    "value": "22R (LT Re1)",
-    "position_mm": [
-      60.5,
-      47.0
-    ],
-    "nets": {
-      "1": "/A_E1",
-      "2": "/A_GND"
-    }
-  },
-  {
-    "unit": "A",
-    "reference": "J1",
-    "unit_reference": "J1",
-    "value": "9.8V INPUT",
-    "position_mm": [
-      12.5,
-      84.0
-    ],
-    "nets": {
-      "1": "/A_VIN",
-      "2": "/A_GND"
-    }
-  },
-  {
-    "unit": "A",
-    "reference": "R6",
-    "unit_reference": "R6",
-    "value": "1k (LT Rload)",
-    "position_mm": [
-      27.5,
-      28.0
-    ],
-    "nets": {
-      "1": "/A_VCC",
-      "2": "/A_OUT"
-    }
-  },
-  {
-    "unit": "A",
-    "reference": "J2",
-    "unit_reference": "J2",
-    "value": "RLOAD VOLTAGE",
-    "position_mm": [
-      30.5,
-      19.0
-    ],
-    "nets": {
-      "1": "/A_VCC",
-      "2": "/A_OUT"
-    }
-  },
-  {
-    "unit": "A",
-    "reference": "R2",
-    "unit_reference": "R2",
-    "value": "662R (LT Rs)",
-    "position_mm": [
-      26.5,
-      63.0
-    ],
-    "nets": {
-      "1": "/A_VCC",
-      "2": "/A_VA"
-    }
-  },
-  {
-    "unit": "A",
-    "reference": "Q1",
-    "unit_reference": "Q1",
-    "value": "2N3904",
-    "position_mm": [
-      52.5,
-      47.0
-    ],
-    "nets": {
-      "1": "/A_E1",
-      "2": "/A_BASE",
-      "3": "/A_BASE"
-    }
-  },
-  {
-    "unit": "A",
-    "reference": "R3",
-    "unit_reference": "R3",
-    "value": "1k (LT R1a)",
-    "position_mm": [
-      22.5,
-      49.0
-    ],
-    "nets": {
-      "1": "/A_VA",
-      "2": "/A_TRIM_TOP"
-    }
-  },
-  {
-    "unit": "A",
-    "reference": "J4",
-    "unit_reference": "J4",
-    "value": "Q2 BASE-EMITTER",
-    "position_mm": [
-      50.5,
-      19.0
-    ],
-    "nets": {
-      "1": "/A_BASE",
-      "2": "/A_E2"
-    }
-  },
-  {
-    "unit": "A",
-    "reference": "D1",
-    "unit_reference": "D1",
-    "value": "1N4148",
-    "position_mm": [
-      55.5,
-      63.0
-    ],
-    "nets": {
-      "1": "/A_D12",
-      "2": "/A_ZD_A"
-    }
-  },
-  {
-    "unit": "A",
     "reference": "Q2",
     "unit_reference": "Q2",
     "value": "2N3904",
@@ -199,16 +30,115 @@
   },
   {
     "unit": "A",
-    "reference": "R7",
-    "unit_reference": "R7",
-    "value": "120R (117.6R measured)",
+    "reference": "R2",
+    "unit_reference": "R2",
+    "value": "662R (LT Rs)",
     "position_mm": [
-      40.5,
+      26.5,
+      63.0
+    ],
+    "nets": {
+      "1": "/A_VCC",
+      "2": "/A_VA"
+    }
+  },
+  {
+    "unit": "A",
+    "reference": "D2",
+    "unit_reference": "D2",
+    "value": "1N4148",
+    "position_mm": [
+      68.5,
+      63.0
+    ],
+    "nets": {
+      "1": "/A_GND",
+      "2": "/A_D12"
+    }
+  },
+  {
+    "unit": "A",
+    "reference": "C1",
+    "unit_reference": "C1",
+    "value": "1.33n / >=25V",
+    "position_mm": [
+      15.5,
+      22.0
+    ],
+    "nets": {
+      "1": "/A_VCC",
+      "2": "/A_GND"
+    }
+  },
+  {
+    "unit": "A",
+    "reference": "Q1",
+    "unit_reference": "Q1",
+    "value": "2N3904",
+    "position_mm": [
+      52.5,
       47.0
     ],
     "nets": {
-      "1": "/A_TRIM_TOP",
-      "2": "/A_BASE"
+      "1": "/A_E1",
+      "2": "/A_BASE",
+      "3": "/A_BASE"
+    }
+  },
+  {
+    "unit": "A",
+    "reference": "D1",
+    "unit_reference": "D1",
+    "value": "1N4148",
+    "position_mm": [
+      56.5,
+      63.0
+    ],
+    "nets": {
+      "1": "/A_D12",
+      "2": "/A_ZD_A"
+    }
+  },
+  {
+    "unit": "A",
+    "reference": "J2",
+    "unit_reference": "J2",
+    "value": "RLOAD VOLTAGE",
+    "position_mm": [
+      30.5,
+      19.0
+    ],
+    "nets": {
+      "1": "/A_VCC",
+      "2": "/A_OUT"
+    }
+  },
+  {
+    "unit": "A",
+    "reference": "J4",
+    "unit_reference": "J4",
+    "value": "Q2 BASE-EMITTER",
+    "position_mm": [
+      50.5,
+      19.0
+    ],
+    "nets": {
+      "1": "/A_BASE",
+      "2": "/A_E2"
+    }
+  },
+  {
+    "unit": "A",
+    "reference": "J1",
+    "unit_reference": "J1",
+    "value": "9.8V INPUT",
+    "position_mm": [
+      12.5,
+      84.0
+    ],
+    "nets": {
+      "1": "/A_VIN",
+      "2": "/A_GND"
     }
   },
   {
@@ -227,6 +157,62 @@
   },
   {
     "unit": "A",
+    "reference": "R3",
+    "unit_reference": "R3",
+    "value": "1k (LT R1a)",
+    "position_mm": [
+      22.5,
+      49.0
+    ],
+    "nets": {
+      "1": "/A_VA",
+      "2": "/A_TRIM_TOP"
+    }
+  },
+  {
+    "unit": "A",
+    "reference": "R4",
+    "unit_reference": "R4",
+    "value": "22R (LT Re1)",
+    "position_mm": [
+      60.5,
+      47.0
+    ],
+    "nets": {
+      "1": "/A_E1",
+      "2": "/A_GND"
+    }
+  },
+  {
+    "unit": "A",
+    "reference": "R5",
+    "unit_reference": "R5",
+    "value": "22R (LT Re2)",
+    "position_mm": [
+      60.5,
+      33.0
+    ],
+    "nets": {
+      "1": "/A_E2",
+      "2": "/A_GND"
+    }
+  },
+  {
+    "unit": "A",
+    "reference": "J3",
+    "unit_reference": "J3",
+    "value": "Q1 BASE-EMITTER",
+    "position_mm": [
+      47.5,
+      52.0
+    ],
+    "nets": {
+      "1": "/A_BASE",
+      "2": "/A_E1"
+    }
+  },
+  {
+    "unit": "A",
     "reference": "D4",
     "unit_reference": "D4",
     "value": "1N4007",
@@ -241,185 +227,30 @@
   },
   {
     "unit": "A",
-    "reference": "C1",
-    "unit_reference": "C1",
-    "value": "1.33n / >=25V",
-    "position_mm": [
-      15.5,
-      22.0
-    ],
-    "nets": {
-      "1": "/A_VCC",
-      "2": "/A_GND"
-    }
-  },
-  {
-    "unit": "B",
-    "reference": "R105",
-    "unit_reference": "R5",
-    "value": "22R (LT Re2)",
-    "position_mm": [
-      132.5,
-      33.0
-    ],
-    "nets": {
-      "1": "/B_E2",
-      "2": "/B_GND"
-    }
-  },
-  {
-    "unit": "B",
-    "reference": "J103",
-    "unit_reference": "J3",
-    "value": "Q101 BASE-EMITTER",
-    "position_mm": [
-      119.5,
-      52.0
-    ],
-    "nets": {
-      "1": "/B_BASE",
-      "2": "/B_E1"
-    }
-  },
-  {
-    "unit": "B",
-    "reference": "D102",
-    "unit_reference": "D2",
-    "value": "1N4148",
-    "position_mm": [
-      138.5,
-      63.0
-    ],
-    "nets": {
-      "1": "/B_GND",
-      "2": "/B_D12"
-    }
-  },
-  {
-    "unit": "B",
-    "reference": "R104",
-    "unit_reference": "R4",
-    "value": "22R (LT Re1)",
-    "position_mm": [
-      132.5,
-      47.0
-    ],
-    "nets": {
-      "1": "/B_E1",
-      "2": "/B_GND"
-    }
-  },
-  {
-    "unit": "B",
-    "reference": "J101",
-    "unit_reference": "J1",
-    "value": "9.8V INPUT",
-    "position_mm": [
-      84.5,
-      84.0
-    ],
-    "nets": {
-      "1": "/B_VIN",
-      "2": "/B_GND"
-    }
-  },
-  {
-    "unit": "B",
-    "reference": "R106",
+    "reference": "R6",
     "unit_reference": "R6",
     "value": "1k (LT Rload)",
     "position_mm": [
-      99.5,
+      27.5,
       28.0
     ],
     "nets": {
-      "1": "/B_VCC",
-      "2": "/B_OUT"
+      "1": "/A_VCC",
+      "2": "/A_OUT"
     }
   },
   {
-    "unit": "B",
-    "reference": "J102",
-    "unit_reference": "J2",
-    "value": "RLOAD VOLTAGE",
+    "unit": "A",
+    "reference": "R7",
+    "unit_reference": "R7",
+    "value": "120R (117.6R measured)",
     "position_mm": [
-      102.5,
-      19.0
-    ],
-    "nets": {
-      "1": "/B_VCC",
-      "2": "/B_OUT"
-    }
-  },
-  {
-    "unit": "B",
-    "reference": "R102",
-    "unit_reference": "R2",
-    "value": "662R (LT Rs)",
-    "position_mm": [
-      98.5,
-      63.0
-    ],
-    "nets": {
-      "1": "/B_VCC",
-      "2": "/B_VA"
-    }
-  },
-  {
-    "unit": "B",
-    "reference": "Q101",
-    "unit_reference": "Q1",
-    "value": "2N3904",
-    "position_mm": [
-      124.5,
+      40.5,
       47.0
     ],
     "nets": {
-      "1": "/B_E1",
-      "2": "/B_BASE",
-      "3": "/B_BASE"
-    }
-  },
-  {
-    "unit": "B",
-    "reference": "R103",
-    "unit_reference": "R3",
-    "value": "1k (LT R1a)",
-    "position_mm": [
-      94.5,
-      49.0
-    ],
-    "nets": {
-      "1": "/B_VA",
-      "2": "/B_TRIM_TOP"
-    }
-  },
-  {
-    "unit": "B",
-    "reference": "J104",
-    "unit_reference": "J4",
-    "value": "Q102 BASE-EMITTER",
-    "position_mm": [
-      122.5,
-      19.0
-    ],
-    "nets": {
-      "1": "/B_BASE",
-      "2": "/B_E2"
-    }
-  },
-  {
-    "unit": "B",
-    "reference": "D101",
-    "unit_reference": "D1",
-    "value": "1N4148",
-    "position_mm": [
-      127.5,
-      63.0
-    ],
-    "nets": {
-      "1": "/B_D12",
-      "2": "/B_ZD_A"
+      "1": "/A_TRIM_TOP",
+      "2": "/A_BASE"
     }
   },
   {
@@ -453,16 +284,115 @@
   },
   {
     "unit": "B",
-    "reference": "R107",
-    "unit_reference": "R7",
-    "value": "120R (117.6R measured)",
+    "reference": "R102",
+    "unit_reference": "R2",
+    "value": "662R (LT Rs)",
     "position_mm": [
-      112.5,
+      98.5,
+      63.0
+    ],
+    "nets": {
+      "1": "/B_VCC",
+      "2": "/B_VA"
+    }
+  },
+  {
+    "unit": "B",
+    "reference": "D102",
+    "unit_reference": "D2",
+    "value": "1N4148",
+    "position_mm": [
+      140.5,
+      63.0
+    ],
+    "nets": {
+      "1": "/B_GND",
+      "2": "/B_D12"
+    }
+  },
+  {
+    "unit": "B",
+    "reference": "C101",
+    "unit_reference": "C1",
+    "value": "1.33n / >=25V",
+    "position_mm": [
+      87.5,
+      22.0
+    ],
+    "nets": {
+      "1": "/B_VCC",
+      "2": "/B_GND"
+    }
+  },
+  {
+    "unit": "B",
+    "reference": "Q101",
+    "unit_reference": "Q1",
+    "value": "2N3904",
+    "position_mm": [
+      124.5,
       47.0
     ],
     "nets": {
-      "1": "/B_TRIM_TOP",
-      "2": "/B_BASE"
+      "1": "/B_E1",
+      "2": "/B_BASE",
+      "3": "/B_BASE"
+    }
+  },
+  {
+    "unit": "B",
+    "reference": "D101",
+    "unit_reference": "D1",
+    "value": "1N4148",
+    "position_mm": [
+      128.5,
+      63.0
+    ],
+    "nets": {
+      "1": "/B_D12",
+      "2": "/B_ZD_A"
+    }
+  },
+  {
+    "unit": "B",
+    "reference": "J102",
+    "unit_reference": "J2",
+    "value": "RLOAD VOLTAGE",
+    "position_mm": [
+      102.5,
+      19.0
+    ],
+    "nets": {
+      "1": "/B_VCC",
+      "2": "/B_OUT"
+    }
+  },
+  {
+    "unit": "B",
+    "reference": "J104",
+    "unit_reference": "J4",
+    "value": "Q102 BASE-EMITTER",
+    "position_mm": [
+      122.5,
+      19.0
+    ],
+    "nets": {
+      "1": "/B_BASE",
+      "2": "/B_E2"
+    }
+  },
+  {
+    "unit": "B",
+    "reference": "J101",
+    "unit_reference": "J1",
+    "value": "9.8V INPUT",
+    "position_mm": [
+      84.5,
+      84.0
+    ],
+    "nets": {
+      "1": "/B_VIN",
+      "2": "/B_GND"
     }
   },
   {
@@ -481,6 +411,62 @@
   },
   {
     "unit": "B",
+    "reference": "R103",
+    "unit_reference": "R3",
+    "value": "1k (LT R1a)",
+    "position_mm": [
+      94.5,
+      49.0
+    ],
+    "nets": {
+      "1": "/B_VA",
+      "2": "/B_TRIM_TOP"
+    }
+  },
+  {
+    "unit": "B",
+    "reference": "R104",
+    "unit_reference": "R4",
+    "value": "22R (LT Re1)",
+    "position_mm": [
+      132.5,
+      47.0
+    ],
+    "nets": {
+      "1": "/B_E1",
+      "2": "/B_GND"
+    }
+  },
+  {
+    "unit": "B",
+    "reference": "R105",
+    "unit_reference": "R5",
+    "value": "22R (LT Re2)",
+    "position_mm": [
+      132.5,
+      33.0
+    ],
+    "nets": {
+      "1": "/B_E2",
+      "2": "/B_GND"
+    }
+  },
+  {
+    "unit": "B",
+    "reference": "J103",
+    "unit_reference": "J3",
+    "value": "Q101 BASE-EMITTER",
+    "position_mm": [
+      119.5,
+      52.0
+    ],
+    "nets": {
+      "1": "/B_BASE",
+      "2": "/B_E1"
+    }
+  },
+  {
+    "unit": "B",
     "reference": "D104",
     "unit_reference": "D4",
     "value": "1N4007",
@@ -495,16 +481,30 @@
   },
   {
     "unit": "B",
-    "reference": "C101",
-    "unit_reference": "C1",
-    "value": "1.33n / >=25V",
+    "reference": "R106",
+    "unit_reference": "R6",
+    "value": "1k (LT Rload)",
     "position_mm": [
-      87.5,
-      22.0
+      99.5,
+      28.0
     ],
     "nets": {
       "1": "/B_VCC",
-      "2": "/B_GND"
+      "2": "/B_OUT"
+    }
+  },
+  {
+    "unit": "B",
+    "reference": "R107",
+    "unit_reference": "R7",
+    "value": "120R (117.6R measured)",
+    "position_mm": [
+      112.5,
+      47.0
+    ],
+    "nets": {
+      "1": "/B_TRIM_TOP",
+      "2": "/B_BASE"
     }
   }
 ]

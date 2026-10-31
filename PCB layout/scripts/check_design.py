@@ -55,7 +55,7 @@ def audit():
     for ref,nets in {'J1':{'1':'/VIN','2':'/GND'},'J2':{'1':'/VCC','2':'/OUT'},'J3':{'1':'/BASE','2':'/E1'},'J4':{'1':'/BASE','2':'/E2'}}.items():
         f=next(f for f in b.GetFootprints() if f.GetReference()==ref)
         assert {pad.GetNumber():pad.GetNetname() for pad in f.Pads()}==nets
-    report={'result':'PASS','revision':'P4','schematic_to_board_pad_nets':'exact match of native KiCad exported netlist','nets':actual,'tracks':len(list(b.GetTracks())),'routed_layers':['B.Cu'],'vias':0,'footprints':len(list(b.GetFootprints())),'headers':'J1 power; J2 Rload; J3 Q1 B-E; J4 Q2 B-E','note':'Single unit CAD audit. Separate panel isolation audit required; no physical performance measurement.'}
+    report={'result':'PASS','revision':'P5','schematic_to_board_pad_nets':'exact match of native KiCad exported netlist','nets':actual,'tracks':len(list(b.GetTracks())),'routed_layers':['B.Cu'],'vias':0,'footprints':len(list(b.GetFootprints())),'headers':'J1 power; J2 Rload; J3 Q1 B-E; J4 Q2 B-E','note':'Single unit CAD audit. Separate panel isolation audit required; no physical performance measurement.'}
     (ROOT/'reports/board_audit.json').write_text(json.dumps(report,indent=2))
     parts=json.loads((ROOT/'components.json').read_text())
     for item in parts:

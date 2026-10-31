@@ -1,12 +1,22 @@
-# P4: header-equipped unit and two-copy 150 x 100 mm panel
+# P5: hand-soldering clearance; header-equipped unit and two-copy 150 x 100 mm panel
 
 **Open `dual_current_mirror.kicad_pro` / `dual_current_mirror.kicad_pcb` for the complete two-copy panel.** `current_mirror.kicad_pro` remains the reusable single 78 x 67 mm unit. KiCad 10.0.7 or later is required. In PCB Editor, press **Alt+3** for 3D. The shared project-local library is `Project.pretty` via `fp-lib-table`.
 
+
+## P5 hand-soldering clearance update ? 2026-10-31
+
+Both copies now use **0.8 mm minimum copper clearance**, with **0.6 mm tracks**. Header and transistor pin pitch remains **2.54 mm**. Their elongated pads are **1.7 mm along the pin row and 2.4 mm across it**, increasing the adjacent-pad gap from **0.54 to 0.84 mm**, while retaining soldering area. Header drills remain 1.0 mm; transistor drills remain 0.8 mm. Minimum copper around the holes is 0.35 mm for headers and 0.45 mm for transistors.
+
+D1/D2 and D101/D102 were repositioned to spread the closely grouped diode joints. The two neighbouring diode-pad gaps are now **1.56 mm and 2.18 mm**. Those diode pairs are intentionally connected by the circuit; the 0.8 mm rule protects copper on different nets. Transistor outline graphics are on the assembly layer so they do not overlap the elongated lands.
+
+The complete panel remains **150 x 100 mm**, with two isolated circuits. Electrical values, header functions, transistor pin numbering and hole diameters are preserved. There is no solder mask: use small amounts of solder and inspect for bridges. Use the regenerated **P5 ZIP**, not an earlier downloaded package. See `reports/solder_clearance.json` and `reports/P5_solder_clearance_2026-10-31/README.md`.
+
+
 ## Hardware change
 
-The earlier six TP pads are removed. Every copy now has one power header and three measurement headers, all **1x2 male, 2.54 mm pitch**, with 2 mm copper pads and 1 mm drills. Solder the pins on the copper side; attach female jumper leads above. Pads/holes are still needed to solder the pins. Do not fit shorting caps.
+The earlier six TP pads are removed. Every copy now has one power header and three measurement headers, all **1x2 male, 2.54 mm pitch**, with elongated 2.4 x 1.7 mm copper pads and 1 mm drills. Solder the pins on the copper side; attach female jumper leads above. Pads/holes are still needed to solder the pins. Do not fit shorting caps.
 
-| Function | Copy A | Copy B | Pin 1 / red / square pad | Pin 2 / black |
+| Function | Copy A | Copy B | Pin 1 / red / rectangular pad | Pin 2 / black |
 |---|---|---|---|---|
 | 9.8 V power | J1 | J101 | VIN | GND |
 | Rload voltage | J2 | J102 | VCC | OUT |
@@ -21,7 +31,7 @@ Each unit is rotated 90 degrees to 67 x 78 mm. Copy A bounds are (5.5,11)..(72.5
 
 The panel has **36 components, including 8 headers / 16 header pins**, and **24 nets in two disjoint groups**. A_ and B_ nets do not share power, ground, copper or component terminals. Shared external supplies/instruments may connect them externally. The centre guide at x=75 mm is drawing-layer documentation only; no slot or cut is manufactured automatically. Both copies can stay on the same blank.
 
-Tracks are 0.6 mm on B.Cu, minimum configured clearance 0.4 mm, no vias/jumpers/pours. Only the outer 150 x 100 mm boundary is Edge.Cuts. Through-hole pads appear on both layers in the data model; no front tracks are fabricated.
+Tracks are 0.6 mm on B.Cu, minimum configured clearance 0.8 mm, no vias/jumpers/pours. Only the outer 150 x 100 mm boundary is Edge.Cuts. Through-hole pads appear on both layers in the data model; no front tracks are fabricated.
 
 ## Electrical values and footprints
 
@@ -39,13 +49,13 @@ The original LTspice topology is retained, with fixed R7 replacing its RV parame
 - `previews/dual_panel_assembly.*`, `dual_panel_copper_review.*`, `dual_panel_schematic.*`: panel review drawings.
 - `reports/panel_erc.json`, `panel_drc.json`, `panel_audit.json`, `panel_sha256.json`: panel checks, isolation audit and hashes.
 - `reports/erc.json`, `drc.json`, `board_audit.json`, `source_connectivity.json`: unit checks.
-- `reports/P4_dual_panel_2026-10-30/README.md`: current handoff; earlier reports and trimmer templates are historical.
+- `reports/P5_solder_clearance_2026-10-31/README.md`: current handoff; earlier reports and trimmer templates are historical.
 
 Both projects pass native ERC/DRC with zero reported violations, unconnected items or schematic parity issues. The independent audit verifies header roles, all panel pads against the exported netlist, rotations, fit, isolated grounds, unique UUIDs and bottom-only tracks. Standard ignored check categories are listed in native reports; no new exclusions were added.
 
-## Copper printing
+## Milling or copper printing
 
-For the college's **direct copper printer + automated drilling**, use `fabrication/dual_panel_machine_files.zip` or the files under `fabrication/machine_files/`:
+For the college's **PCB milling machine + automated drilling**, use `fabrication/dual_panel_machine_files.zip` or the files under `fabrication/machine_files/`:
 
 - **`dual_current_mirror-B_Cu.gbr`**: the only copper print layer.
 - **`dual_current_mirror.drl`**: matched Excellon drill program, 76 holes.

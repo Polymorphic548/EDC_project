@@ -1,1 +1,1 @@
-(fp_lib_table (version 7) (lib (name "Project") (type "KiCad") (uri "${KIPRJMOD}/Project.pretty") (options "") (descr "P4 header-unit footprints shared by both isolated panel copies")))
+(fp_lib_table (version 7) (lib (name "Project") (type "KiCad") (uri "${KIPRJMOD}/Project.pretty") (options "") (descr "P5 hand-soldering footprints shared by both isolated panel copies")))

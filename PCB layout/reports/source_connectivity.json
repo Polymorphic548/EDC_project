@@ -1,6 +1,6 @@
 {
   "result": "PASS - TOPOLOGY WITH NOMINAL/MEASURED VALUE DISTINCTION",
-  "revision": "P4",
+  "revision": "P5",
   "source": "diode_comp_mirror_enhanced_v2.asc",
   "source_electrical_nets": 12,
   "nets": {

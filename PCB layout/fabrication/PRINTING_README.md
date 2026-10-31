@@ -1,8 +1,8 @@
-# P4: choose the correct 1:1 copper artwork
+# P5: choose the correct 1:1 copper artwork
 
-## College direct-print / automated drill workflow
+## College PCB milling / automated drill workflow
 
-Use `dual_panel_machine_files.zip`, or open `machine_files/README.md` for the individual machine inputs. The copper file is **`dual_current_mirror-B_Cu.gbr`**; the drill file is **`dual_current_mirror.drl`**. Load these as a registered pair in millimetres. No F.Cu print layer is needed. `Edge_Cuts.gbr` is a separate optional boundary reference, not another print layer. The PDF instructions below are for the alternative paper/film method.
+Use `dual_panel_machine_files.zip`, or open `machine_files/README.md` for the individual machine inputs. The copper file is **`dual_current_mirror-B_Cu.gbr`**; the drill file is **`dual_current_mirror.drl`**. Load these as a registered pair in millimetres. No F.Cu print layer is needed. `Edge_Cuts.gbr` is a separate optional boundary reference, not another print layer. For milling, import the Gerber as copper to retain and let the operator generate isolation toolpaths; this is not G-code. Minimum different-net clearance is 0.8 mm, tracks 0.6 mm. The PDF instructions below are for the alternative paper/film method. Use the regenerated P5 ZIP rather than an older download.
 
 ## Paper / film transfer alternatives
 

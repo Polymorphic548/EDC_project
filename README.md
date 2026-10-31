@@ -1,6 +1,16 @@
 # EDC project: two isolated current mirrors on one PCB
 
-**Current revision: P4.** Two independent copies of the analog current-mirror circuit fit on a **150 x 100 mm (15 x 10 cm)** single-sided copper board. Each copy has male pin headers for power and exactly three voltage measurements: **Rload, Q1 base-emitter and Q2 base-emitter**. The earlier loose test pads are removed from the current designs.
+**Current revision: P5.** Two independent copies of the analog current-mirror circuit fit on a **150 x 100 mm (15 x 10 cm)** single-sided copper board. Each copy has male pin headers for power and exactly three voltage measurements: **Rload, Q1 base-emitter and Q2 base-emitter**. The earlier loose test pads are removed from the current designs.
+
+
+## P5 hand-soldering clearance update ? 2026-10-31
+
+Both copies now use **0.8 mm minimum copper clearance**, with **0.6 mm tracks**. Header and transistor pin pitch remains **2.54 mm**. Their elongated pads are **1.7 mm along the pin row and 2.4 mm across it**, increasing the adjacent-pad gap from **0.54 to 0.84 mm**, while retaining soldering area. Header drills remain 1.0 mm; transistor drills remain 0.8 mm. Minimum copper around the holes is 0.35 mm for headers and 0.45 mm for transistors.
+
+D1/D2 and D101/D102 were repositioned to spread the closely grouped diode joints. The two neighbouring diode-pad gaps are now **1.56 mm and 2.18 mm**. Those diode pairs are intentionally connected by the circuit; the 0.8 mm rule protects copper on different nets. Transistor outline graphics are on the assembly layer so they do not overlap the elongated lands.
+
+The complete panel remains **150 x 100 mm**, with two isolated circuits. Electrical values, header functions, transistor pin numbering and hole diameters are preserved. There is no solder mask: use small amounts of solder and inspect for bridges. Use the regenerated **P5 ZIP**, not an earlier downloaded package. See `PCB layout/reports/solder_clearance.json` and `PCB layout/reports/P5_solder_clearance_2026-10-31/README.md`.
+
 
 ## Open the two-copy panel
 
@@ -24,15 +34,15 @@ The reusable **single-copy** project is still [current_mirror.kicad_pro](PCB%20l
 | Left/right margins | 5.5 mm |
 | Top/bottom margins | 11 mm |
 
-All tracks are on **B.Cu**: 0.6 mm width, 0.4 mm configured minimum clearance, no vias, copper pours or wire jumpers. Through-hole pads use KiCad's normal multi-layer data model; fabricate only the bottom copper pattern. The outer Edge.Cuts is 150 x 100 mm. The centre guide at x=75 mm is a drawing-layer cutting guide, not copper or a routed slot. The copies may remain on one piece of board while electrically separate.
+All tracks are on **B.Cu**: 0.6 mm width, 0.8 mm configured minimum clearance, no vias, copper pours or wire jumpers. Through-hole pads use KiCad's normal multi-layer data model; fabricate only the bottom copper pattern. The outer Edge.Cuts is 150 x 100 mm. The centre guide at x=75 mm is a drawing-layer cutting guide, not copper or a routed slot. The copies may remain on one piece of board while electrically separate.
 
 Copy A uses the original references (Q1/Q2, R1..R7, J1..J4). Copy B uses references offset by 100 (Q101/Q102, R101..R107, J101..J104). All A_ and B_ nets are separate, **including both grounds**. A shared external supply, common-ground instrument or added wire can connect the two copies externally; the PCB itself provides no such connection.
 
 ## Header connections and multimeter use
 
-Use **1x2 straight male headers, 2.54 mm pitch**, soldered from the copper side, and suitable female jumper-wire connectors. There are **four headers per copy, eight total / sixteen pins**. Each header has 1 mm drill holes and 2 mm copper pads. Copper pads/holes remain necessary for soldering the pins.
+Use **1x2 straight male headers, 2.54 mm pitch**, soldered from the copper side, and suitable female jumper-wire connectors. There are **four headers per copy, eight total / sixteen pins**. Each header has 1 mm drill holes and elongated 2.4 x 1.7 mm copper pads. Copper pads/holes remain necessary for soldering the pins.
 
-| Purpose | Copy A | Copy B | Pin 1 (square pad) | Pin 2 |
+| Purpose | Copy A | Copy B | Pin 1 (rectangular pad) | Pin 2 |
 |---|---|---|---|---|
 | Power input | J1 | J101 | +9.8 V / VIN | GND |
 | Load voltage | J2 | J102 | VCC, top of load resistor | OUT, bottom of load / Q2-role collector |
@@ -82,9 +92,9 @@ Historical P0/P1/P2/P3 reports, old trimmer footprints and the trimmer fitting t
 
 ## Print and fabricate
 
-**College direct-copper printer / automated drill:** use the prepared [machine package ZIP](PCB%20layout/fabrication/dual_panel_machine_files.zip), or [machine-files folder](PCB%20layout/fabrication/machine_files/README.md). Print **`dual_current_mirror-B_Cu.gbr`** and drill **`dual_current_mirror.drl`**. The separate `Edge_Cuts.gbr` is an optional outline reference, not copper artwork. No F.Cu Gerber is exported. Copper/drill origins and orientation match, and all 76 holes and copper pad features were checked against the saved PCB. See [verification](PCB%20layout/fabrication/machine_files/verification.json). The design files were not changed by this export.
+**College PCB milling machine / automated drill:** use the prepared [machine package ZIP](PCB%20layout/fabrication/dual_panel_machine_files.zip), or [machine-files folder](PCB%20layout/fabrication/machine_files/README.md). Import **`dual_current_mirror-B_Cu.gbr`** as copper to retain and drill **`dual_current_mirror.drl`**. The separate `Edge_Cuts.gbr` is an optional outline reference, not copper artwork. No F.Cu Gerber is exported. Copper/drill origins and orientation match, and all 76 holes and copper pad features were checked against the saved PCB. See [verification](PCB%20layout/fabrication/machine_files/verification.json). The design files were not changed by this export.
 
-The operator must configure the copper-side fixture/transform for the matching file pair; do not mirror/offset only the drill or only the copper file. The one physical copper face is B.Cu in the CAD design, with components installed from the opposite face. Through-hole pads showing on F.Cu in KiCad do not request a second copper layer. The package uses millimetres, absolute coordinates and unmirrored standard Gerber/Excellon output. Confirm machine ink/resist polarity before running.
+The operator must configure the copper-side fixture/transform for the matching file pair; do not mirror/offset only the drill or only the copper file. The one physical copper face is B.Cu in the CAD design, with components installed from the opposite face. Through-hole pads showing on F.Cu in KiCad do not request a second copper layer. The package uses millimetres, absolute coordinates and unmirrored standard Gerber/Excellon output. For milling, the operator generates isolation toolpaths around the copper to retain; the Gerber is not executable G-code.
 
 For an alternative paper/film transfer workflow, two **B.Cu-only, 1:1** PDFs are also prepared:
 

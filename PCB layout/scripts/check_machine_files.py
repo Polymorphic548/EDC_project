@@ -19,7 +19,7 @@ def keyed(items):return collections.Counter(tuple(round(v,3) if isinstance(v,flo
 def gerber(path):
     text=path.read_text();assert '%MOMM*%' in text and '%FSLAX46Y46*%' in text
     assert '%LPC*%' not in text,'Unexpected clear polarity'
-    apertures={int(n):(shape,tuple(map(float,size.split('X')))) for n,shape,size in re.findall(r'%ADD(\d+)([CR]),([\d.X]+)\*%',text)}
+    apertures={int(n):(shape,tuple(map(float,size.split('X')))) for n,shape,size in re.findall(r'%ADD(\d+)([CRO]),([\d.X]+)\*%',text)}
     aperture=None;x=y=0;flashes=[];segments=[];regions=[];region=None;mode='G01'
     for line in text.splitlines():
         if line=='G36*':region={'points':[],'radii':[]};continue
@@ -59,9 +59,12 @@ def main():
             expected_hits.append((x,-y,float(drill[1])))
             sx,sy=map(float,child(pad,'size')[1:]);shape=pad[3]
             if shape=='circle':expected_flashes.append((x,-y,'C',sx))
-            elif shape=='rect':
-                assert sx==sy
-                expected_flashes.append((x,-y,'R',sx,sy))
+            elif shape in ('rect','oval'):
+                pa=child(pad,'at')
+                orientation=float(pa[3]) if len(pa)>3 else 0
+                assert abs(orientation/90-round(orientation/90))<1e-6
+                if round(orientation/90)%2:sx,sy=sy,sx
+                expected_flashes.append((x,-y,'R' if shape=='rect' else 'O',sx,sy))
             else:
                 assert shape=='roundrect' and sx==sy
                 radius=min(sx,sy)*float(child(pad,'roundrect_rratio')[1])
