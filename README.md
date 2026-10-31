@@ -1,158 +1,136 @@
-# EDC project: two isolated current mirrors on one PCB
+# Diode-Compensated Current Mirror PCB
 
-**Current PCB: P8 rectangle-pad trial, retaining P6 positions and routing.** Two independent copies of the analog current-mirror circuit fit on a **150 x 100 mm (15 x 10 cm)** single-sided copper board. Each copy has male pin headers for power and exactly three voltage measurements: **Rload, Q1 base-emitter and Q2 base-emitter**. The earlier loose test pads are removed from the current designs.
+A single-sided PCB containing two independent, diode-compensated 2N3904 current mirrors. This repository includes the original LTspice circuit, KiCad schematic and layout, assembly drawings, and matched Gerber and drill files.
 
+Each circuit has a power connector and three voltage-measurement headers: across the load and across each transistor's base and emitter.
 
-
-
-
-## P8: plain rectangle pad trial for CopperCAM
-
-**Only pad outlines change; P6 component positions, labels, routes, hole centres, hole diameters and electrical connections are preserved.** The 20 oval pads (all 12 transistor pins plus 8 header pin-2 lands) and 8 rounded-rectangle diode lands are now plain rectangles with the same overall dimensions. The panel now has **36 rectangular and 40 circular pads**, with no oval pads, rounded-rectangle pads, aperture macros or filled pad regions in the copper Gerber. All 76 pads are standard aperture flashes. Existing circular pads remain circular.
-
-Transistor lands remain 1.7 x 2.4 mm with 0.8 mm holes and 2.54 mm pitch. Header lands remain 2.4 x 1.7 mm with 1 mm holes and 2.54 mm pitch. Adjacent-land spacing remains 0.84 mm. **All transistor pins and both pins of each header are rectangular now: pad shape no longer identifies pin 1.** Use the numbered pins, transistor body orientation and assembly +/B/E/GND labels. Transistor numbering remains 1=emitter, 2=base, 3=collector.
-
-This follows [Aalto Fablab's CopperCAM guidance](https://wiki.aalto.fi/spaces/AF/pages/362916083/Creating%2BTool%2BPaths%2Bwith%2BCopperCAM%2B-%2Bfor%2BBungard%2BCCD%2BMilling%2BMachine), which recommends circle/rectangle pads and reports recognition problems with oval and rounded-rectangle shapes. The previous oval-pad export was valid Gerber but was not confirmed compatible with the lab's CopperCAM. This trial is **not yet confirmed in that installation**. KiCad checks and export comparisons cannot substitute for that import test.
-
-For the lab test, extract **`PCB layout/fabrication/dual_panel_coppercam_rectangles.zip` into a fresh folder** and start a fresh CopperCAM circuit from its `dual_current_mirror-B_Cu.gbr`. This avoids confusing the new file with an old extraction or cached job. Before calculating contours, check that all 12 transistor lands are visible, along with the header and diode lands. Then import the original-format drill file and verify registration using the known layer-1/layer-5 workflow. Do not assume the issue is fixed until this actual import is checked.
-
-The standard manufacturing ZIP is also refreshed with identical contents. The 1.7 mm thickness and existing centre-cut setup are retained. Setup JSON still is not executable machine code. Generated previews show the new rectangles; the supplied screenshot preserves the P6 placement/routing view but predates the rectangle-pad trial. See `PCB layout/reports/coppercam_pads.json` and `PCB layout/reports/layout_restore.json` for the exported-pad and retained-layout checks.
-
-
-## Retained P6 placement/routing and cutting setup
-
-The recent header-spacing trial has been undone. The saved P6 component positions, labels and exact routing remain restored directly, not rerouted: J2/J4 and J102/J104 are back at their original positions, with 50 track segments in the unit and 100 in the panel. The straight/45-degree routes and centre-cut line remain; P8 changes pad outlines to rectangles as described above. Current project preferences, the 1.7 mm CAD thickness, supplied cutting parameters and replacement screenshot are retained. See `PCB layout/reports/layout_restore.json` for the exact-layout comparison.
-
-The CAD board thickness is now **1.7 mm**, matching the user's reported blank. Centre-cut setup data records **Roland monoFab SRM-20**, **0.8 mm cutting diameter** and **0.4 mm maximum depth per pass**. Nominal planning depths below the top surface are **0.4, 0.8, 1.2, 1.6 and 1.7 mm**, ending at nominal board bottom. A full cut may require a confirmed breakthrough allowance into a sacrificial board. This is not an executable machine program: feed/plunge rates, spindle speed, Z-zero, safe clearance, cutter type/flute length, holding, breakthrough and output format still require operator confirmation.
-
-The centre-cut line remains at x=75 mm. With a centred 0.8 mm kerf and no outer trimming, each separated half is nominally **74.6 x 100 mm**. Setup data is in `PCB layout/centre_cut_setup.json` and copied into the regenerated manufacturing ZIP. Read `PCB layout/reports/header_space.json` for geometry checks. The supplied P6 screenshot below matches placement and routing; generated previews show the P8 pad outlines.
-
-
-## P6: straight routes, emitter pads and centre separation
-
-The restored P6 layout uses horizontal, vertical and 45-degree track sections: **100 panel segments instead of 542**, with no track arcs or tiny staircase routes. Tracks remain **0.6 mm** wide with **0.8 mm minimum different-net clearance**. Standard rounded pad boundaries and tool-radius compensation may still produce arcs in CAM; these are different from jagged copper routing.
-
-P6 used oval emitter lands on **Q1, Q2, Q101 and Q102**; P8 replaces all transistor lands with rectangles. Pin 1 remains the emitter. Land dimensions (1.7 mm along the pin row, 2.4 mm across it), 0.8 mm drills, 2.54 mm pin pitch and at least 0.45 mm annular copper are retained. All four emitter lands were present as rectangles in the previous PCB and Gerber; the reported disappearance was not reproduced in the source files. Their current rectangular flashes are explicitly checked in `PCB layout/reports/emitter_routes.json`. Confirm all four lands remain visible and intact in CopperCAM's generated isolation toolpaths before machining.
-
-A separate **`dual_current_mirror-Centre_Cut.gbr`** contains one straight centreline at **x=75 mm, from y=0 to 100 mm**. It is exported from User.1, not copper or Edge.Cuts. This allows the 150 x 100 mm panel to be separated into two nominal 75 x 100 mm boards; the cutter removes a kerf, so finished widths will be slightly smaller. With a centred 1 mm kerf and no additional trimming, each width would be 74.5 mm. The cut centreline has at least 5.4 mm conservative clearance from circuit copper.
-
-The centre-cut Gerber is **geometry only, not executable machine code**. The operator must assign a centreline cut-through operation, suitable cutter, actual measured board thickness, passes, feeds/speed, safe Z, output format and work holding. No tabs or depths are encoded. Copper isolation and drilling should precede final separation, with both halves secured. At P6, the model and board thickness were pending. P7 records the supplied SRM-20 model and 1.7 mm thickness; remaining machine settings are still pending.
-
-The user resolved the earlier CopperCAM drill alignment by adjusting **layers 1 and 5**, using the original files. The experimental Excellon/Gerber drill files were deleted and are not restored. Use the latest regenerated ZIP for the restored P6 layout and inspect alignment and emitter lands after loading it.
-
-
-## Earlier P5 hand-soldering clearance update (2026-10-31)
-
-Both copies now use **0.8 mm minimum copper clearance**, with **0.6 mm tracks**. Header and transistor pin pitch remains **2.54 mm**. Their elongated pads are **1.7 mm along the pin row and 2.4 mm across it**, increasing the adjacent-pad gap from **0.54 to 0.84 mm**, while retaining soldering area. Header drills remain 1.0 mm; transistor drills remain 0.8 mm. Minimum copper around the holes is 0.35 mm for headers and 0.45 mm for transistors.
-
-D1/D2 and D101/D102 were repositioned to spread the closely grouped diode joints. The two neighbouring diode-pad gaps are now **1.56 mm and 2.18 mm**. Those diode pairs are intentionally connected by the circuit; the 0.8 mm rule protects copper on different nets. Transistor outline graphics are on the assembly layer so they do not overlap the elongated lands.
-
-The complete panel remains **150 x 100 mm**, with two isolated circuits. Electrical values, header functions, transistor pin numbering and hole diameters are preserved. There is no solder mask: use small amounts of solder and inspect for bridges. Use the regenerated ZIP for the restored P6 appearance and retained cutting setup. See `PCB layout/reports/solder_clearance.json` and `PCB layout/reports/P5_solder_clearance_2026-10-31/README.md`.
-
-
-## Open the two-copy panel
-
-1. Open [dual_current_mirror.kicad_pro](PCB%20layout/dual_current_mirror.kicad_pro) in KiCad 10.0.7 or later.
-2. Open [dual_current_mirror.kicad_pcb](PCB%20layout/dual_current_mirror.kicad_pcb) in the PCB Editor.
-3. Press **Alt+3** for the 3D Viewer. The headers use standard vertical male-pin models.
-
-[Panel assembly preview](PCB%20layout/previews/dual_panel_assembly.png) | [Panel copper review](PCB%20layout/previews/dual_panel_copper_review.png) | [Panel schematic PDF](PCB%20layout/previews/dual_panel_schematic.pdf)
-
-Supplied KiCad screenshot showing the retained P6 placement and routing; pad shapes predate P8. Generated previews linked above show the current rectangle pads:
-
-![Supplied KiCad screenshot with two isolated current-mirror circuits](PCB%20layout/Screenshot%202026-10-31%20121807.png)
-
-The reusable **single-copy** project is still [current_mirror.kicad_pro](PCB%20layout/current_mirror.kicad_pro). Its board is 78 x 67 mm; it is not the full 15 x 10 cm panel. Reopen files from disk after external changes rather than saving an old in-memory layout over the new files.
-
-## Layout and isolation
-
-| Item | Dimensions / placement |
+| Specification | Design |
 |---|---|
-| Full copper blank / panel | 150 x 100 mm |
-| Each unit, rotated 90 degrees | 67 x 78 mm |
-| Copy A unit rectangle | x=5.5..72.5 mm, y=11..89 mm |
-| Copy B unit rectangle | x=77.5..144.5 mm, y=11..89 mm |
-| Gap between unit rectangles | 5 mm |
-| Left/right margins | 5.5 mm |
-| Top/bottom margins | 11 mm |
+| Panel size / thickness | 150 x 100 mm / 1.7 mm |
+| Circuits | Two electrically isolated copies, A and B |
+| Copper | Single-sided, B.Cu |
+| Track width / configured minimum clearance | 0.6 mm / 0.8 mm |
+| Supply | 9.8 V DC per circuit |
+| Assembly | Through-hole; 36 footprints including eight 2-pin headers |
+| Header pitch | 2.54 mm |
+| Adjustment resistor | Fixed 120 ohm; no trimmer |
+| Software | KiCad 10.0.7 or later |
 
-All tracks are on **B.Cu**: 0.6 mm width, 0.8 mm configured minimum clearance, no vias, copper pours or wire jumpers. Through-hole pads use KiCad's normal multi-layer data model; fabricate only the bottom copper pattern. The outer Edge.Cuts is 150 x 100 mm. The centreline at x=75 mm is on User.1 and exports as a separate centre-cut file; it is excluded from copper and outer Edge.Cuts. The copies may remain on one piece of board while electrically separate.
+The saved design and exports pass the recorded CAD and geometry checks. **The rectangular-pad export still requires confirmation in the lab's CopperCAM installation.** Physical circuit performance has not been measured.
 
-Copy A uses the original references (Q1/Q2, R1..R7, J1..J4). Copy B uses references offset by 100 (Q101/Q102, R101..R107, J101..J104). All A_ and B_ nets are separate, **including both grounds**. A shared external supply, common-ground instrument or added wire can connect the two copies externally; the PCB itself provides no such connection.
+## Open the design
 
-## Header connections and multimeter use
+1. Open [dual_current_mirror.kicad_pro](PCB%20layout/dual_current_mirror.kicad_pro) in KiCad.
+2. Open [dual_current_mirror.kicad_pcb](PCB%20layout/dual_current_mirror.kicad_pcb) in PCB Editor.
+3. Press **Alt+3** for the 3D Viewer.
 
-Use **1x2 straight male headers, 2.54 mm pitch**, soldered from the copper side, and suitable female jumper-wire connectors. There are **four headers per copy, eight total / sixteen pins**. Each header has 1 mm drill holes and elongated 2.4 x 1.7 mm copper pads. Copper pads/holes remain necessary for soldering the pins.
+The [single-circuit project](PCB%20layout/current_mirror.kicad_pro) is a reusable 78 x 67 mm unit. Use the **dual** project for the complete panel.
 
-| Purpose | Copy A | Copy B | Pin 1 (use numbering/labels) | Pin 2 |
+![Current panel assembly drawing](PCB%20layout/previews/dual_panel_assembly.png)
+
+[Copper preview](PCB%20layout/previews/dual_panel_copper_review.png) | [Panel schematic PDF](PCB%20layout/previews/dual_panel_schematic.pdf)
+
+The supplied KiCad screenshot below shows the current placement and routing before the rectangular-pad update. The generated drawing above shows the current pads.
+
+![KiCad view of the two isolated circuits](PCB%20layout/Screenshot%202026-10-31%20121807.png)
+
+## Circuit and components
+
+The input passes through a 1 ohm resistor and a series 1N4007 diode. A Zener and two signal diodes provide the compensation network. Each transistor has a 22 ohm emitter resistor, and the output drives a 1 kohm load. The LTspice parameterized resistor RV1 is implemented as fixed R7/R107, nominally 120 ohm.
+
+![Original LTspice schematic](schematics/Screenshot%202026-10-31%20084318.png)
+
+| Copy A | Copy B | Component / value |
+|---|---|---|
+| R1 | R101 | 1 ohm, 1/4 W input resistor |
+| R2 | R102 | 662 ohm, 1/4 W |
+| R3 | R103 | 1 kohm, 1/4 W |
+| R4, R5 | R104, R105 | 22 ohm, 1/4 W emitter resistors |
+| R6 | R106 | 1 kohm, 1/4 W load |
+| R7 | R107 | Fixed 120 ohm, 1/4 W |
+| D1, D2 | D101, D102 | 1N4148 |
+| D3 | D103 | BZX55C5V1, 5.1 V Zener |
+| D4 | D104 | 1N4007 |
+| Q1, Q2 | Q101, Q102 | 2N3904 |
+| C1 | C101 | 1.33 nF, at least 25 V |
+| J1-J4 | J101-J104 | Four 1x2 male headers, 2.54 mm pitch |
+
+See the [panel BOM](PCB%20layout/panel_BOM.csv) for the complete assembly list. Two populated circuits require two sets of parts and eight headers total. R1 is a resistor, not a fuse.
+
+The original nominal 120 ohm resistor measured 117.6 ohm; measure the second circuit's resistor separately. The supplied LTspice results report approximately **4.625 mA at 25 degrees C** and **4.667 mA at 75 degrees C** with RV=117.6 ohm. These are source simulation results, not PCB measurements.
+
+## Power and measurements
+
+| Connection | Copy A | Copy B | Pin 1: positive / red | Pin 2: negative / black |
 |---|---|---|---|---|
-| Power input | J1 | J101 | +9.8 V / VIN | GND |
-| Load voltage | J2 | J102 | VCC, top of load resistor | OUT, bottom of load / Q2-role collector |
-| First transistor Vbe | J3 | J103 | BASE | First transistor emitter, above its 22 ohm resistor |
-| Second transistor Vbe | J4 | J104 | BASE | Second transistor emitter, above its 22 ohm resistor |
+| Power input | J1 | J101 | VIN, +9.8 V | GND |
+| Load voltage | J2 | J102 | VCC | OUT |
+| First transistor VBE | J3 | J103 | BASE | E1 |
+| Second transistor VBE | J4 | J104 | BASE | E2 |
 
-For voltage measurements, use **DC volts**, red lead on pin 1 and black lead on pin 2. On copy B, the first and second transistors are Q101 and Q102. The two base connections are intentionally duplicated on each copy; the two emitter connections are different nodes. Neither emitter is GND.
+Use **DC voltage mode**, with meter leads in COM and V/ohm. The circuit operates normally without a meter. These connectors must not be fitted with shorting caps.
 
-**These are measurement headers, not jumper links: do not fit shorting caps.** Use COM and V/ohm meter sockets, not current mode across a header. The circuit operates normally without measurement leads. Power goes to J1/J101; the internal VCC at J2/J102 is after the input resistor/diode.
+VCC is the internal supply after the input resistor and diode. E1 and E2 are separate emitter nodes above their 22 ohm resistors; neither is ground. Copy B's transistors are Q101 and Q102.
 
-Across the nominal 1 kohm load, `Iout = Vload / 1000`; 5.00 V corresponds to 5.00 mA. Copy A's load is R6; copy B's is R106. The latest supplied simulation predicts about 4.625-4.667 mA over 25-75 C, not exactly 5 mA.
+Calculate output current using `Iout = Vload / Rload`. With a 1 kohm load, 5.00 V corresponds to 5.00 mA.
 
-## Components per copy
+The circuits share no PCB nets, including ground. A common external supply or common-ground instrument can connect them externally.
 
-The LTspice source schematic is shown below. Its parameterized resistor RV1 is implemented on the PCB as fixed R7/R107, nominal 120 ohm; the original resistor measured 117.6 ohm.
+## Fabrication
 
-![LTspice diode-compensated current-mirror schematic with 9.8 V supply](schematics/Screenshot%202026-10-31%20084318.png)
+Use [dual_panel_machine_files.zip](PCB%20layout/fabrication/dual_panel_machine_files.zip) for the lab handoff. The [rectangle-pad package](PCB%20layout/fabrication/dual_panel_coppercam_rectangles.zip) contains identical files under a distinct name for a fresh CopperCAM import.
 
-| Copy A / B | Value / component |
+| File inside the package | Purpose |
 |---|---|
-| R1 / R101 | 1 ohm, 1/4 W resistor, not a fuse |
-| R2 / R102 | 662 ohm, 1/4 W (LT Rs) |
-| R3 / R103 | 1 kohm, 1/4 W |
-| R4,R5 / R104,R105 | 22 ohm, 1/4 W, emitter-to-ground resistors |
-| R6 / R106 | 1 kohm, 1/4 W load |
-| R7 / R107 | Fixed nominal 120 ohm, 1/4 W; no trimmer |
-| D1,D2 / D101,D102 | 1N4148 |
-| D3 / D103 | BZX55C5V1 5.1 V Zener |
-| D4 / D104 | 1N4007 series input diode |
-| Q1,Q2 / Q101,Q102 | 2N3904 |
-| C1 / C101 | 1.33 nF, at least 25 V |
-| J1..J4 / J101..J104 | Four 2-pin male headers |
+| `dual_current_mirror-B_Cu.gbr` | Copper to retain; the only copper layer |
+| `dual_current_mirror.drl` | Excellon drill locations and sizes |
+| `dual_current_mirror-Edge_Cuts.gbr` | Optional outer 150 x 100 mm outline |
+| `dual_current_mirror-Centre_Cut.gbr` | Optional straight centre separation line |
 
-The 117.6 ohm measurement was reported for the **original supplied 120 ohm resistor**. It is retained as source context, not proof that the second resistor has the same measured resistance. Measure each assembled copy's actual parts separately. Two populated copies require twice the electronic components and eight headers total; a single set of inventory parts is insufficient for both.
+The package also contains a drill map, tool report, setup data, verification results and checksums. All geometry uses millimetres and a shared absolute origin. Apply fixture mirroring or positioning consistently to all layers. Through-hole pads may appear on F.Cu in KiCad, but only the **bottom copper pattern** is fabricated.
 
-## Files, checks and history
+Extract into a fresh folder and open the copper Gerber in a new CopperCAM circuit. Before calculating contours, confirm that all three rectangular pads on each of the four transistors are visible. Import the drill file and verify that every hole aligns with its pad; the lab previously achieved registration using layers 1 and 5. Inspect the calculated isolation paths before machining. The copper export uses only standard circle and rectangle pad apertures.
 
-- [PCB README](PCB%20layout/README.md): detailed handoff and reproduction commands.
-- [Panel component list](PCB%20layout/panel_BOM.csv) and [panel component data](PCB%20layout/panel_components.json): both copies and all header nets.
-- [Panel audit](PCB%20layout/reports/panel_audit.json): fit, isolation, node mapping and CAD validation.
-- [P8 pad compatibility trial](PCB%20layout/reports/P8_rectangles_2026-10-31/README.md).
-- [P6 restoration record](PCB%20layout/reports/P6_restored_2026-10-31/README.md).
-- [Reverted P7 trial record](PCB%20layout/reports/P7_header_space_2026-10-31/README.md).
-- [P6 change record](PCB%20layout/reports/P6_cam_routes_2026-10-31/README.md).
-- [P4 change record](PCB%20layout/reports/P4_dual_panel_2026-10-30/README.md).
-- [Panel hashes](PCB%20layout/reports/panel_sha256.json): design and printing artifacts.
-- [Original LTspice files](schematics/): source circuit and user-supplied results, preserved.
-- `PCB layout/Project.pretty`: local footprints required by both projects.
+### Centre separation
 
-Checks cover the header unit and two-copy panel: ERC, DRC, zero unconnected items, schematic parity, native netlist-to-pad agreement, unique identifiers, 36 footprints, 24 separate nets and no shared ground. Standard configured checks are listed in the reports; no exclusions were added to hide layout problems. No physical board measurement or new SPICE simulation has been performed.
+The optional centreline runs at **x=75 mm** across the panel. A centred 0.8 mm cutter leaves nominal **74.6 x 100 mm** halves without outer trimming.
 
-The supplied LTspice log reports 4.624594 mA at 25 C and 4.667352 mA at 75 C for 9.8 V, Rs=662 ohm, C1=1.33 nF and RV=117.6 ohm. Physical results depend on real parts and temperature matching. Warm uniformly and measure actual temperatures if testing thermal behaviour; stay within every actual part's ratings.
+[Centre-cut setup data](PCB%20layout/centre_cut_setup.json) records a **Roland monoFab SRM-20**, 1.7 mm board, 0.8 mm cutting diameter and maximum 0.4 mm depth per pass. **No executable cutting program is included.** The operator must confirm feeds, spindle speed, safe Z, zero reference, cutter suitability, breakthrough allowance, work holding and output format. Secure both halves and complete isolation and drilling before separation.
 
-Historical P0/P1/P2/P3 reports, old trimmer footprints and the trimmer fitting template are retained for provenance only. Current projects contain no TP components or trimmers. The P1 geometry and P3 value-only helpers are retired to prevent restoring obsolete designs.
+### Printed masks
 
-## Print and fabricate
+[Unmirrored copper PDF](PCB%20layout/fabrication/dual_panel_BCu_unmirrored_1to1.pdf) | [Mirrored copper PDF](PCB%20layout/fabrication/dual_panel_BCu_mirrored_1to1.pdf)
 
-**College PCB milling machine / automated drill:** use the prepared [machine package ZIP](PCB%20layout/fabrication/dual_panel_machine_files.zip), or [machine-files folder](PCB%20layout/fabrication/machine_files/README.md). Import **`dual_current_mirror-B_Cu.gbr`** as copper to retain and drill **`dual_current_mirror.drl`**. The separate `Edge_Cuts.gbr` is an optional outer outline; `Centre_Cut.gbr` is the optional straight centre-cut path. Neither is copper artwork. No F.Cu Gerber is exported. Copper/drill origins and orientation match, and all 76 holes and copper pad features were checked against the saved PCB. See [verification](PCB%20layout/fabrication/machine_files/verification.json). The design files were not changed by this export.
+For transfer or photoresist fabrication, confirm orientation and exposure polarity with the lab. Print at **100% / Actual Size** and measure the **50 mm calibration line**. Black denotes copper to retain. Transfer only the board area; calibration marks sit outside it. Assembly and review drawings are not fabrication masks.
 
-The operator must configure the copper-side fixture/transform for the matching file pair; do not mirror/offset only the drill or only the copper file. The one physical copper face is B.Cu in the CAD design, with components installed from the opposite face. Through-hole pads showing on F.Cu in KiCad do not request a second copper layer. The package uses millimetres, absolute coordinates and unmirrored standard Gerber/Excellon output. For milling, the operator generates isolation toolpaths around the copper to retain; the Gerber is not executable G-code.
+## Assembly
 
-For an alternative paper/film transfer workflow, two **B.Cu-only, 1:1** PDFs are also prepared:
+Fit components on the face opposite the copper and solder on the copper side. There is no solder mask; use controlled amounts of flux-cored solder and inspect nearby joints for bridges.
 
-- [Unmirrored copper](PCB%20layout/fabrication/dual_panel_BCu_unmirrored_1to1.pdf)
-- [Mirrored copper](PCB%20layout/fabrication/dual_panel_BCu_mirrored_1to1.pdf)
+- Verify the actual transistor manufacturer's pinout. CAD numbering is **1=emitter, 2=base, 3=collector**.
+- All transistor and header pads are rectangular: **pad shape does not identify pin 1**. Follow numbering and assembly labels.
+- Confirm physical fit: resistor pitch 7.62 mm, capacitor pitch 5 mm, transistor and header pitch 2.54 mm.
+- Header holes are 1.0 mm; transistor holes are 0.8 mm. The panel also has 1.1 mm diode holes.
+- Check diode polarity and power-connector orientation before applying power.
 
-**Ask college staff which orientation and mask polarity their transfer/photoresist process requires.** Both files show black where copper is to remain; a process needing reversed exposure polarity requires the lab's appropriate inversion. Print only the chosen variant, at **Actual Size / 100%**, with no fit-to-page scaling. Measure the **50 mm calibration line** after printing. The copper blank occupies a 150 x 100 mm rectangle; annotations/calibration are outside that rectangle and must not be transferred onto the board.
+## Repository guide
 
-Do not print assembly or copper-review drawings as masks: they include borders and guides. The two mask variants contain no outline, silkscreen or cut guide in the copper artwork. Etching alone does not produce white component labels; use the assembly guide and mark headers during assembly.
+| Location | Contents |
+|---|---|
+| [schematics/](schematics/) | Original LTspice schematic and related source files |
+| [PCB layout/](PCB%20layout/README.md) | KiCad projects, BOMs and technical documentation |
+| [Project.pretty/](PCB%20layout/Project.pretty/) | Shared project-local footprints |
+| [previews/](PCB%20layout/previews/) | Assembly, schematic and copper review drawings |
+| [fabrication/](PCB%20layout/fabrication/) | Machine packages and 1:1 masks |
+| [reports/](PCB%20layout/reports/) | CAD checks, geometry audits and revision records |
+| [scripts/](PCB%20layout/scripts/) | Design generation, export and verification utilities |
 
-Before fabrication, verify actual transistor manufacturer pinout (**CAD 1=E, 2=B, 3=C**), lead forming, resistor fit, C1's assumed 5 mm pitch and header fit. No extra fuse was added. Keep the two copies' supply leads separate if on-board isolation is to be maintained externally.
+Recorded checks report zero ERC/DRC violations, zero unconnected items and zero schematic-parity issues for both projects under their configured rules. Independent audits verify isolated A/B nets, header connections, pad-to-netlist agreement and matching export geometry: **76 pads, 76 holes and 100 panel track segments**.
+
+[Panel audit](PCB%20layout/reports/panel_audit.json) | [Export verification](PCB%20layout/fabrication/machine_files/verification.json) | [Pad audit](PCB%20layout/reports/coppercam_pads.json)
+
+These checks establish saved-file consistency. Lab import, toolpaths, machining and physical circuit performance require verification on the actual equipment. Earlier revision records remain in `reports/`.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
