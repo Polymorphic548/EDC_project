@@ -1,9 +1,11 @@
 {
-  "drill_report.rpt": "8b1d5cca51b13858972a24a4592f42f07f1ae79c5e9c9625e6e5e4f645f46611",
-  "dual_current_mirror-B_Cu.gbr": "1dfdfa50ea050d3b0ec1e940260d8bc78743bfd7d4a42a1fb3f699491d34ba8d",
-  "dual_current_mirror-drl_map.pdf": "8535dc2f5ad7eaf1c8d41cd9821e13d3d03b9d37ff64cda5c9e857e98d4b1136",
-  "dual_current_mirror-Edge_Cuts.gbr": "09b03b6ab689cfadd623c69581abd2afc5748c0437e2659575c0c9e97513959a",
-  "dual_current_mirror.drl": "6398cc5f6e13cc680098e4d3864f09f165f1e5fe76a189239f0c27656350efc5",
-  "README.md": "3137f3e872979349a5c631d668f11d9d56496d6cd4e2dff8c3419261c63890a7",
-  "verification.json": "61c62b81311fdaa8e05b66d1526733bfeea2cc43dcefca408e19302b8cd62ca5"
+  "centre_cut_setup.json": "61b992294d537144b448b6905f0a060c0cb9d9dfdabf0ea1386aeef2dea7f337",
+  "drill_report.rpt": "0ab9ec97c6f7aea6d79d84811ca4d4eeed477ecf4e389ca9d3ecf9719aa4ecec",
+  "dual_current_mirror-B_Cu.gbr": "3302327058028cd6e8ad6c59117223d2b2fdab7f293957278aae1e9de9ef1c96",
+  "dual_current_mirror-Centre_Cut.gbr": "24d81accea94a9044bcc949a1f1d2e237b98e22792cb724af6e6cb664c3d9401",
+  "dual_current_mirror-drl_map.pdf": "75f83c86899ea42d9eaf4c536615c25d26f45ff9624594417b7a8b313f0e10fe",
+  "dual_current_mirror-Edge_Cuts.gbr": "108b51a50105a9efd09430b5d19ab608affa24c9164d4a0c63542026d86444b2",
+  "dual_current_mirror.drl": "2bb4bb68280a3f28256962ceb6b534014573fa350c43d8b15d37420b7c527c8b",
+  "README.md": "6e3cee2b617b79e0e2ebf39a54c7611b44de14a363b2c9e9fd68cc8695edb861",
+  "verification.json": "ec064ec48a28a5e14d515f7f72ea27fa7e778acc1bd242cf5171a575e3ae2470"
 }

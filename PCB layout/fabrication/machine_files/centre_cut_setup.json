@@ -1,0 +1,22 @@
+{
+  "status": "SETUP DATA ONLY - NOT EXECUTABLE MACHINE CODE",
+  "revision": "P7",
+  "machine_model": "Roland monoFab SRM-20",
+  "user_reported_board_thickness_mm": 1.7,
+  "user_reported_cutter_diameter_mm": 0.8,
+  "user_reported_maximum_depth_per_pass_mm": 0.4,
+  "nominal_depths_below_top_surface_to_board_bottom_mm": [0.4, 0.8, 1.2, 1.6, 1.7],
+  "breakthrough_allowance_mm": null,
+  "feed_rate_mm_per_min": null,
+  "plunge_rate_mm_per_min": null,
+  "spindle_speed_rpm": null,
+  "safe_z_above_top_mm": null,
+  "z_zero_is_top_copper_surface_confirmed": null,
+  "sacrificial_board_and_both_halves_secured_confirmed": null,
+  "cutter_type_and_usable_flute_length_confirmed": null,
+  "output_format_RML_or_Gcode": null,
+  "centreline_in_board_coordinates_mm": [[75, 0], [75, 100]],
+  "nominal_half_size_before_kerf_mm": [75, 100],
+  "half_size_after_centred_0_8_mm_kerf_without_outer_trimming_mm": [74.6, 100],
+  "notes": "Depths are a planning sequence to nominal board bottom, not a verified cut-through program. Final breakthrough, work coordinates, tool, holding and all remaining settings require operator confirmation. No machine program is included."
+}

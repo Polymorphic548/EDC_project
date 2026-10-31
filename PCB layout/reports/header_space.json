@@ -1,0 +1,40 @@
+{
+  "result": "PASS",
+  "revision": "P6-restored",
+  "headers": {
+    "J2": {
+      "anchor_mm": [
+        30.5,
+        19
+      ],
+      "restored_to_P6": true,
+      "minimum_vertical_gap_from_pad_top_to_passing_track_mm": 1.35
+    },
+    "J4": {
+      "anchor_mm": [
+        50.5,
+        19
+      ],
+      "restored_to_P6": true,
+      "minimum_vertical_gap_from_pad_top_to_passing_track_mm": 1.35
+    },
+    "J102": {
+      "anchor_mm": [
+        102.5,
+        19
+      ],
+      "restored_to_P6": true,
+      "minimum_vertical_gap_from_pad_top_to_passing_track_mm": 1.35
+    },
+    "J104": {
+      "anchor_mm": [
+        122.5,
+        19
+      ],
+      "restored_to_P6": true,
+      "minimum_vertical_gap_from_pad_top_to_passing_track_mm": 1.35
+    }
+  },
+  "physical_board_thickness_mm": 1.7,
+  "centre_cut_setup": "User-reported dimensions recorded; machine program pending missing operator settings."
+}

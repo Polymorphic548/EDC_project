@@ -4,7 +4,7 @@ $panelCli = 'C:\Program Files\KiCad\10.0\bin\kicad-cli.exe'
 $panelBoard = Join-Path $panelRoot 'dual_current_mirror.kicad_pcb'
 & $panelCli sch export pdf -o (Join-Path $panelRoot 'previews\dual_panel_schematic.pdf') (Join-Path $panelRoot 'dual_current_mirror.kicad_sch')
 if ($LASTEXITCODE -ne 0) { throw 'Panel schematic export failed.' }
-& $panelCli pcb export pdf --layers 'F.Fab,F.Silkscreen,Edge.Cuts,User.Drawings' --mode-single --black-and-white --scale 1 -o (Join-Path $panelRoot 'previews\dual_panel_assembly.pdf') $panelBoard
+& $panelCli pcb export pdf --layers 'F.Fab,F.Silkscreen,Edge.Cuts,User.Drawings,User.1' --mode-single --black-and-white --scale 1 -o (Join-Path $panelRoot 'previews\dual_panel_assembly.pdf') $panelBoard
 if ($LASTEXITCODE -ne 0) { throw 'Panel assembly export failed.' }
 & $panelCli pcb export pdf --layers 'B.Cu,Edge.Cuts' --mode-single --black-and-white --scale 1 -o (Join-Path $panelRoot 'previews\dual_panel_copper_review.pdf') $panelBoard
 if ($LASTEXITCODE -ne 0) { throw 'Panel copper review export failed.' }

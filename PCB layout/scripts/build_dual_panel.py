@@ -28,7 +28,7 @@ def mm_pt(pt):return (p.ToMM(pt.x),p.ToMM(pt.y))
 def schematic():
     tree=d.parse((ROOT/'current_mirror.kicad_sch').read_text(encoding='utf-8'))
     out=['kicad_sch',['version','20250114'],['generator',d.q('pcb_layout_script')],['uuid',ROOT_ID],['paper',d.q('A2')],
-         ['title_block',['title',d.q('Two isolated current mirrors - 150 x 100 mm panel')],['rev',d.q('P5 - SOLDER CLEARANCE')]],copy.deepcopy(d.child(tree,'lib_symbols'))]
+         ['title_block',['title',d.q('Two isolated current mirrors - 150 x 100 mm panel')],['rev',d.q('P6 - STRAIGHT ROUTES')]],copy.deepcopy(d.child(tree,'lib_symbols'))]
     def walk(node,unit,dx,dy):
         if not isinstance(node,list) or not node:return
         if node[0] in ('at','xy') and len(node)>=3:
@@ -59,6 +59,7 @@ def schematic():
 def board():
     unit_board=p.LoadBoard(str(ROOT/'current_mirror.kicad_pcb'))
     b=p.BOARD();b.SetCopperLayerCount(2)
+    b.GetDesignSettings().SetBoardThickness(d.mm(1.7))
     nets={}
     for unit in COPIES:
         for f in unit_board.GetFootprints():
@@ -92,8 +93,10 @@ def board():
         d.text(b,'COPY '+unit,39 if unit=='A' else 111,7,1.5)
     for a,c in [((0,0),(150,0)),((150,0),(150,100)),((150,100),(0,100)),((0,100),(0,0))]:
         s=p.PCB_SHAPE();s.SetShape(p.SHAPE_T_SEGMENT);s.SetStart(d.pos(*a));s.SetEnd(d.pos(*c));s.SetLayer(p.Edge_Cuts);s.SetWidth(d.mm(.05));b.Add(s)
-    # Separation guide is documentation only, never copper or a routed slot.
-    guide=p.PCB_SHAPE();guide.SetShape(p.SHAPE_T_SEGMENT);guide.SetStart(d.pos(75,5));guide.SetEnd(d.pos(75,95));guide.SetLayer(p.Dwgs_User);guide.SetWidth(d.mm(.15));b.Add(guide)
+    # Separate optional straight centre-cut operation. Never export on copper
+    # or Edge.Cuts: an open interior Edge.Cuts line would invalidate the board.
+    guide=p.PCB_SHAPE();guide.SetShape(p.SHAPE_T_SEGMENT);guide.SetStart(d.pos(75,0));guide.SetEnd(d.pos(75,100));guide.SetLayer(p.User_1);guide.SetWidth(d.mm(.1));b.Add(guide)
+    d.text(b,'CENTRE CUT: X=75 mm',75,91,.8)
     d.text(b,'150 x 100 mm - TWO ISOLATED COPIES',75,96,1.2)
     p.SaveBoard(str(ROOT/(NAME+'.kicad_pcb')),b)
     # Duplicate() can retain UUIDs in some KiCad versions. Give every footprint

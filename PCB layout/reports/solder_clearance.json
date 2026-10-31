@@ -1,6 +1,6 @@
 {
   "result": "PASS",
-  "revision": "P5",
+  "revision": "P6-restored",
   "minimum_configured_copper_clearance_mm": 0.8,
   "track_width_mm": 0.6,
   "copies": {

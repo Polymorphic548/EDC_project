@@ -1,13 +1,13 @@
 {
-  "status": "ROUTED - HEADER UNIT",
-  "revision": "P5",
+  "status": "RESTORED FROM SAVED P6 BOARD - NOT REROUTED",
+  "revision": "P6-restored",
   "layer": "B.Cu only",
   "track_width_mm": 0.6,
   "design_clearance_mm": 0.8,
   "vias": 0,
   "wire_jumpers": 0,
-  "pad_pair_routes": 26,
-  "grid_mm": 0.25,
-  "routing_attempt": 3,
-  "note": "Rerouted with 0.8 mm copper clearance for hand soldering; validate with KiCad DRC."
+  "unit_track_segments": 50,
+  "panel_track_segments": 100,
+  "source_snapshot": "before_P7_header_space_2026-10-31",
+  "note": "P6 positions, labels, tracks and centre-cut path restored exactly; retained 1.7 mm physical thickness and current centre-cut setup."
 }

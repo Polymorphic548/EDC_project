@@ -1,0 +1,17 @@
+{
+  "result": "PASS",
+  "revision": "P6-restored",
+  "p6_geometry_sha256": {
+    "current_mirror.kicad_pcb": "32e2df6c9de337b95bc89857cd5d9a410f12c6ab9a7a048d59e4168c9a130178",
+    "dual_current_mirror.kicad_pcb": "5eb7e64bb891b19f2a2ee7947cede30395c352377a8e41f6d920a62d89c8da88"
+  },
+  "compared": "All footprints including labels/models/UUIDs, every track, pad, board drawing and centre-cut line",
+  "retained_settings_sha256": {
+    "centre_cut_setup.json": "61b992294d537144b448b6905f0a060c0cb9d9dfdabf0ea1386aeef2dea7f337",
+    "current_mirror.kicad_pro": "2f8461d1533308d0087a375d4bde0d33646ff35f7e92159ea21a8ff6707e73ec",
+    "dual_current_mirror.kicad_pro": "1a61afbb5c39e5c14344132e391e9a79a6b9f1212cdf6afd055abf5661398a23"
+  },
+  "unit_track_segments": 50,
+  "panel_track_segments": 100,
+  "note": "Exact saved P6 appearance, not a reroute. Physical thickness remains 1.7 mm; retained cutting JSON and project preferences are byte-identical."
+}

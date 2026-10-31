@@ -100,6 +100,19 @@ def main():
     assert len(outline)==4
     coords={(round(x,3),round(y,3)) for s in outline for x,y in ((s[0],s[1]),(s[2],s[3]))}
     assert coords=={(0,0),(150,0),(150,-100),(0,-100)}
+    cut_flashes,cut_tracks,cut_regions=gerber(OUT/'dual_current_mirror-Centre_Cut.gbr')
+    assert not cut_flashes and not cut_regions and len(cut_tracks)==1
+    x,y,xx,yy,shape,width=cut_tracks[0]
+    assert shape=='C' and abs(width-.1)<1e-6
+    assert {(x,y),(xx,yy)}=={(75.0,0.0),(75.0,-100.0)}
+    cut_shapes=[item for item in children(tree,'gr_line') if val(child(item,'layer')[1])=='User.1']
+    assert len(cut_shapes)==1
+    assert {point(child(cut_shapes[0],'start')),point(child(cut_shapes[0],'end'))}=={(75.0,0.0),(75.0,100.0)}
+    assert (OUT/'centre_cut_setup.json').read_bytes()==(ROOT/'centre_cut_setup.json').read_bytes()
+    cut_setup=json.loads((OUT/'centre_cut_setup.json').read_text())
+    assert cut_setup['user_reported_board_thickness_mm']==1.7
+    assert cut_setup['user_reported_cutter_diameter_mm']==.8
+    assert cut_setup['user_reported_maximum_depth_per_pass_mm']==.4
     assert not list(OUT.glob('*F_Cu*')) and not list(OUT.glob('*.gbrjob'))
     # Exporting must not change any source CAD files that were validated earlier.
     recorded=json.loads((ROOT/'reports/panel_sha256.json').read_text())
@@ -110,6 +123,8 @@ def main():
             'copper_pad_features':len(flashes)+len(regions),'copper_pad_flashes':len(flashes),'rounded_pad_regions':len(regions),'copper_track_segments':len(tracks),
             'all_drill_positions_sizes_and_copper_geometry_match_saved_pcb':True,
             'outline':'150 x 100 mm, separate optional file; not copper artwork',
+            'centre_cut':'separate straight centreline from (75,0) to (75,-100) mm; operator assigns cut-through toolpath; no tabs encoded',
+            'centre_cut_user_setup_mm':{'board_thickness':1.7,'cutter_diameter':.8,'maximum_pass_depth':.4},
             'source_cad_and_existing_print_artifacts_unchanged':True}
     (OUT/'verification.json').write_text(json.dumps(report,indent=2))
     files=[p for p in OUT.iterdir() if p.is_file() and p.name!='SHA256.json']

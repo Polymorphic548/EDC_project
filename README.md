@@ -1,15 +1,39 @@
 # EDC project: two isolated current mirrors on one PCB
 
-**Current revision: P5.** Two independent copies of the analog current-mirror circuit fit on a **150 x 100 mm (15 x 10 cm)** single-sided copper board. Each copy has male pin headers for power and exactly three voltage measurements: **Rload, Q1 base-emitter and Q2 base-emitter**. The earlier loose test pads are removed from the current designs.
+**Current PCB appearance: restored P6; cutting setup retained.** Two independent copies of the analog current-mirror circuit fit on a **150 x 100 mm (15 x 10 cm)** single-sided copper board. Each copy has male pin headers for power and exactly three voltage measurements: **Rload, Q1 base-emitter and Q2 base-emitter**. The earlier loose test pads are removed from the current designs.
 
 
-## P5 hand-soldering clearance update ? 2026-10-31
+
+
+## P6 appearance restored; cutting setup retained
+
+The recent header-spacing trial has been undone. The saved P6 component positions, labels and exact routing were restored directly, not rerouted: J2/J4 and J102/J104 are back at their original positions, with 50 track segments in the unit and 100 in the panel. The earlier emitter-pad improvements, straight/45-degree routes and centre-cut line remain. Current project preferences, the 1.7 mm CAD thickness, supplied cutting parameters and replacement screenshot are retained. See `PCB layout/reports/layout_restore.json` for the exact-layout comparison.
+
+The CAD board thickness is now **1.7 mm**, matching the user's reported blank. Centre-cut setup data records **Roland monoFab SRM-20**, **0.8 mm cutting diameter** and **0.4 mm maximum depth per pass**. Nominal planning depths below the top surface are **0.4, 0.8, 1.2, 1.6 and 1.7 mm**, ending at nominal board bottom. A full cut may require a confirmed breakthrough allowance into a sacrificial board. This is not an executable machine program: feed/plunge rates, spindle speed, Z-zero, safe clearance, cutter type/flute length, holding, breakthrough and output format still require operator confirmation.
+
+The centre-cut line remains at x=75 mm. With a centred 0.8 mm kerf and no outer trimming, each separated half is nominally **74.6 x 100 mm**. Setup data is in `PCB layout/centre_cut_setup.json` and copied into the regenerated manufacturing ZIP. Read `PCB layout/reports/header_space.json` for geometry checks. The supplied P6 screenshot below now matches the restored placement and routing; generated previews have been refreshed.
+
+
+## P6: straight routes, emitter pads and centre separation
+
+The restored P6 layout uses horizontal, vertical and 45-degree track sections: **100 panel segments instead of 542**, with no track arcs or tiny staircase routes. Tracks remain **0.6 mm** wide with **0.8 mm minimum different-net clearance**. Standard rounded pad boundaries and tool-radius compensation may still produce arcs in CAM; these are different from jagged copper routing.
+
+The emitter lands of **Q1, Q2, Q101 and Q102** are now **oval**, matching their base/collector lands. Pin 1 remains the emitter. Land dimensions (1.7 mm along the pin row, 2.4 mm across it), 0.8 mm drills, 2.54 mm pin pitch and at least 0.45 mm annular copper are retained. All four emitter lands were present as rectangles in the previous PCB and Gerber; the reported disappearance was not reproduced in the source files. Their new oval flashes are explicitly checked in `PCB layout/reports/emitter_routes.json`. Confirm all four lands remain visible and intact in CopperCAM's generated isolation toolpaths before machining.
+
+A separate **`dual_current_mirror-Centre_Cut.gbr`** contains one straight centreline at **x=75 mm, from y=0 to 100 mm**. It is exported from User.1, not copper or Edge.Cuts. This allows the 150 x 100 mm panel to be separated into two nominal 75 x 100 mm boards; the cutter removes a kerf, so finished widths will be slightly smaller. With a centred 1 mm kerf and no additional trimming, each width would be 74.5 mm. The cut centreline has at least 5.4 mm conservative clearance from circuit copper.
+
+The centre-cut Gerber is **geometry only, not executable machine code**. The operator must assign a centreline cut-through operation, suitable cutter, actual measured board thickness, passes, feeds/speed, safe Z, output format and work holding. No tabs or depths are encoded. Copper isolation and drilling should precede final separation, with both halves secured. At P6, the model and board thickness were pending. P7 records the supplied SRM-20 model and 1.7 mm thickness; remaining machine settings are still pending.
+
+The user resolved the earlier CopperCAM drill alignment by adjusting **layers 1 and 5**, using the original files. The experimental Excellon/Gerber drill files were deleted and are not restored. Use the latest regenerated ZIP for the restored P6 layout and inspect alignment and emitter lands after loading it.
+
+
+## Earlier P5 hand-soldering clearance update (2026-10-31)
 
 Both copies now use **0.8 mm minimum copper clearance**, with **0.6 mm tracks**. Header and transistor pin pitch remains **2.54 mm**. Their elongated pads are **1.7 mm along the pin row and 2.4 mm across it**, increasing the adjacent-pad gap from **0.54 to 0.84 mm**, while retaining soldering area. Header drills remain 1.0 mm; transistor drills remain 0.8 mm. Minimum copper around the holes is 0.35 mm for headers and 0.45 mm for transistors.
 
 D1/D2 and D101/D102 were repositioned to spread the closely grouped diode joints. The two neighbouring diode-pad gaps are now **1.56 mm and 2.18 mm**. Those diode pairs are intentionally connected by the circuit; the 0.8 mm rule protects copper on different nets. Transistor outline graphics are on the assembly layer so they do not overlap the elongated lands.
 
-The complete panel remains **150 x 100 mm**, with two isolated circuits. Electrical values, header functions, transistor pin numbering and hole diameters are preserved. There is no solder mask: use small amounts of solder and inspect for bridges. Use the regenerated **P5 ZIP**, not an earlier downloaded package. See `PCB layout/reports/solder_clearance.json` and `PCB layout/reports/P5_solder_clearance_2026-10-31/README.md`.
+The complete panel remains **150 x 100 mm**, with two isolated circuits. Electrical values, header functions, transistor pin numbering and hole diameters are preserved. There is no solder mask: use small amounts of solder and inspect for bridges. Use the regenerated ZIP for the restored P6 appearance and retained cutting setup. See `PCB layout/reports/solder_clearance.json` and `PCB layout/reports/P5_solder_clearance_2026-10-31/README.md`.
 
 
 ## Open the two-copy panel
@@ -20,9 +44,9 @@ The complete panel remains **150 x 100 mm**, with two isolated circuits. Electri
 
 [Panel assembly preview](PCB%20layout/previews/dual_panel_assembly.png) | [Panel copper review](PCB%20layout/previews/dual_panel_copper_review.png) | [Panel schematic PDF](PCB%20layout/previews/dual_panel_schematic.pdf)
 
-Current KiCad PCB layout, showing isolated copies A and B:
+Supplied KiCad screenshot showing the P6 placement and routing, now restored; generated previews linked above reflect the retained cutting setup:
 
-![KiCad P5 PCB layout with two isolated current-mirror circuits](PCB%20layout/Screenshot%202026-10-31%20084257.png)
+![Supplied KiCad screenshot with two isolated current-mirror circuits](PCB%20layout/Screenshot%202026-10-31%20121807.png)
 
 The reusable **single-copy** project is still [current_mirror.kicad_pro](PCB%20layout/current_mirror.kicad_pro). Its board is 78 x 67 mm; it is not the full 15 x 10 cm panel. Reopen files from disk after external changes rather than saving an old in-memory layout over the new files.
 
@@ -38,7 +62,7 @@ The reusable **single-copy** project is still [current_mirror.kicad_pro](PCB%20l
 | Left/right margins | 5.5 mm |
 | Top/bottom margins | 11 mm |
 
-All tracks are on **B.Cu**: 0.6 mm width, 0.8 mm configured minimum clearance, no vias, copper pours or wire jumpers. Through-hole pads use KiCad's normal multi-layer data model; fabricate only the bottom copper pattern. The outer Edge.Cuts is 150 x 100 mm. The centre guide at x=75 mm is a drawing-layer cutting guide, not copper or a routed slot. The copies may remain on one piece of board while electrically separate.
+All tracks are on **B.Cu**: 0.6 mm width, 0.8 mm configured minimum clearance, no vias, copper pours or wire jumpers. Through-hole pads use KiCad's normal multi-layer data model; fabricate only the bottom copper pattern. The outer Edge.Cuts is 150 x 100 mm. The centreline at x=75 mm is on User.1 and exports as a separate centre-cut file; it is excluded from copper and outer Edge.Cuts. The copies may remain on one piece of board while electrically separate.
 
 Copy A uses the original references (Q1/Q2, R1..R7, J1..J4). Copy B uses references offset by 100 (Q101/Q102, R101..R107, J101..J104). All A_ and B_ nets are separate, **including both grounds**. A shared external supply, common-ground instrument or added wire can connect the two copies externally; the PCB itself provides no such connection.
 
@@ -87,6 +111,9 @@ The 117.6 ohm measurement was reported for the **original supplied 120 ohm resis
 - [PCB README](PCB%20layout/README.md): detailed handoff and reproduction commands.
 - [Panel component list](PCB%20layout/panel_BOM.csv) and [panel component data](PCB%20layout/panel_components.json): both copies and all header nets.
 - [Panel audit](PCB%20layout/reports/panel_audit.json): fit, isolation, node mapping and CAD validation.
+- [P6 restoration record](PCB%20layout/reports/P6_restored_2026-10-31/README.md).
+- [Reverted P7 trial record](PCB%20layout/reports/P7_header_space_2026-10-31/README.md).
+- [P6 change record](PCB%20layout/reports/P6_cam_routes_2026-10-31/README.md).
 - [P4 change record](PCB%20layout/reports/P4_dual_panel_2026-10-30/README.md).
 - [Panel hashes](PCB%20layout/reports/panel_sha256.json): design and printing artifacts.
 - [Original LTspice files](schematics/): source circuit and user-supplied results, preserved.
@@ -100,7 +127,7 @@ Historical P0/P1/P2/P3 reports, old trimmer footprints and the trimmer fitting t
 
 ## Print and fabricate
 
-**College PCB milling machine / automated drill:** use the prepared [machine package ZIP](PCB%20layout/fabrication/dual_panel_machine_files.zip), or [machine-files folder](PCB%20layout/fabrication/machine_files/README.md). Import **`dual_current_mirror-B_Cu.gbr`** as copper to retain and drill **`dual_current_mirror.drl`**. The separate `Edge_Cuts.gbr` is an optional outline reference, not copper artwork. No F.Cu Gerber is exported. Copper/drill origins and orientation match, and all 76 holes and copper pad features were checked against the saved PCB. See [verification](PCB%20layout/fabrication/machine_files/verification.json). The design files were not changed by this export.
+**College PCB milling machine / automated drill:** use the prepared [machine package ZIP](PCB%20layout/fabrication/dual_panel_machine_files.zip), or [machine-files folder](PCB%20layout/fabrication/machine_files/README.md). Import **`dual_current_mirror-B_Cu.gbr`** as copper to retain and drill **`dual_current_mirror.drl`**. The separate `Edge_Cuts.gbr` is an optional outer outline; `Centre_Cut.gbr` is the optional straight centre-cut path. Neither is copper artwork. No F.Cu Gerber is exported. Copper/drill origins and orientation match, and all 76 holes and copper pad features were checked against the saved PCB. See [verification](PCB%20layout/fabrication/machine_files/verification.json). The design files were not changed by this export.
 
 The operator must configure the copper-side fixture/transform for the matching file pair; do not mirror/offset only the drill or only the copper file. The one physical copper face is B.Cu in the CAD design, with components installed from the opposite face. Through-hole pads showing on F.Cu in KiCad do not request a second copper layer. The package uses millimetres, absolute coordinates and unmirrored standard Gerber/Excellon output. For milling, the operator generates isolation toolpaths around the copper to retain; the Gerber is not executable G-code.
 

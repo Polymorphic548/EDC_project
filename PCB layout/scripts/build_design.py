@@ -72,7 +72,7 @@ def write_schematic():
     libs={p[2]:library_symbol(p[2]) for p in PARTS}
     rootid=uid('schematic')
     out=[f'(kicad_sch (version 20250114) (generator "pcb_layout_script") (uuid {rootid}) (paper "A4")',
-         '(title_block (title "Diode-compensated current mirror - header unit") (rev "P5 - SOLDER CLEARANCE") (comment 1 "J1 power; J2 load voltage; J3 Q1 Vbe; J4 Q2 Vbe. Pin 1 positive, pin 2 negative."))',
+         '(title_block (title "Diode-compensated current mirror - header unit") (rev "P6 - STRAIGHT ROUTES") (comment 1 "J1 power; J2 load voltage; J3 Q1 Vbe; J4 Q2 Vbe. Pin 1 positive, pin 2 negative."))',
          '(lib_symbols '+' '.join(dump(s) for s in libs.values())+')']
     for ref,value,lib,fp,nets,board,(x,y) in PARTS:
         sid=uid(ref)
@@ -106,6 +106,7 @@ def text(board,s,x,y,size=1,layer=pcb.F_SilkS):
 
 def build_board():
     b=pcb.BOARD(); b.SetCopperLayerCount(2)
+    b.GetDesignSettings().SetBoardThickness(mm(1.7))
     netobjs={}
     for n in sorted({n for p in PARTS for n in p[4].values()}):
         net=pcb.NETINFO_ITEM(b,'/'+n); b.Add(net); netobjs[n]=net
@@ -132,14 +133,16 @@ def build_board():
             # between neighbouring lands and useful soldering area outside it.
             if ref.startswith('Q'):
                 p.SetSize(pos(1.7,2.4))
-                p.SetShape(pcb.PAD_SHAPE_RECT if p.GetNumber()=='1' else pcb.PAD_SHAPE_OVAL)
+                # P6: emitter uses the same oval aperture as base/collector.
+                # Pin 1 is still E; no lead positions or electrical nets change.
+                p.SetShape(pcb.PAD_SHAPE_OVAL)
             if ref.startswith('J'):
                 p.SetSize(pos(2.4,1.7))
                 p.SetShape(pcb.PAD_SHAPE_RECT if p.GetNumber()=='1' else pcb.PAD_SHAPE_OVAL)
     for a,c in [((3,3),(81,3)),((81,3),(81,70)),((81,70),(3,70)),((3,70),(3,3))]:
         s=pcb.PCB_SHAPE(); s.SetShape(pcb.SHAPE_T_SEGMENT); s.SetStart(pos(*a)); s.SetEnd(pos(*c)); s.SetLayer(pcb.Edge_Cuts); s.SetWidth(mm(.05)); b.Add(s)
     text(b,'CURRENT MIRROR',43,5.7,1.2)
-    text(b,'P5 - SOLDER CLEARANCE',42,68,1.0)
+    text(b,'P6 - STRAIGHT ROUTES',42,68,1.0)
     text(b,'+9.8V',8,7.5,.85); text(b,'GND',8,16,.85)
     text(b,'RLOAD',73,22.7,.8)
     text(b,'+',76,28,.8); text(b,'-',76,30.54,.8)
@@ -216,7 +219,7 @@ def verify_source():
     assert len({next(iter(s)) for s in expected.values()})==len(expected),'Unexpected source net split'
     assert next(iter(expected[find(terminal[('V1','1')])]))=='VIN'
     assert next(iter(expected[find(terminal[('V1','2')])]))=='GND'
-    report={'result':'PASS - TOPOLOGY WITH NOMINAL/MEASURED VALUE DISTINCTION','revision':'P5','source':src.name,'source_electrical_nets':len(groups),'nets':{next(iter(expected[r])):sorted(pins) for r,pins in groups.items()},'notes':['J1 replaces updated ideal 9.8V source V1.','Rs=662 ohm and C1=1.33nF follow the updated LTspice source.','Fixed R7 remains 120 ohm nominal; its 117.6 ohm measured value matches updated LT RV1=117.6 ohm.','J2 across Rload, J3 across Q1 B-E, J4 across Q2 B-E; no shorting jumpers.','User-supplied simulation files preserved; no new simulation or physical measurement run.']}
+    report={'result':'PASS - TOPOLOGY WITH NOMINAL/MEASURED VALUE DISTINCTION','revision':'P6-restored','source':src.name,'source_electrical_nets':len(groups),'nets':{next(iter(expected[r])):sorted(pins) for r,pins in groups.items()},'notes':['J1 replaces updated ideal 9.8V source V1.','Rs=662 ohm and C1=1.33nF follow the updated LTspice source.','Fixed R7 remains 120 ohm nominal; its 117.6 ohm measured value matches updated LT RV1=117.6 ohm.','J2 across Rload, J3 across Q1 B-E, J4 across Q2 B-E; no shorting jumpers.','User-supplied simulation files preserved; no new simulation or physical measurement run.']}
     (ROOT/'reports/source_connectivity.json').write_text(json.dumps(report,indent=2))
     print('Independent LTspice connectivity check: PASS',flush=True)
 
